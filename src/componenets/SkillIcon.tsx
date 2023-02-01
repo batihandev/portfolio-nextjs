@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import React from "react";
-import { urlFor } from "../../sanity";
+import urlFor from "sanityhelper";
 import { Skill } from "typings";
 
 type Props = {

@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import React from "react";
 import { Experience } from "typings";
-import { urlFor } from "../../sanity";
+import urlFor from "sanityhelper";
 type Props = { experience: Experience };
 
 const ExperienceCard = ({ experience }: Props) => {

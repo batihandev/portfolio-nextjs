@@ -4,7 +4,7 @@ import React from "react";
 import { useTypewriter, Cursor } from "react-simple-typewriter";
 import BackgroundCircles from "./BackgroundCircles";
 import { PageInfo } from "typings";
-import { urlFor } from "../../sanity";
+import urlFor from "sanityhelper";
 
 type Props = {
   pageInfo: PageInfo;
