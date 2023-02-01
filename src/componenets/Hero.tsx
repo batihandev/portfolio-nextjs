@@ -3,15 +3,16 @@ import Image from "next/image";
 import React from "react";
 import { useTypewriter, Cursor } from "react-simple-typewriter";
 import BackgroundCircles from "./BackgroundCircles";
-import profilePic from "../assets/images/linkedinpp.jpg";
+import { PageInfo } from "typings";
+import { urlFor } from "../../sanity";
 
-import Link from "next/link";
+type Props = {
+  pageInfo: PageInfo;
+};
 
-type Props = {};
-
-const Hero = (props: Props) => {
+const Hero = ({ pageInfo }: Props) => {
   const [text, count] = useTypewriter({
-    words: ["Hi, The Name's Batıhan Özdemir", "Welcome To My Portfolio"],
+    words: [`Hi, The Name's ${pageInfo?.name}`, "Welcome To My Portfolio"],
     loop: true,
     delaySpeed: 2000,
   });
@@ -20,16 +21,17 @@ const Hero = (props: Props) => {
       <BackgroundCircles />
 
       <Image
-        className="relative rounded-full mx-auto object-cover"
-        src={profilePic}
-        width={128}
-        height={128}
+        className="relative rounded-full mx-auto object-cover w-32 h-32"
+        src={urlFor(pageInfo?.heroImage).url()}
+        width={512}
+        height={512}
+        priority={true}
         alt="My Profile"
       />
 
       <div className="z-20">
         <h2 className="text-sm uppercase text-gray-500 pb-2 tracking-[15px]">
-          Software Engineer
+          {pageInfo?.role}
         </h2>
         <h1>
           <span className="text-5xl lg:text-6xl font-semibold scroll-px-10">

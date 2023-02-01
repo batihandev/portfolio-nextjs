@@ -1,39 +1,34 @@
 "use client";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import React from "react";
 import { SocialIcon } from "react-social-icons";
+import { Social } from "typings";
 
-type Props = {};
+type Props = {
+  socials: Social[];
+};
 
-const Header = (props: Props) => {
+const Header = ({ socials }: Props) => {
   return (
-    <header className="sticky top-0 flex items-start justify-between max-w-7xl mx-auto z-20 xl:items-center p-5">
+    <header className="sticky top-0 flex items-start justify-between max-w-7xl mx-auto z-20 xl:items-center p-5 overflow-hidden">
       <motion.div
         initial={{ x: -500, opacity: 0, scale: 0.5 }}
         animate={{ x: 0, opacity: 1, scale: 1 }}
         transition={{ duration: 1 }}
         className="flex flex-row items-center"
       >
-        {/* social icons */}
-        <SocialIcon
-          url="https://twitter.com/batihandev"
-          fgColor="gray"
-          bgColor="transparent"
-          target={"_blank"}
-        />
-        <SocialIcon
-          url="https://linkedin.com/in/batihandev"
-          fgColor="gray"
-          bgColor="transparent"
-          target={"_blank"}
-        />
-        <SocialIcon
-          url="https://github.com/batihandev"
-          fgColor="gray"
-          bgColor="transparent"
-          target={"_blank"}
-        />
+        {socials.map((social) => (
+          <SocialIcon
+            key={social._id}
+            url={social.url}
+            fgColor="gray"
+            bgColor="transparent"
+            target="_blank"
+          />
+        ))}
       </motion.div>
+
       <motion.div
         initial={{ x: 500, scale: 0.5, opacity: 0 }}
         animate={{ x: 0, scale: 1, opacity: 1 }}
@@ -45,10 +40,13 @@ const Header = (props: Props) => {
           network="email"
           fgColor="gray"
           bgColor="transparent"
+          url="#contact"
         />
-        <p className="uppercase hidden md:inline-flex text-sm text-gray-400">
-          Get In Touch
-        </p>
+        <a href="#contact">
+          <p className="uppercase hidden md:inline-flex text-sm text-gray-400">
+            Get In Touch
+          </p>
+        </a>
       </motion.div>
     </header>
   );

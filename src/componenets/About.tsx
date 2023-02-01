@@ -2,11 +2,13 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import React from "react";
+import { urlFor } from "../../sanity";
+import { PageInfo } from "typings";
 import nobgmeBig from "../assets/images/nobgmeBig.png";
 
-type Props = {};
+type Props = { pageInfo: PageInfo };
 
-const About = (props: Props) => {
+const About = ({ pageInfo }: Props) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -26,7 +28,7 @@ const About = (props: Props) => {
       >
         {" "}
         <Image
-          src={nobgmeBig}
+          src={urlFor(pageInfo?.profilePic).url()}
           alt="Me"
           width={600}
           height={600}
@@ -39,14 +41,7 @@ const About = (props: Props) => {
           <span className="underline decoration-[#f7ab0a]/50">little</span>{" "}
           background
         </h4>
-        <p className="text-md">
-          I&apos;m Batıhan. Here&apos;s a little bit information about me...
-          I&apos;ve been coding for 2 years now. Started with game development
-          with c# and unity and published my first mobile game called WhichWay.
-          Last year i started learning JavaScript and now working with
-          React,Node,NextJS as Software Engineer.I&apos;m still at the beginning
-          of my Journey but I have the skills.
-        </p>
+        <p className="text-md">{pageInfo?.backgroundInformation}</p>
       </div>
     </motion.div>
   );
