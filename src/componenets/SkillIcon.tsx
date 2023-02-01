@@ -4,7 +4,6 @@ import Image from "next/image";
 import React from "react";
 import { urlFor } from "../../sanity";
 import { Skill } from "typings";
-import sanity_logo from "../assets/images/sanity_logo.png";
 
 type Props = {
   directionLeft?: boolean;

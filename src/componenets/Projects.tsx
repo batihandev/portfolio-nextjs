@@ -4,7 +4,6 @@ import Image from "next/image";
 import React from "react";
 import { urlFor } from "../../sanity";
 import { Project } from "typings";
-import { url } from "inspector";
 
 type Props = {
   projects: Project[];

@@ -4,7 +4,6 @@ import Image from "next/image";
 import React from "react";
 import { urlFor } from "../../sanity";
 import { PageInfo } from "typings";
-import nobgmeBig from "../assets/images/nobgmeBig.png";
 
 type Props = { pageInfo: PageInfo };
 

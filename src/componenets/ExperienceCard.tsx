@@ -2,10 +2,6 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import React from "react";
-import expPlaceHolder from "../assets/images/exp-placeholder.png";
-import { IoLogoJavascript } from "react-icons/io";
-import { IoLogoReact } from "react-icons/io5";
-import { TbBrandNextjs } from "react-icons/tb";
 import { Experience } from "typings";
 import { urlFor } from "../../sanity";
 type Props = { experience: Experience };

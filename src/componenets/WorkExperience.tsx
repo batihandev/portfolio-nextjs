@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import React from "react";
 import { Experience } from "typings";
 import ExperienceCard from "./ExperienceCard";
