@@ -59,7 +59,7 @@ export default async function Home() {
     );
   } catch (e) {
     console.log(e);
-    return <div>Error</div>;
+    return <div>Base url error</div>;
   }
 }
 
