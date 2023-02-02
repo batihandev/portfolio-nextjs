@@ -18,7 +18,7 @@ const About = ({ pageInfo }: Props) => {
       <h3 className="pageTitles">About</h3>
       <div className="flex flex-col text-center md:text-left md:flex-row max-w-7xl px-5 justify-center  mx-auto items-center h-[calc(100vh-100px)] overflow-auto scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80">
         <motion.div
-          initial={{ x: -200, opacity: 0 }}
+          initial={{ x: -100, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1.2 }}
