@@ -16,7 +16,12 @@ export default defineType({
     },
     {
       name: 'linkToBuild',
-      title: 'LinkToBUild',
+      title: 'LinkToBuild',
+      type: 'url',
+    },
+    {
+      name: 'linkToGithub',
+      title: 'LinkToGithub',
       type: 'url',
     },
   ],

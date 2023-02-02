@@ -29,12 +29,12 @@ const Hero = ({ pageInfo }: Props) => {
         alt="My Profile"
       />
 
-      <div className="z-20">
+      <div className="z-20 px-4">
         <h2 className="text-sm uppercase text-gray-500 pb-2 tracking-[15px]">
           {pageInfo?.role}
         </h2>
         <h1>
-          <span className="text-5xl lg:text-6xl font-semibold scroll-px-10">
+          <span className="text-4xl md:text-5xl lg:text-6xl font-semibold scroll-px-10">
             {text}
           </span>
           <Cursor cursorColor="#f7ab0a" />
@@ -43,9 +43,9 @@ const Hero = ({ pageInfo }: Props) => {
           <a href="#about">
             <button className="heroButtons">About</button>
           </a>
-          <a href="#experience">
+          {/* <a href="#experience">
             <button className="heroButtons">Experience</button>
-          </a>
+          </a> */}
           <a href="#skills">
             <button className="heroButtons">Skills</button>
           </a>
