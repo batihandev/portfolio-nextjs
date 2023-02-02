@@ -23,18 +23,18 @@ const SkillIcon = ({ directionLeft, skill }: Props) => {
         className=""
       >
         <Image
-          className="rounded-full border border-gray-500 object-cover w-24 h-24 xl:w-32 xl:h-32 filter group-hover:grayscale transition duration-300 ease-in-out md:w-28 md:h-28"
+          className="rounded-full  object-cover w-12 h-12 sm:w-20 sm:h-20 xl:w-32 xl:h-32 filter group-hover:grayscale transition duration-300 ease-in-out md:w-28 md:h-28"
           src={urlFor(skill?.image).url()}
           alt=""
           width={128}
           height={128}
         />
       </motion.div>
-      <div className="absolute opacity-0 group-hover:opacity-80 transition duration-300 ease-in-out group-hover:bg-white w-24 h-24 xl:w-32 xl:h-32 rounded-full md:w-28 md:h-28">
+      {/* <div className="absolute opacity-0 group-hover:opacity-80 transition duration-300 ease-in-out group-hover:bg-white w-24 h-24 xl:w-32 xl:h-32 rounded-full md:w-28 md:h-28">
         <p className="text-3xl font-bold text-black opacity-100 flex items-center justify-center h-full">
           {skill?.progress}%
         </p>
-      </div>
+      </div> */}
     </div>
   );
 };
