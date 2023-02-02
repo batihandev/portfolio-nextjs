@@ -12,10 +12,9 @@ export const fetchExperiences = async () => {
     //   console
     return experiences;
   } catch {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SECOND_URL}/api/getExperience`,
-      { next: { revalidate: 2000 } }
-    );
+    const res = await fetch(`/api/getExperience`, {
+      next: { revalidate: 2000 },
+    });
     const data = await res.json();
     const experiences: Experience[] = data.experiences;
 
