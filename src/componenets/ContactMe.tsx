@@ -20,23 +20,14 @@ const ContactMe = ({ pageInfo }: Props) => {
   const onSubmit: SubmitHandler<Inputs> = async (formData) => {
     if (mailSent) return;
     setButtonClicked(true);
-    try {
-      await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/sendMail`, {
-        method: "POST",
-        body: JSON.stringify(formData),
-      })
-        .then((response) => response.json())
-        .then((data) => setMailSent(data));
-      console.log(JSON.stringify(formData));
-    } catch {
-      await fetch(`${process.env.NEXT_PUBLIC_SECOND_URL}/api/sendMail`, {
-        method: "POST",
-        body: JSON.stringify(formData),
-      })
-        .then((response) => response.json())
-        .then((data) => setMailSent(data));
-      console.log(JSON.stringify(formData));
-    }
+
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/sendMail`, {
+      method: "POST",
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((data) => setMailSent(data));
+    console.log(JSON.stringify(formData));
   };
 
   return (
