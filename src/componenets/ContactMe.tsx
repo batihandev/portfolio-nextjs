@@ -20,7 +20,7 @@ const ContactMe = ({ pageInfo }: Props) => {
   const onSubmit: SubmitHandler<Inputs> = (formData) => {
     if (mailSent) return;
     setButtonClicked(true);
-    fetch(`/api/sendMail`, {
+    fetch(`https://batihan.dev/api/sendMail`, {
       method: "POST",
       body: JSON.stringify(formData),
     })
