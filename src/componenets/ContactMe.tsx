@@ -1,8 +1,9 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { PhoneIcon, MapPinIcon, EnvelopeIcon } from "@heroicons/react/24/solid";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { PageInfo } from "typings";
+import Loader from "./Loader";
 type Props = {
   pageInfo: PageInfo;
 };
@@ -14,12 +15,20 @@ type Inputs = {
 };
 const ContactMe = ({ pageInfo }: Props) => {
   const { register, handleSubmit } = useForm<Inputs>();
+  const [mailSent, setMailSent] = useState(false);
+  const [buttonClicked, setButtonClicked] = useState(false);
   const onSubmit: SubmitHandler<Inputs> = (formData) => {
+    if (mailSent) return;
     fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/sendMail`, {
       method: "POST",
       body: JSON.stringify(formData),
-    });
+    })
+      .then((response) => response.json())
+      .then((data) => setMailSent(data));
     console.log(JSON.stringify(formData));
+  };
+  const handleClick = () => {
+    setButtonClicked(true);
   };
   return (
     <div className="h-screen flex relative flex-col text-clip md:text-left max-w-7xl px-10 justify-start mx-auto items-center">
@@ -90,8 +99,15 @@ const ContactMe = ({ pageInfo }: Props) => {
           <button
             type="submit"
             className="bg-[#F7AB0A] py-5 px-10 rounded-md text-black font-bold text-lg"
+            onClick={handleClick}
           >
-            Submit
+            {!buttonClicked ? (
+              "Submit"
+            ) : mailSent === true ? (
+              "Mail Sent"
+            ) : (
+              <Loader color="dark:fill-[#e50914]" />
+            )}
           </button>
         </form>
       </div>
