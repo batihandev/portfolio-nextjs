@@ -16,14 +16,14 @@ function Projects({ projects }: Props) {
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ duration: 1.5 }}
-      className="h-screen relative flex overflow-hidden flex-col text-left md:flex-row max-w-full justify-evenly mx-auto items-center z-0"
+      className="h-screen relative flex overflow-hidden flex-col text-left md:flex-col max-w-full justify-start mx-auto items-center z-0"
     >
       <h3 className="pageTitles">Projects</h3>
-      <div className="relative w-full mt-10  flex overflow-x-auto overflow-y-hidden snap-x snap-mandatory z-20 scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80">
-        {projects?.map((project, index) => (
+      <div className="relative w-full  flex overflow-x-auto overflow-y-hidden  snap-x snap-mandatory z-20 scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80">
+        {projects?.map((project) => (
           <div
             key={project._id}
-            className="w-screen flex-shrink-0 snap-center flex flex-col space-y-2 sm:space-y-5 md:gap-5 items-center justify-center p-5 md:px-10 h-screen"
+            className="w-screen flex-shrink-0 snap-center flex flex-col space-y-2 sm:space-y-5 md:gap-5 overflow-y-auto p-5 md:px-10 h-[calc(100vh-100px)] justify-start items-center scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80"
           >
             <motion.div
               initial={{ y: 300 }}

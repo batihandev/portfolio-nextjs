@@ -22,9 +22,9 @@ const ContactMe = ({ pageInfo }: Props) => {
     console.log(JSON.stringify(formData));
   };
   return (
-    <div className="h-screen flex relative flex-col text-clip md:text-left md:flex-row max-w-7xl px-10 justify-evenly mx-auto items-center">
+    <div className="h-screen flex relative flex-col text-clip md:text-left max-w-7xl px-10 justify-start mx-auto items-center">
       <h3 className="pageTitles">Contact</h3>
-      <div className="space-y-5 sm:space-y-10">
+      <div className="flex flex-col items-center justify-center h-[calc(100vh-100px)] space-y-5 sm:space-y-10 overflow-auto px-5 scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80">
         <div className=" mt-10 flex flex-col space-y-3 sm:space-y-10">
           <h4 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-center">
             I have got just what you need.{" "}
