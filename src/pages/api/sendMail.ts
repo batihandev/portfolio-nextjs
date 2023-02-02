@@ -5,13 +5,19 @@ type Data = {
   email: string;
   subject: string;
   message: string;
+  kek: boolean;
 };
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<boolean>
 ) {
-  mail(JSON.parse(req.body));
+  try {
+    mail(JSON.parse(req.body));
+    res.status(200).json(true);
+  } catch {
+    res.status(400).json(false);
+  }
 }
 
 export {};
@@ -44,7 +50,6 @@ async function mail({ name, email, subject, message }: Data) {
     text: `${message} email:${email} name:${name}`, // plain text body
     html: `<b>email: ${email} name: ${name}</b> <p>${message}</>`, // html body
   });
-
   console.log("Message sent: %s", info.messageId);
   // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 }
