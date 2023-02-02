@@ -1,6 +1,6 @@
 "use client";
-import { motion } from "framer-motion";
-import React from "react";
+import { animate, motion } from "framer-motion";
+import React, { Children } from "react";
 import { Skill } from "typings";
 import SkillIcon from "./SkillIcon";
 
@@ -18,14 +18,18 @@ const Skills = ({ skills }: Props) => {
       {/* <h3 className="absolute top-36 uppercase tracking-[3px] text-gray-500 text-sm">
         Hover over a skill for current proficiency
       </h3> */}
-      <div className="grid grid-cols-4 gap-5 pt-4 px-5 overflow-y-auto scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80">
+      <motion.div
+        initial={{ opacity: 0, x: 200 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        className="grid grid-cols-4 my-auto gap-5 pt-4 px-5 overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80"
+      >
         {skills?.slice(0, skills.length / 2).map((skill) => (
           <SkillIcon key={skill._id} skill={skill} />
         ))}
         {skills?.slice(skills.length / 2, skills.length).map((skill) => (
           <SkillIcon key={skill._id} skill={skill} directionLeft />
         ))}
-      </div>
+      </motion.div>
     </motion.div>
   );
 };
