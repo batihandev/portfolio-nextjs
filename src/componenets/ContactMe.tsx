@@ -19,7 +19,7 @@ const ContactMe = ({ pageInfo }: Props) => {
   const [buttonClicked, setButtonClicked] = useState(false);
   const onSubmit: SubmitHandler<Inputs> = (formData) => {
     if (mailSent) return;
-    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/sendMail`, {
+    fetch(`/api/sendMail`, {
       method: "POST",
       body: JSON.stringify(formData),
     })
