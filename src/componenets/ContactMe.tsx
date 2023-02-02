@@ -19,6 +19,7 @@ const ContactMe = ({ pageInfo }: Props) => {
   const [buttonClicked, setButtonClicked] = useState(false);
   const onSubmit: SubmitHandler<Inputs> = (formData) => {
     if (mailSent) return;
+    setButtonClicked(true);
     fetch(`/api/sendMail`, {
       method: "POST",
       body: JSON.stringify(formData),
@@ -27,9 +28,7 @@ const ContactMe = ({ pageInfo }: Props) => {
       .then((data) => setMailSent(data));
     console.log(JSON.stringify(formData));
   };
-  const handleClick = () => {
-    setButtonClicked(true);
-  };
+
   return (
     <div className="h-screen flex relative flex-col text-clip md:text-left max-w-7xl px-10 justify-start mx-auto items-center">
       <h3 className="pageTitles">Contact</h3>
@@ -79,6 +78,7 @@ const ContactMe = ({ pageInfo }: Props) => {
             <input
               {...register("email")}
               placeholder="Email"
+              required
               className="contactInput"
               type="email"
             />
@@ -99,7 +99,6 @@ const ContactMe = ({ pageInfo }: Props) => {
           <button
             type="submit"
             className="bg-[#F7AB0A] py-5 px-10 rounded-md text-black font-bold text-lg"
-            onClick={handleClick}
           >
             {!buttonClicked ? (
               "Submit"
