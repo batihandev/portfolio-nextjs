@@ -13,8 +13,11 @@
     @apply flex items-center justify-center px-2 py-2 border border-gray-50/70 rounded-2xl bg-[rgb(36,36,36)]/40 font-semibold text-lg w-20 sm:w-24 hover:border-[#f7ab0a] hover:text-[#f7ab0a] transition-all;
   }
   .pageTitles {
-    @apply mt-[95px] uppercase tracking-[18px] md:tracking-[20px] text-gray-500 text-xl md:text-2xl;
+    @apply mt-[60px] md:mt-[90px] uppercase tracking-[18px] md:tracking-[20px] text-gray-500 text-lg md:text-2xl;
     /* @apply absolute top-20 md:top-24 uppercase tracking-[18px] md:tracking-[20px] text-gray-500 text-xl md:text-2xl; */
+  }
+  .diff-from-title {
+    @apply h-[calc(100vh-88px)];
   }
 }
 @layer base {

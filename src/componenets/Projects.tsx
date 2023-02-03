@@ -23,11 +23,11 @@ function Projects({ projects }: Props) {
         {projects?.map((project) => (
           <div
             key={project._id}
-            className="w-screen flex-shrink-0 snap-center flex flex-col space-y-2 sm:space-y-5 md:gap-5 overflow-y-auto p-5 md:px-10 h-[calc(100vh-100px)] justify-start items-center scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80"
+            className="w-screen flex-shrink-0 snap-center flex flex-col space-y-2 sm:space-y-5 md:gap-5 overflow-y-auto p-5 md:px-10 diff-from-title justify-start items-center scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80"
           >
             <motion.div
               initial={{ y: 300 }}
-              transition={{ duration: 1.2 }}
+              transition={{ duration: 0.7 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               className=""
@@ -62,7 +62,7 @@ function Projects({ projects }: Props) {
               <p className="text-sm sm:text-base md:text-lg text-center">
                 {project?.summary}
               </p>
-              <div className="flex items-center justify-center space-x-5 md:space-x-10">
+              <div className="flex items-center justify-center space-x-5 md:space-x-10 pb-10">
                 <Link
                   href={project?.linkToGithub ? project.linkToGithub : ""}
                   className="projectButton"
