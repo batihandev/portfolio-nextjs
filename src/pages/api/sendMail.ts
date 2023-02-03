@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import { isPropertyAccessChain } from "typescript";
 
 type Data = {
   name: string;
@@ -20,13 +21,10 @@ export default function handler(
       auth: {
         type: "OAuth2",
         user: "batihanportfolio@gmail.com",
-        clientId:
-          "***REMOVED***",
-        clientSecret: "***REMOVED***",
-        refreshToken:
-          "***REMOVED***",
-        accessToken:
-          "***REMOVED***",
+        clientId: process.env.CLIENT_ID,
+        clientSecret: process.env.CLIENT_SECRET,
+        refreshToken: process.env.REFRESH_TOKEN,
+        accessToken: process.env.ACCESS_TOKEN,
       },
     });
     // send mail with defined transport object
