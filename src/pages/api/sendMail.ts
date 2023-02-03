@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import { isPropertyAccessChain } from "typescript";
 
 type Data = {
   name: string;
@@ -20,13 +21,10 @@ export default function handler(
       auth: {
         type: "OAuth2",
         user: "batihanportfolio@gmail.com",
-        clientId:
-          "345305089409-eitp0oudde6mpbgsqbb6us1bejse2jn5.apps.googleusercontent.com",
-        clientSecret: "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",
-        refreshToken:
-          "1//04jWrGI7pvOFqCgYIARAAGAQSNwF-L9IrPZl92fGGGlb4nr0t4GaWwVaZ1jcPeHgJdFIAKl35V-4UaxATFiz6B16BVpOyg2Z3a5o",
-        accessToken:
-          "ya29.a0AVvZVspBYP0hHrpdweDDtM0nzUoUgAHP0o7TVOTXjeUhKSKNq5baPnoFw4t9qFLyzbv3fYJsoXJmQl7oLkOs_06RmcCek4vXW-nQ24k4gAtUvkiQsQX1c1CKzTUi1uYjHADTa4hFAQSEd9YkC_qwbF84_GNDaCgYKAWcSARMSFQGbdwaIfAhbzIm2HlflSyAkXw2p1A0163",
+        clientId: process.env.CLIENT_ID,
+        clientSecret: process.env.CLIENT_SECRET,
+        refreshToken: process.env.REFRESH_TOKEN,
+        accessToken: process.env.ACCESS_TOKEN,
       },
     });
     // send mail with defined transport object
