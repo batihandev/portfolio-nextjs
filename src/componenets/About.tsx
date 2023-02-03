@@ -16,7 +16,7 @@ const About = ({ pageInfo }: Props) => {
       className="h-screen flex relative flex-col text-center md:text-left  max-w-7xl px-5 justify-start mx-auto items-center"
     >
       <h3 className="pageTitles">About</h3>
-      <div className="flex flex-col text-center md:text-left md:flex-row max-w-7xl px-5 justify-center  mx-auto items-center h-[calc(100vh-100px)] overflow-auto scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80">
+      <div className="flex flex-col text-center md:text-left md:flex-row max-w-7xl px-5 justify-center overflow-auto mx-auto items-center diff-from-title scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80 py-5">
         <motion.div
           initial={{ x: -100, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}

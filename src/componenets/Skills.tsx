@@ -21,6 +21,7 @@ const Skills = ({ skills }: Props) => {
       <motion.div
         initial={{ opacity: 0, x: 200 }}
         whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
         className="grid grid-cols-4 my-auto gap-5 pt-4 px-5 overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80"
       >
         {skills?.slice(0, skills.length / 2).map((skill) => (

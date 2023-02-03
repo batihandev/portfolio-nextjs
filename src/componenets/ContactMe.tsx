@@ -67,7 +67,7 @@ const ContactMe = ({ pageInfo }: Props) => {
         </div>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col space-y-2 w-fit mx-auto "
+          className="flex flex-col space-y-2 w-fit mx-auto pb-10 "
         >
           <div className="flex space-x-2">
             <input
@@ -99,7 +99,7 @@ const ContactMe = ({ pageInfo }: Props) => {
           ></textarea>
           <button
             type="submit"
-            className="bg-[#F7AB0A] py-5 px-10 rounded-md text-black font-bold text-lg"
+            className="bg-[#F7AB0A] py-5 px-10 rounded-md text-black font-bold text-lg "
           >
             {!buttonClicked ? (
               "Submit"
