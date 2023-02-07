@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PhoneIcon, MapPinIcon, EnvelopeIcon } from "@heroicons/react/24/solid";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { PageInfo } from "typings";
@@ -19,7 +19,7 @@ type Inputs = {
 
 const ContactMe = ({ pageInfo }: Props) => {
   const recaptchaRef = React.createRef<any>();
-  const { register, handleSubmit } = useForm<Inputs>();
+  const { register, handleSubmit, reset } = useForm<Inputs>();
   const [verified, setVerified] = useState(false);
   const onChangeCaptcha = (value: any) => {
     setVerified(true);
@@ -43,9 +43,10 @@ const ContactMe = ({ pageInfo }: Props) => {
       .then((response) => response.json())
       .then((data) => notify(data!))
       .finally(() => {
+        setVerified(false);
+        reset();
         setButtonClicked(false);
         recaptchaThis.reset();
-        setVerified(false);
       });
   };
 
