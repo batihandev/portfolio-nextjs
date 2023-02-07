@@ -37,14 +37,14 @@ export default function handler(
     });
 
     console.log("Message sent: %s", info.messageId);
-    res.status(200).json(true);
+    return res.status(200).json(true);
     // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
   }
 
   try {
     mail(JSON.parse(req.body));
   } catch {
-    res.status(400).json(false);
+    return res.status(400).json(false);
   }
 }
 

@@ -4,21 +4,35 @@ import { PhoneIcon, MapPinIcon, EnvelopeIcon } from "@heroicons/react/24/solid";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { PageInfo } from "typings";
 import Loader from "./Loader";
+import toast, { Toaster } from "react-hot-toast";
+import ReCAPTCHA from "react-google-recaptcha";
 type Props = {
   pageInfo: PageInfo;
 };
+
 type Inputs = {
   name: string;
   email: string;
   subject: string;
   message: string;
 };
+
 const ContactMe = ({ pageInfo }: Props) => {
   const { register, handleSubmit } = useForm<Inputs>();
-  const [mailSent, setMailSent] = useState(false);
+  const [verified, setVerified] = useState(false);
+  const onChangeCaptcha = (value: any) => {
+    setVerified(true);
+  };
   const [buttonClicked, setButtonClicked] = useState(false);
+
+  const notify = (mailSent: boolean) => {
+    if (!mailSent) toast("Failed to send Mail.");
+    else {
+      toast("Mail sent.");
+    }
+  };
+
   const onSubmit: SubmitHandler<Inputs> = async (formData) => {
-    if (mailSent) return;
     setButtonClicked(true);
 
     await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/sendMail`, {
@@ -26,8 +40,9 @@ const ContactMe = ({ pageInfo }: Props) => {
       body: JSON.stringify(formData),
     })
       .then((response) => response.json())
-      .then((data) => setMailSent(data));
-    console.log(JSON.stringify(formData));
+      .then((data) => notify(data!));
+
+    setButtonClicked(false);
   };
 
   return (
@@ -97,18 +112,37 @@ const ContactMe = ({ pageInfo }: Props) => {
             name="message"
             id="message"
           ></textarea>
+
+          <ReCAPTCHA
+            className="!w-full flex items-center justify-around overflow-hidden captcha"
+            sitekey="6Lfkal8kAAAAAEkJVAIeIkxEOrBRr2vNUzogdRUk"
+            onChange={onChangeCaptcha}
+            theme="dark"
+            style={{ transform: "scale(0.95)" }}
+          />
+
           <button
             type="submit"
-            className="bg-[#F7AB0A] py-5 px-10 rounded-md text-black font-bold text-lg "
+            className="bg-[#F7AB0A] py-5 px-10 rounded-md text-black font-bold text-lg disabled:opacity-50"
+            disabled={!verified}
           >
-            {!buttonClicked ? (
-              "Submit"
-            ) : mailSent === true ? (
-              "Mail Sent"
-            ) : (
-              <Loader color="dark:fill-[#e50914]" />
-            )}
+            {!buttonClicked ? "Submit" : <Loader color="dark:fill-[#e50914]" />}
           </button>
+          <Toaster
+            position="bottom-center"
+            reverseOrder={false}
+            toastOptions={{
+              className: "",
+              style: {
+                border: "1px solid #F7AB0A",
+                padding: "16px",
+                color: "#F7AB0A",
+                fontSize: "1.2em",
+                fontWeight: "500",
+                background: "rgb(36,36,36)",
+              },
+            }}
+          />
         </form>
       </div>
     </div>

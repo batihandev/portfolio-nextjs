@@ -34,7 +34,7 @@ export default async function App() {
   }
 }
 
-export const getData = async () => {
+const getData = async () => {
   const pageInfo: PageInfo = await fetchPageInfo();
   const experiences: Experience[] = await fetchExperiences();
   const socials: Social[] = await fetchSocials();
