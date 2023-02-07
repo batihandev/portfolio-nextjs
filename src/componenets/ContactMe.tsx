@@ -35,6 +35,7 @@ const ContactMe = ({ pageInfo }: Props) => {
 
   const onSubmit: SubmitHandler<Inputs> = async (formData) => {
     setButtonClicked(true);
+    setVerified(false);
     const recaptchaThis = recaptchaRef.current;
     await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/sendMail`, {
       method: "POST",
@@ -43,7 +44,6 @@ const ContactMe = ({ pageInfo }: Props) => {
       .then((response) => response.json())
       .then((data) => notify(data!))
       .finally(() => {
-        setVerified(false);
         reset();
         setButtonClicked(false);
         recaptchaThis.reset();
