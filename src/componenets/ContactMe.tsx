@@ -18,6 +18,7 @@ type Inputs = {
 };
 
 const ContactMe = ({ pageInfo }: Props) => {
+  const recaptchaRef = React.createRef<any>();
   const { register, handleSubmit } = useForm<Inputs>();
   const [verified, setVerified] = useState(false);
   const onChangeCaptcha = (value: any) => {
@@ -34,15 +35,18 @@ const ContactMe = ({ pageInfo }: Props) => {
 
   const onSubmit: SubmitHandler<Inputs> = async (formData) => {
     setButtonClicked(true);
-
+    const recaptchaThis = recaptchaRef.current;
     await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/sendMail`, {
       method: "POST",
       body: JSON.stringify(formData),
     })
       .then((response) => response.json())
-      .then((data) => notify(data!));
-
-    setButtonClicked(false);
+      .then((data) => notify(data!))
+      .finally(() => {
+        setButtonClicked(false);
+        recaptchaThis.reset();
+        setVerified(false);
+      });
   };
 
   return (
@@ -114,6 +118,7 @@ const ContactMe = ({ pageInfo }: Props) => {
           ></textarea>
 
           <ReCAPTCHA
+            ref={recaptchaRef}
             className="!w-full flex items-center justify-around overflow-hidden captcha"
             sitekey="6Lfkal8kAAAAAEkJVAIeIkxEOrBRr2vNUzogdRUk"
             onChange={onChangeCaptcha}
