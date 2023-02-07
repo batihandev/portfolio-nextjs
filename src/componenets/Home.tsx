@@ -69,7 +69,7 @@ export default function Home({
         </section>
       </div>
 
-      <footer className="sticky bottom-6 ml-6 md:ml-16 md:bottom-16 w-full cursor-pointer">
+      <footer className="sticky bottom-14 ml-6 md:ml-16 md:bottom-16 w-full cursor-pointer">
         {isVisible ? (
           <motion.div
             initial={{ opacity: 0 }}
