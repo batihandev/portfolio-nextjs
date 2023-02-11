@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { isPropertyAccessChain } from "typescript";
 
 type Data = {
   name: string;
