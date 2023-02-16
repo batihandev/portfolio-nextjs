@@ -10,7 +10,7 @@ type Props = {
 
 const Header = ({ socials }: Props) => {
   return (
-    <header className="sticky top-0 flex items-start justify-between max-w-7xl mx-auto z-20 xl:items-center py-3 px-5 md:py-5 overflow-hidden">
+    <header className="sticky top-0 z-20 mx-auto flex max-w-7xl items-start justify-between overflow-hidden py-3 px-5 md:py-5 xl:items-center">
       <motion.div
         initial={{ x: -500, opacity: 0, scale: 0.5 }}
         animate={{ x: 0, opacity: 1, scale: 1 }}
@@ -24,7 +24,7 @@ const Header = ({ socials }: Props) => {
             fgColor="gray"
             bgColor="transparent"
             target="_blank"
-            className="!w-10 !h-10 md:!w-12 md:!h-12"
+            className="!h-10 !w-10 md:!h-12 md:!w-12"
           />
         ))}
       </motion.div>
@@ -33,17 +33,17 @@ const Header = ({ socials }: Props) => {
         initial={{ x: 500, scale: 0.5, opacity: 0 }}
         animate={{ x: 0, scale: 1, opacity: 1 }}
         transition={{ duration: 1 }}
-        className="flex flex-row items-center text-gray-300 cursor-pointer"
+        className="flex cursor-pointer flex-row items-center text-gray-300"
       >
         <SocialIcon
-          className="cursor-pointer !w-10 !h-10 md:!w-12 md:!h-12"
+          className="!h-10 !w-10 cursor-pointer md:!h-12 md:!w-12"
           network="email"
           fgColor="gray"
           bgColor="transparent"
           url="#contact"
         />
         <a href="#contact">
-          <p className="uppercase hidden md:inline-flex text-sm text-gray-400">
+          <p className="hidden text-sm uppercase text-gray-400 md:inline-flex">
             Get In Touch
           </p>
         </a>

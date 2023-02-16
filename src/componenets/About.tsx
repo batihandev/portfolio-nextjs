@@ -13,16 +13,16 @@ const About = ({ pageInfo }: Props) => {
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ duration: 1.2 }}
-      className="h-screen flex relative flex-col text-center md:text-left  max-w-7xl px-5 justify-start mx-auto items-center"
+      className="relative mx-auto flex h-screen max-w-7xl flex-col  items-center justify-start px-5 text-center md:text-left"
     >
       <h3 className="pageTitles">About</h3>
-      <div className="flex flex-col text-center md:text-left md:flex-row max-w-7xl px-5 justify-center overflow-auto mx-auto items-center diff-from-title scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80 py-5">
+      <div className="diff-from-title mx-auto flex max-w-7xl flex-col items-center justify-center overflow-auto px-5 py-5 text-center scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80 md:flex-row md:text-left">
         <motion.div
           initial={{ x: -100, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1.2 }}
-          className="flex-shrink-0  md:mb-0 w-36 h-36 sm:w-44 sm:h-44  md:w-64 md:h-95 xl:w-[500px] xl:h-[600px]"
+          className="md:h-95  h-36 w-36 flex-shrink-0 sm:h-44 sm:w-44  md:mb-0 md:w-64 xl:h-[600px] xl:w-[500px]"
         >
           {" "}
           <Image
@@ -30,11 +30,11 @@ const About = ({ pageInfo }: Props) => {
             alt="Me"
             width={600}
             height={600}
-            className="object-cover rounded-full mb:rounded-lg "
+            className="mb:rounded-lg rounded-full object-cover"
           />
         </motion.div>
-        <div className="space-y-3 sm:space-y-10 px-0 md:px-10">
-          <h4 className="text-2xl sm:text-3xl md:text-4xl font-semibold">
+        <div className="space-y-3 px-0 sm:space-y-10 md:px-10">
+          <h4 className="text-2xl font-semibold sm:text-3xl md:text-4xl">
             Here is{" "}
             <span className="underline decoration-[#f7ab0a]/50">little</span>{" "}
             background

@@ -17,11 +17,11 @@ const Hero = ({ pageInfo }: Props) => {
     delaySpeed: 2000,
   });
   return (
-    <div className="h-screen flex flex-col space-y-8 items-center justify-center text-center overflow-hidden">
+    <div className="flex h-screen flex-col items-center justify-center space-y-8 overflow-hidden text-center">
       <BackgroundCircles />
 
       <Image
-        className="relative rounded-full mx-auto object-cover w-32 h-32"
+        className="relative mx-auto h-32 w-32 rounded-full object-cover"
         src={urlFor(pageInfo?.heroImage).url()}
         width={512}
         height={512}
@@ -30,11 +30,11 @@ const Hero = ({ pageInfo }: Props) => {
       />
 
       <div className="z-20 px-4">
-        <h2 className="text-sm uppercase text-gray-500 pb-2 tracking-[15px]">
+        <h2 className="pb-2 text-sm uppercase tracking-[15px] text-gray-500">
           {pageInfo?.role}
         </h2>
         <h1>
-          <span className="text-4xl md:text-5xl lg:text-6xl font-semibold scroll-px-10">
+          <span className="scroll-px-10 text-4xl font-semibold md:text-5xl lg:text-6xl">
             {text}
           </span>
           <Cursor cursorColor="#f7ab0a" />

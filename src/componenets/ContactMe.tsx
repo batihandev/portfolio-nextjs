@@ -51,11 +51,11 @@ const ContactMe = ({ pageInfo }: Props) => {
   };
 
   return (
-    <div className="h-screen flex relative flex-col text-clip md:text-left max-w-7xl px-10 justify-start mx-auto items-center">
+    <div className="relative mx-auto flex h-screen max-w-7xl flex-col items-center justify-start text-clip px-10 md:text-left">
       <h3 className="pageTitles">Contact</h3>
-      <div className="flex flex-col items-center justify-center h-[calc(100vh-100px)] space-y-5 sm:space-y-10 overflow-auto px-5 scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80">
+      <div className="flex h-[calc(100vh-100px)] flex-col items-center justify-center space-y-5 overflow-auto px-5 scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80 sm:space-y-10">
         <div className=" mt-10 flex flex-col space-y-3 sm:space-y-10">
-          <h4 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-center">
+          <h4 className="text-center text-2xl font-semibold sm:text-3xl md:text-4xl">
             I have got just what you need.{" "}
             <span className="underline decoration-[#f7ab0a]/50">Lets Talk</span>
             .
@@ -69,25 +69,25 @@ const ContactMe = ({ pageInfo }: Props) => {
           />
           <p className="text-2xl">+9054174302095</p>
         </div> */}
-        <div className="flex items-center space-x-5 justify-center">
+        <div className="flex items-center justify-center space-x-5">
           <MapPinIcon
             width={28}
             height={28}
-            className="text-[#F7AB0A] h-7 w-7 animate-pulse"
+            className="h-7 w-7 animate-pulse text-[#F7AB0A]"
           />
           <p className="text-base sm:text-xl md:text-2xl">Turkey/Tekirdağ</p>
         </div>
-        <div className="flex items-center space-x-5 justify-center">
+        <div className="flex items-center justify-center space-x-5">
           <EnvelopeIcon
             width={28}
             height={28}
-            className="text-[#F7AB0A] h-7 w-7 animate-pulse"
+            className="h-7 w-7 animate-pulse text-[#F7AB0A]"
           />
           <p className="text-base sm:text-xl md:text-2xl">{pageInfo?.email}</p>
         </div>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col space-y-2 w-fit mx-auto pb-10 "
+          className="mx-auto flex w-fit flex-col space-y-2 pb-10 "
         >
           <div className="flex space-x-2">
             <input
@@ -120,7 +120,7 @@ const ContactMe = ({ pageInfo }: Props) => {
 
           <ReCAPTCHA
             ref={recaptchaRef}
-            className="!w-full flex items-center justify-around overflow-hidden captcha"
+            className="captcha flex !w-full items-center justify-around overflow-hidden"
             sitekey="6Lfkal8kAAAAAEkJVAIeIkxEOrBRr2vNUzogdRUk"
             onChange={onChangeCaptcha}
             theme="dark"
@@ -129,7 +129,7 @@ const ContactMe = ({ pageInfo }: Props) => {
 
           <button
             type="submit"
-            className="bg-[#F7AB0A] py-5 px-10 rounded-md text-black font-bold text-lg disabled:opacity-50"
+            className="rounded-md bg-[#F7AB0A] py-5 px-10 text-lg font-bold text-black disabled:opacity-50"
             disabled={!verified}
           >
             {!buttonClicked ? "Submit" : <Loader color="dark:fill-[#e50914]" />}
