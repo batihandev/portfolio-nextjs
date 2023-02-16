@@ -45,7 +45,7 @@ export default function Home({
   }, [containerRef]);
 
   return (
-    <div className="bg-[rgb(36,36,36)] scroll-smooth text-white h-screen snap-y snap-mandatory  z-0 overflow-y-scroll overflow-x-hidden scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80">
+    <div className="z-0 h-screen snap-y snap-mandatory overflow-y-scroll scroll-smooth  bg-[rgb(36,36,36)] text-white scrollbar overflow-x-hidden scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80">
       <Header socials={socials} />
       <section id="hero" className="snap-center">
         <Hero pageInfo={pageInfo} />
@@ -69,7 +69,7 @@ export default function Home({
         </section>
       </div>
 
-      <footer className="sticky bottom-14 ml-6 md:ml-16 md:bottom-16 w-full cursor-pointer">
+      <footer className="sticky bottom-14 ml-6 w-full cursor-pointer md:bottom-16 md:ml-16">
         {isVisible ? (
           <motion.div
             initial={{ opacity: 0 }}
@@ -77,12 +77,12 @@ export default function Home({
             className="flex items-center justify-start"
           >
             <a href="#hero">
-              <ArrowSmallUpIcon className="h-10 w-10 rounded-full bg-[#F7AB0A] opacity-40 hover:opacity-100 transition-opacity duration-150 ease-in-out" />
+              <ArrowSmallUpIcon className="h-10 w-10 rounded-full bg-[#F7AB0A] opacity-40 transition-opacity duration-150 ease-in-out hover:opacity-100" />
             </a>
           </motion.div>
         ) : (
           <div className="flex items-center justify-start">
-            <ArrowSmallUpIcon className="opacity-0 w-10 h-10 rounded-full" />
+            <ArrowSmallUpIcon className="h-10 w-10 rounded-full opacity-0" />
           </div>
         )}
       </footer>

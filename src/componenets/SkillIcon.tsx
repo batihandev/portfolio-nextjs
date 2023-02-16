@@ -23,7 +23,7 @@ const SkillIcon = ({ directionLeft, skill }: Props) => {
       className=""
     >
       <Image
-        className="rounded-full  object-cover w-12 h-12 sm:w-20 sm:h-20 xl:w-32 xl:h-32 filter cursor-pointer hover:grayscale transition duration-300 ease-in-out md:w-28 md:h-28"
+        className="h-12  w-12 cursor-pointer rounded-full object-cover filter transition duration-300 ease-in-out hover:grayscale sm:h-20 sm:w-20 md:h-28 md:w-28 xl:h-32 xl:w-32"
         src={urlFor(skill?.image).url()}
         alt={skill?.title}
         width={128}
