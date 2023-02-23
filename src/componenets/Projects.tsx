@@ -19,7 +19,7 @@ function Projects({ projects }: Props) {
       className="relative z-0 mx-auto flex h-screen max-w-full flex-col items-center justify-start overflow-hidden text-left md:flex-col"
     >
       <h3 className="pageTitles">Projects</h3>
-      <div className="relative z-20  flex w-full snap-x  snap-mandatory overflow-x-auto scrollbar overflow-y-hidden scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80">
+      <div className="relative z-20  flex w-full snap-x  snap-mandatory overflow-x-auto overflow-y-hidden scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80">
         {projects?.map((project) => (
           <div
             key={project._id}
@@ -48,16 +48,19 @@ function Projects({ projects }: Props) {
                 {project?.title}
               </h4>
               <div className="flex items-center justify-center space-x-2">
-                {project?.technologies.map((technology) => (
-                  <Image
-                    key={technology._id}
-                    src={urlFor(technology.image).url()}
-                    alt={technology.title}
-                    className="h-8 w-8 sm:h-10 sm:w-10"
-                    width={44}
-                    height={44}
-                  />
-                ))}
+                {project?.technologies.map(
+                  (technology) =>
+                    technology?.image && (
+                      <Image
+                        key={technology._id}
+                        src={urlFor(technology?.image).url()}
+                        alt={technology.title}
+                        className="h-8 w-8 sm:h-10 sm:w-10"
+                        width={44}
+                        height={44}
+                      />
+                    )
+                )}
               </div>
               <p className="text-center text-sm sm:text-base md:text-lg">
                 {project?.summary}
