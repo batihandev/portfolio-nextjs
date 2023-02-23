@@ -1,14 +1,6 @@
-import Header from "@/componenets/Header";
-import { fetchSocials } from "@/utils/fetchSocials";
 import React from "react";
-import { Social } from "typings";
 
-type Props = {
-  socials: Social[];
-};
-
-const page = async (props: Props) => {
-  const { socials }: Props = await getData();
+const page = () => {
   return (
     <div className="z-0 h-screen snap-y snap-mandatory overflow-y-scroll scroll-smooth  bg-[rgb(36,36,36)] text-white overflow-x-hidden scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80">
       <div className="  mx-auto w-4/5 py-10 px-10 text-white">
@@ -529,11 +521,3 @@ const page = async (props: Props) => {
 };
 
 export default page;
-
-const getData = async () => {
-  const socials: Social[] = await fetchSocials();
-
-  return {
-    socials,
-  };
-};
