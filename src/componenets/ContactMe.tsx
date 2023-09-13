@@ -18,15 +18,20 @@ type Inputs = {
 };
 
 const ContactMe = ({ pageInfo }: Props) => {
+  const { register, handleSubmit, reset,setValue } = useForm<Inputs>();
+const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setValue(name, value); // Update the input value in the form state
+  };
   const recaptchaRef = React.createRef<any>();
-  const { register, handleSubmit, reset } = useForm<Inputs>();
+  
   const [verified, setVerified] = useState(false);
   const onChangeCaptcha = (value: any) => {
     setVerified(true);
   };
   const [buttonClicked, setButtonClicked] = useState(false);
 
-  const notify = (mailSent: boolean) => {
+  const notify = (mailSent?: boolean) => {
     if (!mailSent) toast("Failed to send Mail.");
     else {
       toast("Mail sent.");
@@ -37,12 +42,12 @@ const ContactMe = ({ pageInfo }: Props) => {
     setButtonClicked(true);
     setVerified(false);
     const recaptchaThis = recaptchaRef.current;
-    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/sendMail`, {
+    await fetch(`${process.env.NEXT_PUBLIC_MAIL_FETCH}`, {
       method: "POST",
       body: JSON.stringify(formData),
     })
-      .then((response) => response.json())
-      .then((data) => notify(data!))
+     .then((data) => notify(data))
+      .catch(()=>notify())
       .finally(() => {
         reset();
         setButtonClicked(false);
@@ -94,13 +99,15 @@ const ContactMe = ({ pageInfo }: Props) => {
               {...register("name")}
               placeholder="Name"
               className="contactInput"
+              onInput={handleInputChange}
               type="text"
             />
             <input
-              {...register("email")}
+              {...register("email")}                            
               placeholder="Email"
               required
               className="contactInput"
+              onInput={handleInputChange}
               type="email"
             />
           </div>
@@ -108,12 +115,14 @@ const ContactMe = ({ pageInfo }: Props) => {
             {...register("subject")}
             placeholder="Subject"
             className="contactInput w-auto"
+            onInput={handleInputChange}
             type="text"
           />
           <textarea
             {...register("message")}
             placeholder="Message"
             className="contactInput w-auto"
+            onInput={handleInputChange}
             name="message"
             id="message"
           ></textarea>
