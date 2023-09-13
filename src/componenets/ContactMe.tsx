@@ -19,7 +19,7 @@ type Inputs = {
 
 const ContactMe = ({ pageInfo }: Props) => {
   const { register, handleSubmit, reset,setValue } = useForm<Inputs>();
-const handleInputChange = (event) => {
+const handleInputChange = (event:any) => {
     const { name, value } = event.target;
     setValue(name, value); // Update the input value in the form state
   };
