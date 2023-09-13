@@ -46,7 +46,7 @@ const handleInputChange = (event:any) => {
       method: "POST",
       body: JSON.stringify(formData),
     })
-     .then((data) => notify(data))
+     .then((data) => notify(data!))
       .catch(()=>notify())
       .finally(() => {
         reset();
