@@ -64,4 +64,6 @@ export interface Experience extends SanityBody {
   jobTitle: string;
   points: string[];
   technologies: Technology[];
+  description: string;
+  descriptionlist: string[];
 }

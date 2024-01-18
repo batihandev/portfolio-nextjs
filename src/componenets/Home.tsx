@@ -5,6 +5,7 @@ import About from "@/componenets/About";
 import Skills from "@/componenets/Skills";
 import Projects from "@/componenets/Projects";
 import ContactMe from "@/componenets/ContactMe";
+import WorkExperience from "@/componenets/WorkExperience";
 import { ArrowSmallUpIcon } from "@heroicons/react/24/outline";
 import { Experience, PageInfo, Project, Skill, Social } from "typings";
 import React, { useEffect, useMemo, useRef, useState } from "react";
@@ -45,7 +46,7 @@ export default function Home({
   }, [containerRef]);
 
   return (
-    <div className="z-0 h-screen snap-y snap-mandatory overflow-y-scroll scroll-smooth  bg-[rgb(36,36,36)] text-white scrollbar overflow-x-hidden scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80">
+    <div className="z-0 h-screen snap-y snap-mandatory overflow-x-hidden overflow-y-scroll  scroll-smooth bg-[rgb(36,36,36)] text-white scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80">
       <Header socials={socials} />
       <section id="hero" className="snap-center">
         <Hero pageInfo={pageInfo} />
@@ -54,9 +55,9 @@ export default function Home({
         <section id="about" className="snap-center">
           <About pageInfo={pageInfo} />
         </section>
-        {/* <section id="experience" className="snap-center">
+        <section id="experience" className="snap-center">
           <WorkExperience experiences={experiences} />
-        </section> */}
+        </section>
 
         <section id="skills" className="snap-start">
           <Skills skills={skills} />
