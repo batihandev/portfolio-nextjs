@@ -18,13 +18,13 @@ type Inputs = {
 };
 
 const ContactMe = ({ pageInfo }: Props) => {
-  const { register, handleSubmit, reset,setValue } = useForm<Inputs>();
-const handleInputChange = (event:any) => {
+  const { register, handleSubmit, reset, setValue } = useForm<Inputs>();
+  const handleInputChange = (event: any) => {
     const { name, value } = event.target;
     setValue(name, value); // Update the input value in the form state
   };
   const recaptchaRef = React.createRef<any>();
-  
+
   const [verified, setVerified] = useState(false);
   const onChangeCaptcha = (value: any) => {
     setVerified(true);
@@ -46,8 +46,8 @@ const handleInputChange = (event:any) => {
       method: "POST",
       body: JSON.stringify(formData),
     })
-     .then((data) => notify(data as unknown as boolean))
-      .catch(()=>notify())
+      .then((data) => notify(data as unknown as boolean))
+      .catch(() => notify())
       .finally(() => {
         reset();
         setButtonClicked(false);
@@ -98,13 +98,15 @@ const handleInputChange = (event:any) => {
             <input
               {...register("name")}
               placeholder="Name"
+              autoComplete="name"
               className="contactInput"
               onInput={handleInputChange}
               type="text"
             />
             <input
-              {...register("email")}                            
+              {...register("email")}
               placeholder="Email"
+              autoComplete="email"
               required
               className="contactInput"
               onInput={handleInputChange}

@@ -23,5 +23,16 @@ export default defineType({
       type: 'array',
       of: [{type: 'reference', to: {type: 'string'}}],
     },
+    {
+      name: 'description',
+      title: 'Description',
+      type: 'text',
+    },
+    {
+      name: 'descriptionlist',
+      title: 'DescriptionList',
+      type: 'array',
+      of: [{type: 'string'}],
+    },
   ],
 })
