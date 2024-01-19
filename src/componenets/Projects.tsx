@@ -11,10 +11,11 @@ type Props = {
 };
 
 function Projects({ projects }: Props) {
-  const scrollDiv = useRef(null);
+  const scrollDiv = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleWheel = (e: any) => {
+      if (!scrollDiv.current) return;
       // Get the screen width
 
       const screenWidth = window.innerWidth;
@@ -47,12 +48,13 @@ function Projects({ projects }: Props) {
         scrollDiv.current.scrollLeft -= screenWidth;
       }
     };
-
-    scrollDiv.current.addEventListener("wheel", handleWheel);
+    if (scrollDiv.current)
+      scrollDiv.current.addEventListener("wheel", handleWheel);
 
     // Clean up the event listener when the component unmounts
     return () => {
-      scrollDiv.current.removeEventListener("wheel", handleWheel);
+      if (scrollDiv.current)
+        scrollDiv.current.removeEventListener("wheel", handleWheel);
     };
   }, []);
 

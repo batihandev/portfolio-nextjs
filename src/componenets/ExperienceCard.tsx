@@ -7,32 +7,35 @@ import urlFor from "sanityhelper";
 type Props = { experience: Experience };
 
 const ExperienceCard = ({ experience }: Props) => {
-  const childDiv = useRef(null);
+  const childDiv = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleWheel = (e: any) => {
-      // Get the current and maximum scroll position
-      const currentScroll = childDiv.current.scrollTop;
-      const maxScroll =
-        childDiv.current.scrollHeight - childDiv.current.clientHeight;
+      if (childDiv.current) {
+        // Get the current and maximum scroll position
+        const currentScroll = childDiv.current.scrollTop;
+        const maxScroll =
+          childDiv.current.scrollHeight - childDiv.current.clientHeight;
 
-      // Check if the div is scrollable and if we're not at the start or end of the scrollable area
-      if (
-        maxScroll > 0 &&
-        ((currentScroll >= maxScroll * 0.05 && e.deltaY < 0) ||
-          (currentScroll <= maxScroll * 0.95 && e.deltaY > 0))
-      ) {
-        // The div is scrollable and we're not at the start trying to scroll up or at the end trying to scroll down
-        // So stop the propagation of the wheel event
-        e.stopPropagation();
+        // Check if the div is scrollable and if we're not at the start or end of the scrollable area
+        if (
+          maxScroll > 0 &&
+          ((currentScroll >= maxScroll * 0.05 && e.deltaY < 0) ||
+            (currentScroll <= maxScroll * 0.95 && e.deltaY > 0))
+        ) {
+          // The div is scrollable and we're not at the start trying to scroll up or at the end trying to scroll down
+          // So stop the propagation of the wheel event
+          e.stopPropagation();
+        }
       }
     };
-
-    childDiv.current.addEventListener("wheel", handleWheel);
+    if (childDiv.current)
+      childDiv.current.addEventListener("wheel", handleWheel);
 
     // Clean up the event listener when the component unmounts
     return () => {
-      childDiv.current.removeEventListener("wheel", handleWheel);
+      if (childDiv.current)
+        childDiv.current.removeEventListener("wheel", handleWheel);
     };
   }, []);
   return (
