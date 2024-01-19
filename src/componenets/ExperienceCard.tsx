@@ -10,7 +10,7 @@ const ExperienceCard = ({ experience }: Props) => {
   const childDiv = useRef(null);
 
   useEffect(() => {
-    const handleWheel = (e) => {
+    const handleWheel = (e: any) => {
       // Get the current and maximum scroll position
       const currentScroll = childDiv.current.scrollTop;
       const maxScroll =

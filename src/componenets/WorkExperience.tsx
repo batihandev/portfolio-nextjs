@@ -7,7 +7,7 @@ type Props = { experiences: Experience[] };
 const WorkExperience = ({ experiences }: Props) => {
   const scrollDiv = useRef(null);
   useEffect(() => {
-    const handleWheel = (e) => {
+    const handleWheel = (e: any) => {
       // Get the screen width
       const screenWidth = window.innerWidth;
 
