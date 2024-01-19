@@ -12,12 +12,15 @@ type Props = {
 
 function Projects({ projects }: Props) {
   const scrollDiv = useRef(null);
+
   useEffect(() => {
-    const handleWheel = (e) => {
+    const handleWheel = (e: any) => {
       // Get the screen width
+
       const screenWidth = window.innerWidth;
 
       // Get the current and maximum scroll position
+
       const currentScroll = scrollDiv.current.scrollLeft;
       const maxScroll =
         scrollDiv.current.scrollWidth - scrollDiv.current.clientWidth;
@@ -52,6 +55,7 @@ function Projects({ projects }: Props) {
       scrollDiv.current.removeEventListener("wheel", handleWheel);
     };
   }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -62,7 +66,7 @@ function Projects({ projects }: Props) {
       <h3 className="pageTitles">Projects</h3>
       <div
         ref={scrollDiv}
-        className="relative z-20  flex w-full snap-x snap-mandatory overflow-x-auto overflow-y-hidden scroll-smooth scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80"
+        className="relative z-20  flex w-full snap-x snap-mandatory overflow-x-auto scroll-smooth scrollbar overflow-y-hidden scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80"
       >
         {projects?.map((project) => (
           <div
