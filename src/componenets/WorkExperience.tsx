@@ -40,21 +40,22 @@ const WorkExperience = ({ experiences }: Props) => {
         }
       }
     };
-    if (scrollDiv.current)
-      scrollDiv.current.addEventListener("wheel", handleWheel);
+    const scrollDivRef = scrollDiv;
+    if (scrollDivRef.current)
+      scrollDivRef.current.addEventListener("wheel", handleWheel);
 
     // Clean up the event listener when the component unmounts
     return () => {
-      if (scrollDiv.current)
-        scrollDiv.current.removeEventListener("wheel", handleWheel);
+      if (scrollDivRef.current)
+        scrollDivRef.current.removeEventListener("wheel", handleWheel);
     };
-  }, []);
+  }, [scrollDiv]);
   return (
     <div className="relative flex h-[100svh] w-full max-w-full flex-col items-center justify-between overflow-hidden  text-left ">
       <h3 className="pageTitles">Experience</h3>
       <div
         ref={scrollDiv}
-        className="m-5 flex w-full select-none snap-x snap-mandatory space-x-5 overflow-x-scroll scroll-smooth py-2 scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80"
+        className=" flex w-full select-none snap-x snap-mandatory space-x-5 overflow-x-scroll scroll-smooth py-2 scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80"
       >
         {experiences.map((experience) => (
           <ExperienceCard key={experience._id} experience={experience} />

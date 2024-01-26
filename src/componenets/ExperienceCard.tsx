@@ -29,15 +29,16 @@ const ExperienceCard = ({ experience }: Props) => {
         }
       }
     };
-    if (childDiv.current)
-      childDiv.current.addEventListener("wheel", handleWheel);
+    const childDivRef = childDiv;
+    if (childDivRef.current)
+      childDivRef.current.addEventListener("wheel", handleWheel);
 
     // Clean up the event listener when the component unmounts
     return () => {
-      if (childDiv.current)
-        childDiv.current.removeEventListener("wheel", handleWheel);
+      if (childDivRef.current)
+        childDivRef.current.removeEventListener("wheel", handleWheel);
     };
-  }, []);
+  }, [childDiv]);
   return (
     <article className="flex w-[350px] flex-shrink-0 cursor-pointer snap-center flex-col overflow-hidden rounded-lg bg-[#292929] p-5 opacity-40 transition-opacity duration-200 hover:opacity-100 sm:w-[500px] md:w-[600px]  xl:w-[900px]">
       {/* <motion.div
@@ -57,9 +58,9 @@ const ExperienceCard = ({ experience }: Props) => {
       </motion.div> */}
       <div
         ref={childDiv}
-        className=" max-h-full   space-y-2 overflow-y-scroll px-0 scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A] md:px-10"
+        className=" max-h-full flex flex-col space-y-2 overflow-y-scroll px-0 scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A] md:px-10"
       >
-        <div className="max-h-[39%]">
+        <div className="">
           <h4 className="text-4xl font-light">{experience?.jobTitle}</h4>
           <p className="mt-1 text-2xl font-bold">{experience?.company}</p>
           <div className="my-2 flex space-x-2">
@@ -74,7 +75,7 @@ const ExperienceCard = ({ experience }: Props) => {
               />
             ))}
           </div>
-          <p className="text-gray py-2 uppercase md:py-5">
+          <p className="text-gray uppercase">
             {new Date(experience.dateStarted).toDateString()} -{" "}
             {experience.isCurrentlyWorkingHere
               ? "Present"
@@ -86,10 +87,8 @@ const ExperienceCard = ({ experience }: Props) => {
             <li key={i}>{point}</li>
           ))}
         </ul> */}
-        <div className="mt-2 max-h-[60%]">
-          <p className="text-gray py-2 uppercase md:py-5">
-            {experience.description}
-          </p>
+        <div className="mt-2">
+          <p className="text-gray uppercase">{experience.description}</p>
           <ul className="s ml-5 mb-5 list-disc space-y-4  pr-3 text-lg  ">
             {experience.descriptionlist.map((point, i) => (
               <li key={i}>{point}</li>
