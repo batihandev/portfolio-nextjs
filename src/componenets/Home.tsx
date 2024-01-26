@@ -39,9 +39,10 @@ export default function Home({
 
   useEffect(() => {
     const observer = new IntersectionObserver(callbackFunction, options);
-    if (containerRef.current) observer.observe(containerRef.current);
+    const containerConst = containerRef;
+    if (containerConst.current) observer.observe(containerConst.current);
     return () => {
-      if (containerRef.current) observer.unobserve(containerRef.current);
+      if (containerConst.current) observer.unobserve(containerConst.current);
     };
   }, [containerRef]);
 
