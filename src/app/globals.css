@@ -38,3 +38,8 @@
     caret-color: rgba(148, 163, 184, 10);
   }
 }
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: #f7ab0a !important;
+}

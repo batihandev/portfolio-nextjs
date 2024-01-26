@@ -7,40 +7,8 @@ import urlFor from "sanityhelper";
 type Props = { experience: Experience };
 
 const ExperienceCard = ({ experience }: Props) => {
-  const childDiv = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleWheel = (e: any) => {
-      if (childDiv.current) {
-        // Get the current and maximum scroll position
-        const currentScroll = childDiv.current.scrollTop;
-        const maxScroll =
-          childDiv.current.scrollHeight - childDiv.current.clientHeight;
-
-        // Check if the div is scrollable and if we're not at the start or end of the scrollable area
-        if (
-          maxScroll > 0 &&
-          ((currentScroll >= maxScroll * 0.05 && e.deltaY < 0) ||
-            (currentScroll <= maxScroll * 0.95 && e.deltaY > 0))
-        ) {
-          // The div is scrollable and we're not at the start trying to scroll up or at the end trying to scroll down
-          // So stop the propagation of the wheel event
-          e.stopPropagation();
-        }
-      }
-    };
-    const childDivRef = childDiv;
-    if (childDivRef.current)
-      childDivRef.current.addEventListener("wheel", handleWheel);
-
-    // Clean up the event listener when the component unmounts
-    return () => {
-      if (childDivRef.current)
-        childDivRef.current.removeEventListener("wheel", handleWheel);
-    };
-  }, [childDiv]);
   return (
-    <article className="flex w-[350px] flex-shrink-0 cursor-pointer snap-center flex-col overflow-hidden rounded-lg bg-[#292929] p-5 opacity-40 transition-opacity duration-200 hover:opacity-100 sm:w-[500px] md:w-[600px]  xl:w-[900px]">
+    <article className="flex w-full h-full flex-shrink-0 cursor-pointer snap-center flex-col overflow-hidden rounded-lg bg-[#292929] p-5 opacity-40 transition-opacity duration-200 hover:opacity-100 ">
       {/* <motion.div
         initial={{ y: -100, opacity: 0 }}
         transition={{ duration: 1.2 }}
@@ -56,10 +24,7 @@ const ExperienceCard = ({ experience }: Props) => {
           height={200}
         />
       </motion.div> */}
-      <div
-        ref={childDiv}
-        className=" max-h-full flex flex-col space-y-2 overflow-y-scroll px-0 scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A] md:px-10"
-      >
+      <div className=" flex flex-col h-full space-y-2 overflow-y-auto px-0 scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A] md:px-10">
         <div className="">
           <h4 className="text-4xl font-light">{experience?.jobTitle}</h4>
           <p className="mt-1 text-2xl font-bold">{experience?.company}</p>
@@ -82,11 +47,6 @@ const ExperienceCard = ({ experience }: Props) => {
               : new Date(experience.dateEnded).toDateString()}
           </p>
         </div>
-        {/* <ul className="scrollbar-thumb-[#F7AB0A]/8 ml-5 max-h-80 list-disc space-y-4 overflow-auto pr-3 text-lg scrollbar-thin scrollbar-track-gray-400/20">
-          {experience.points.map((point, i) => (
-            <li key={i}>{point}</li>
-          ))}
-        </ul> */}
         <div className="mt-2">
           <p className="text-gray uppercase">{experience.description}</p>
           <ul className="s ml-5 mb-5 list-disc space-y-4  pr-3 text-lg  ">
