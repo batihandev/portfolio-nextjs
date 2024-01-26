@@ -8,44 +8,8 @@ import Link from "next/link";
 type Props = { project: Project };
 
 const ExperienceCard = ({ project }: Props) => {
-  const childDiv = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleWheel = (e: any) => {
-      if (childDiv.current) {
-        // Get the current and maximum scroll position
-        const currentScroll = childDiv.current.scrollTop;
-        const maxScroll =
-          childDiv.current.scrollHeight - childDiv.current.clientHeight;
-
-        // Check if the div is scrollable and if we're not at the start or end of the scrollable area
-        if (
-          maxScroll > 0 &&
-          ((currentScroll >= maxScroll * 0.05 && e.deltaY < 0) ||
-            (currentScroll <= maxScroll * 0.95 && e.deltaY > 0))
-        ) {
-          // The div is scrollable and we're not at the start trying to scroll up or at the end trying to scroll down
-          // So stop the propagation of the wheel event
-          e.stopPropagation();
-        }
-      }
-    };
-    const childDivRef = childDiv;
-    if (childDivRef.current)
-      childDivRef.current.addEventListener("wheel", handleWheel);
-
-    // Clean up the event listener when the component unmounts
-    return () => {
-      if (childDivRef.current)
-        childDivRef.current.removeEventListener("wheel", handleWheel);
-    };
-  }, [childDiv]);
   return (
-    <div
-      key={project._id}
-      ref={childDiv}
-      className="diff-from-title flex w-screen flex-shrink-0 snap-center flex-col items-center justify-start space-y-2 overflow-y-auto p-5 scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80 sm:space-y-5 md:gap-5 md:px-10"
-    >
+    <div className="diff-from-title flex flex-shrink-0 snap-center flex-col items-center justify-start space-y-2 overflow-y-auto p-5 scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80 sm:space-y-5 md:gap-5 md:px-10">
       <motion.div
         initial={{ y: 300 }}
         transition={{ duration: 0.7 }}
