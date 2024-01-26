@@ -1,6 +1,6 @@
 "use client";
-import { animate, motion } from "framer-motion";
-import React, { Children } from "react";
+import { motion } from "framer-motion";
+import React from "react";
 import { Skill } from "typings";
 import SkillIcon from "./SkillIcon";
 
@@ -24,12 +24,14 @@ const Skills = ({ skills }: Props) => {
         viewport={{ once: true }}
         className="my-auto grid grid-cols-4 gap-5 overflow-y-auto px-5 pt-4 overflow-x-hidden scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80"
       >
-        {skills?.slice(0, skills.length / 2).map((skill) => (
-          <SkillIcon key={skill._id} skill={skill} />
-        ))}
-        {skills?.slice(skills.length / 2, skills.length).map((skill) => (
-          <SkillIcon key={skill._id} skill={skill} directionLeft />
-        ))}
+        {skills
+          ?.slice(0, skills.length / 2)
+          .map((skill) => <SkillIcon key={skill._id} skill={skill} />)}
+        {skills
+          ?.slice(skills.length / 2, skills.length)
+          .map((skill) => (
+            <SkillIcon key={skill._id} skill={skill} directionLeft />
+          ))}
       </motion.div>
     </motion.div>
   );

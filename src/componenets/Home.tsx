@@ -6,9 +6,9 @@ import Skills from "@/componenets/Skills";
 import Projects from "@/componenets/Projects";
 import ContactMe from "@/componenets/ContactMe";
 import WorkExperience from "@/componenets/WorkExperience";
-import { ArrowSmallUpIcon } from "@heroicons/react/24/outline";
+import { ArrowUpIcon } from "@heroicons/react/24/outline";
 import { Experience, PageInfo, Project, Skill, Social } from "typings";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 // test new github
 type Props = {
@@ -78,12 +78,12 @@ export default function Home({
             className="flex items-center justify-start"
           >
             <a href="#hero" className="flex shrink-0">
-              <ArrowSmallUpIcon className="h-10 w-10 rounded-full bg-[#F7AB0A] opacity-40 transition-opacity duration-150 ease-in-out hover:opacity-100" />
+              <ArrowUpIcon className="h-10 w-10 rounded-full bg-[#F7AB0A] opacity-40 transition-opacity duration-150 ease-in-out hover:opacity-100" />
             </a>
           </motion.div>
         ) : (
           <div className="flex items-center justify-start">
-            <ArrowSmallUpIcon className="h-10 w-10 rounded-full opacity-0" />
+            <ArrowUpIcon className="h-10 w-10 rounded-full opacity-0" />
           </div>
         )}
       </footer>

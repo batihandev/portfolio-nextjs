@@ -1,6 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { PhoneIcon, MapPinIcon, EnvelopeIcon } from "@heroicons/react/24/solid";
+import React, { useState } from "react";
+import { MapPinIcon, EnvelopeIcon } from "@heroicons/react/24/solid";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { PageInfo } from "typings";
 import Loader from "./Loader";
