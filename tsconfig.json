@@ -16,13 +16,14 @@
     "incremental": true,
     "plugins": [
       {
-        "name": "next"
-      }
+        "name": "next",
+      },
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      "@/*": ["./src/*"],
+      "react": ["./node_modules/@types/react"],
+    },
   },
   "include": [
     "next-env.d.ts",
@@ -30,7 +31,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "sanity.ts",
-    "typings.d.ts"
+    "typings.d.ts",
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
 }
