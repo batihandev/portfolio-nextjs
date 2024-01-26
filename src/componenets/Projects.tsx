@@ -1,24 +1,13 @@
 "use client";
 import { motion } from "framer-motion";
-import { tree } from "next/dist/build/templates/app-page";
-import Image from "next/image";
-import Link from "next/link";
-import React, { useRef, useEffect, useState } from "react";
-import urlFor from "sanityhelper";
+import React from "react";
 import { Project } from "typings";
 import ProjectCard from "./ProjectCard";
-import experience from "sanity/schemas/experience";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css/navigation";
 import "swiper/css";
 
-const styles = {
-  slide: {
-    padding: 15,
-    minHeight: 100,
-  },
-};
 type Props = {
   projects: Project[];
 };

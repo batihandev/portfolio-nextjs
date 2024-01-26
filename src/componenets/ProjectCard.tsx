@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import React, { useRef, useEffect } from "react";
+import React from "react";
 import { Project } from "typings";
 import urlFor from "sanityhelper";
 import Link from "next/link";
