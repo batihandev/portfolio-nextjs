@@ -21,6 +21,7 @@ const Header = ({ socials }: Props) => {
           <SocialIcon
             key={social._id}
             url={social.url}
+            rel="me"
             fgColor="gray"
             bgColor="transparent"
             target="_blank"
