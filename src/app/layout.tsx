@@ -35,6 +35,23 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <meta property="og:url" content="https://batihan.dev" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Batıhan Özdemir" />
+        <meta
+          property="og:description"
+          content="Batıhan Özdemir's Portfolio @batihandev"
+        />
+        <meta property="og:image" content="https://batihan.dev/og-image.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="twitter:domain" content="batihan.dev" />
+        <meta property="twitter:url" content="https://batihan.dev" />
+        <meta name="twitter:title" content="Batıhan Özdemir" />
+        <meta
+          name="twitter:description"
+          content="Batıhan Özdemir's Portfolio @batihandev"
+        />
+        <meta name="twitter:image" content="https://batihan.dev/og-image.jpg" />
       </head>
       <link rel="icon" href="/favicon.ico" sizes="any" />
 
