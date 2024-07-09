@@ -9,13 +9,10 @@ importers:
   .:
     dependencies:
       '@heroicons/react':
-        specifier: ^2.1.1
+        specifier: ^2.1.4
         version: 2.1.4(react@18.2.0)
-      '@next/font':
-        specifier: 14.1.0
-        version: 14.1.0(next@14.1.0(@babel/core@7.24.7)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))
       '@portabletext/react':
-        specifier: ^3.0.11
+        specifier: ^3.1.0
         version: 3.1.0(react@18.2.0)
       '@sanity/image-url':
         specifier: ^1.0.2
@@ -24,10 +21,10 @@ importers:
         specifier: 20.11.7
         version: 20.11.7
       '@types/react':
-        specifier: ^18.2.48
+        specifier: ^18.3.3
         version: 18.3.3
       '@types/react-dom':
-        specifier: ^18.2.18
+        specifier: ^18.3.0
         version: 18.3.0
       eslint:
         specifier: 8.56.0
@@ -36,16 +33,16 @@ importers:
         specifier: 14.1.0
         version: 14.1.0(eslint@8.56.0)(typescript@5.5.3)
       framer-motion:
-        specifier: ^11.0.3
+        specifier: ^11.2.14
         version: 11.2.14(@emotion/is-prop-valid@1.2.2)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       next:
         specifier: 14.1.0
         version: 14.1.0(@babel/core@7.24.7)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       next-sanity:
-        specifier: ^7.0.14
-        version: 7.1.4(@sanity/client@6.20.2)(@sanity/icons@2.11.8(react@18.2.0))(@sanity/types@3.49.0)(@sanity/ui@2.6.3(react-dom@18.2.0(react@18.2.0))(react-is@18.3.1)(react@18.2.0)(styled-components@6.1.11(react-dom@18.2.0(react@18.2.0))(react@18.2.0)))(next@14.1.0(@babel/core@7.24.7)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)(sanity@3.49.0(@types/node@20.11.7)(@types/react@18.3.3)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(styled-components@6.1.11(react-dom@18.2.0(react@18.2.0))(react@18.2.0)))(styled-components@6.1.11(react-dom@18.2.0(react@18.2.0))(react@18.2.0))
+        specifier: ^7.1.4
+        version: 7.1.4(@sanity/client@6.20.2)(@sanity/icons@3.3.0(react@18.2.0))(@sanity/types@3.49.0)(@sanity/ui@2.6.3(react-dom@18.2.0(react@18.2.0))(react-is@18.3.1)(react@18.2.0)(styled-components@6.1.11(react-dom@18.2.0(react@18.2.0))(react@18.2.0)))(next@14.1.0(@babel/core@7.24.7)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)(sanity@3.49.0(@types/node@20.11.7)(@types/react@18.3.3)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(styled-components@6.1.11(react-dom@18.2.0(react@18.2.0))(react@18.2.0)))(styled-components@6.1.11(react-dom@18.2.0(react@18.2.0))(react@18.2.0))
       nodemailer:
-        specifier: ^6.9.8
+        specifier: ^6.9.14
         version: 6.9.14
       react:
         specifier: 18.2.0
@@ -54,50 +51,50 @@ importers:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
       react-hook-form:
-        specifier: ^7.49.3
+        specifier: ^7.52.1
         version: 7.52.1(react@18.2.0)
       react-hot-toast:
         specifier: ^2.4.1
         version: 2.4.1(csstype@3.1.3)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       react-icons:
-        specifier: ^5.0.1
+        specifier: ^5.2.1
         version: 5.2.1(react@18.2.0)
       react-simple-typewriter:
         specifier: ^5.0.1
         version: 5.0.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       react-social-icons:
-        specifier: ^6.10.0
+        specifier: ^6.16.0
         version: 6.16.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       swiper:
-        specifier: ^11.0.5
+        specifier: ^11.1.4
         version: 11.1.4
       typescript:
-        specifier: ^5.3.3
+        specifier: ^5.5.3
         version: 5.5.3
     devDependencies:
       '@types/react-google-recaptcha':
         specifier: ^2.1.9
         version: 2.1.9
       autoprefixer:
-        specifier: ^10.4.17
+        specifier: ^10.4.19
         version: 10.4.19(postcss@8.4.39)
       postcss:
-        specifier: ^8.4.33
+        specifier: ^8.4.39
         version: 8.4.39
       prettier:
         specifier: 3.2.4
         version: 3.2.4
       prettier-plugin-tailwindcss:
-        specifier: ^0.5.11
+        specifier: ^0.5.14
         version: 0.5.14(prettier@3.2.4)
       react-google-recaptcha:
         specifier: ^3.1.0
         version: 3.1.0(react@18.2.0)
       tailwind-scrollbar:
-        specifier: ^3.0.5
+        specifier: ^3.1.0
         version: 3.1.0(tailwindcss@3.4.4)
       tailwindcss:
-        specifier: ^3.4.1
+        specifier: ^3.4.4
         version: 3.4.4
 
 packages:
@@ -1164,11 +1161,6 @@ packages:
   '@next/eslint-plugin-next@14.1.0':
     resolution: {integrity: sha512-x4FavbNEeXx/baD/zC/SdrvkjSby8nBn8KcCREqk6UuwvwoAPZmaV8TFCAuo/cpovBRTIY67mHhe86MQQm/68Q==}
 
-  '@next/font@14.1.0':
-    resolution: {integrity: sha512-9hJ7bEYDI7UGQ1a++5zRD3F2VUu9NIaK5Hro/uL9bvFFs6b0Cy1OdLtLQHCIQE7sSMt8Rbu4VtcbnlubsseelA==}
-    peerDependencies:
-      next: '*'
-
   '@next/swc-darwin-arm64@14.1.0':
     resolution: {integrity: sha512-nUDn7TOGcIeyQni6lZHfzNoo9S0euXnu0jhsbMOmMJUBfgsnESdjN97kM7cBqQxZa8L/bM9om/S5/1dzCrW6wQ==}
     engines: {node: '>= 10'}
@@ -1320,12 +1312,6 @@ packages:
 
   '@sanity/generate-help-url@3.0.0':
     resolution: {integrity: sha512-wtMYcV5GIDIhVyF/jjmdwq1GdlK07dRL40XMns73VbrFI7FteRltxv48bhYVZPcLkRXb0SHjpDS/icj9/yzbVA==}
-
-  '@sanity/icons@2.11.8':
-    resolution: {integrity: sha512-C4ViXtk6eyiNTQ5OmxpfmcK6Jw+LLTi9zg9XBUD15DzC4xTHaGW9SVfUa43YtPGs3WC3M0t0K59r0GDjh52HIg==}
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      react: ^18
 
   '@sanity/icons@3.3.0':
     resolution: {integrity: sha512-xLOn1sneanShXXBt/OLasCded5Oe2JLnInqDuEHi0NAQzoYQNHSmRj/yCsrl7f3T8YoiJKxaS2U2jrEvMlmSPw==}
@@ -5980,10 +5966,6 @@ snapshots:
     dependencies:
       glob: 10.3.10
 
-  '@next/font@14.1.0(next@14.1.0(@babel/core@7.24.7)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))':
-    dependencies:
-      next: 14.1.0(@babel/core@7.24.7)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-
   '@next/swc-darwin-arm64@14.1.0':
     optional: true
 
@@ -6168,10 +6150,6 @@ snapshots:
       - supports-color
 
   '@sanity/generate-help-url@3.0.0': {}
-
-  '@sanity/icons@2.11.8(react@18.2.0)':
-    dependencies:
-      react: 18.2.0
 
   '@sanity/icons@3.3.0(react@18.2.0)':
     dependencies:
@@ -8607,10 +8585,10 @@ snapshots:
 
   natural-compare@1.4.0: {}
 
-  next-sanity@7.1.4(@sanity/client@6.20.2)(@sanity/icons@2.11.8(react@18.2.0))(@sanity/types@3.49.0)(@sanity/ui@2.6.3(react-dom@18.2.0(react@18.2.0))(react-is@18.3.1)(react@18.2.0)(styled-components@6.1.11(react-dom@18.2.0(react@18.2.0))(react@18.2.0)))(next@14.1.0(@babel/core@7.24.7)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)(sanity@3.49.0(@types/node@20.11.7)(@types/react@18.3.3)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(styled-components@6.1.11(react-dom@18.2.0(react@18.2.0))(react@18.2.0)))(styled-components@6.1.11(react-dom@18.2.0(react@18.2.0))(react@18.2.0)):
+  next-sanity@7.1.4(@sanity/client@6.20.2)(@sanity/icons@3.3.0(react@18.2.0))(@sanity/types@3.49.0)(@sanity/ui@2.6.3(react-dom@18.2.0(react@18.2.0))(react-is@18.3.1)(react@18.2.0)(styled-components@6.1.11(react-dom@18.2.0(react@18.2.0))(react@18.2.0)))(next@14.1.0(@babel/core@7.24.7)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)(sanity@3.49.0(@types/node@20.11.7)(@types/react@18.3.3)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(styled-components@6.1.11(react-dom@18.2.0(react@18.2.0))(react@18.2.0)))(styled-components@6.1.11(react-dom@18.2.0(react@18.2.0))(react@18.2.0)):
     dependencies:
       '@sanity/client': 6.20.2(debug@4.3.5)
-      '@sanity/icons': 2.11.8(react@18.2.0)
+      '@sanity/icons': 3.3.0(react@18.2.0)
       '@sanity/preview-kit': 5.0.20(@sanity/client@6.20.2)(react@18.2.0)
       '@sanity/types': 3.49.0(debug@4.3.5)
       '@sanity/ui': 2.6.3(react-dom@18.2.0(react@18.2.0))(react-is@18.3.1)(react@18.2.0)(styled-components@6.1.11(react-dom@18.2.0(react@18.2.0))(react@18.2.0))
