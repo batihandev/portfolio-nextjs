@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Batıhan Özdemir",
   description: "Batıhan Özdemir's Portfolio @batihandev",
+  favicon: "/favicon.ico",
 };
 
 export default function RootLayout({
@@ -13,11 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      {/*
-        <head /> will contain the components returned by the nearest parent
-        head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
-      */}
-      <head />
+      <link rel="icon" href="/favicon.ico" sizes="any" />
       <body>{children}</body>
     </html>
   );
