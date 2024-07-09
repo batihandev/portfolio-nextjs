@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://www.batihan.dev/</loc>
+    <lastmod>2023-04-01</lastmod> <!-- Update with the last modification date -->
+    <changefreq>monthly</changefreq> <!-- Adjust based on how often you expect to update your site -->
+    <priority>1.0</priority> <!-- Priority of this URL relative to other URLs -->
+  </url>
+</urlset>
