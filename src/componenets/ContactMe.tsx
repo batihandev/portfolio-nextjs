@@ -62,7 +62,9 @@ const ContactMe = ({ pageInfo }: Props) => {
         <div className=" mt-10 flex flex-col space-y-3 sm:space-y-10">
           <h4 className="text-center text-2xl font-semibold sm:text-3xl md:text-4xl">
             I have got just what you need.{" "}
-            <span className="underline decoration-[#f7ab0a]/50">Lets Talk</span>
+            <span className="underline decoration-[#f7ab0a]/50">
+              Let&apos;s Talk
+            </span>
             .
           </h4>
         </div>
