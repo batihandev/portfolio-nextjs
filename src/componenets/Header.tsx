@@ -43,7 +43,7 @@ const Header = ({ socials }: Props) => {
           bgColor="transparent"
           url="#contact"
         />
-        <a href="#contact">
+        <a href="#contact" aria-label="Contact Batıhan Özdemir">
           <p className="hidden text-sm uppercase text-gray-400 md:inline-flex">
             Get In Touch
           </p>

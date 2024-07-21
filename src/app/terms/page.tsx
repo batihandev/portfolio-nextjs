@@ -76,6 +76,7 @@ const page = () => {
               <a
                 href="https://www.batihan.dev"
                 rel="external nofollow noopener noreferrer"
+                aria-label="Batıhan's Portfolio"
                 target="_blank"
               >
                 https://www.batihan.dev
@@ -295,6 +296,7 @@ const page = () => {
               <a
                 href="https://www.batihan.dev/#contact"
                 rel="external nofollow noopener noreferrer"
+                aria-label="Contact Batıhan Özdemir"
                 target="_blank"
               >
                 https://www.batihan.dev/#contact

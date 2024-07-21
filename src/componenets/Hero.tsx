@@ -26,7 +26,7 @@ const Hero = ({ pageInfo }: Props) => {
         width={512}
         height={512}
         priority={true}
-        alt="My Profile"
+        alt="Batıhan Özdemir"
       />
 
       <div className="z-20 px-4">
@@ -40,16 +40,16 @@ const Hero = ({ pageInfo }: Props) => {
           <Cursor cursorColor="#f7ab0a" />
         </h1>
         <div className="pt-5">
-          <a href="#about">
+          <a href="#about" aria-label="About Batıhan Özdemir">
             <button className="heroButtons">About</button>
           </a>
           {/* <a href="#experience">
             <button className="heroButtons">Experience</button>
           </a> */}
-          <a href="#skills">
+          <a href="#skills" aria-label="Batıhan Özdemir's Skills">
             <button className="heroButtons">Skills</button>
           </a>
-          <a href="#projects">
+          <a href="#projects" aria-label="Batıhan Özdemir's Projects">
             <button className="heroButtons">Projects</button>
           </a>
         </div>
