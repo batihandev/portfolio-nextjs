@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { MapPinIcon, EnvelopeIcon } from "@heroicons/react/24/solid";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { PageInfo } from "typings";
@@ -24,6 +24,8 @@ const ContactMe = ({ pageInfo }: Props) => {
     setValue(name, value); // Update the input value in the form state
   };
   const recaptchaRef = React.createRef<any>();
+  const [isVisible, setIsVisible] = useState(false);
+  const captchaContainerRef = useRef(null); // Ref for the container to observe
 
   const [verified, setVerified] = useState(false);
   const onChangeCaptcha = (value: any) => {
@@ -38,6 +40,30 @@ const ContactMe = ({ pageInfo }: Props) => {
     }
   };
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      {
+        root: null, // viewport
+        threshold: 0.1, // Trigger when 10% of the element is in view
+      }
+    );
+
+    const currentRef = captchaContainerRef.current; // Copy to a variable
+
+    if (currentRef) {
+      observer.observe(currentRef);
+    }
+
+    return () => {
+      if (currentRef) {
+        // Use the copied variable
+        observer.unobserve(currentRef);
+      }
+    };
+  }, []);
   const onSubmit: SubmitHandler<Inputs> = async (formData) => {
     setButtonClicked(true);
     setVerified(false);
@@ -94,6 +120,7 @@ const ContactMe = ({ pageInfo }: Props) => {
         </div>
         <form
           onSubmit={handleSubmit(onSubmit)}
+          ref={captchaContainerRef}
           className="mx-auto flex w-fit flex-col space-y-2 pb-10 "
         >
           <div className="flex space-x-2">
@@ -131,14 +158,16 @@ const ContactMe = ({ pageInfo }: Props) => {
             id="message"
           ></textarea>
 
-          <ReCAPTCHA
-            ref={recaptchaRef}
-            className="captcha flex !w-full items-center justify-around overflow-hidden"
-            sitekey="6Lfkal8kAAAAAEkJVAIeIkxEOrBRr2vNUzogdRUk"
-            onChange={onChangeCaptcha}
-            theme="dark"
-            style={{ transform: "scale(0.95)" }}
-          />
+          {isVisible && (
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              className="captcha flex !w-full items-center justify-around overflow-hidden"
+              sitekey="6Lfkal8kAAAAAEkJVAIeIkxEOrBRr2vNUzogdRUk"
+              onChange={onChangeCaptcha}
+              theme="dark"
+              style={{ transform: "scale(0.95)" }}
+            />
+          )}
 
           <button
             type="submit"
