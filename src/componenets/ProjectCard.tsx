@@ -53,6 +53,7 @@ const ExperienceCard = ({ project }: Props) => {
         <div className="flex items-center justify-center space-x-5 pb-10 md:space-x-10">
           <Link
             href={project?.linkToGithub ? project.linkToGithub : ""}
+            aria-label="Github"
             className="projectButton"
             target="_blank"
           >
@@ -60,6 +61,7 @@ const ExperienceCard = ({ project }: Props) => {
           </Link>
           <Link
             href={project?.linkToBuild ? project.linkToBuild : ""}
+            aria-label={`Build ${project?.title}`}
             className="projectButton"
             target="_blank"
           >

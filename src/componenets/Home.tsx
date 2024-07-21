@@ -78,7 +78,7 @@ export default function Home({
             whileInView={{ opacity: 0.4 }}
             className="flex items-center justify-start"
           >
-            <a href="#hero" className="flex shrink-0">
+            <a href="#hero" className="flex shrink-0" aria-label="Go to top.">
               <ArrowUpIcon className="h-10 w-10 rounded-full bg-[#F7AB0A] opacity-40 transition-opacity duration-150 ease-in-out hover:opacity-100" />
             </a>
           </motion.div>
