@@ -15,7 +15,7 @@ const About = ({ pageInfo }: Props) => {
       transition={{ duration: 1.2 }}
       className="relative mx-auto flex h-screen max-w-7xl flex-col  items-center justify-start px-5 text-center md:text-left"
     >
-      <h3 className="pageTitles ">About</h3>
+      <h1 className="pageTitles ">About</h1>
       <div className="diff-from-title mx-auto flex max-w-7xl flex-col items-center overflow-auto px-5 py-5 text-center scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80 md:flex-row md:text-left">
         <motion.div
           initial={{ x: -100, opacity: 0 }}
