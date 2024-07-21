@@ -25,8 +25,6 @@ const WorkExperience = ({ experiences }: Props) => {
               spaceBetween: 10,
             },
           }}
-          onSlideChange={() => console.log("slide change")}
-          onSwiper={(swiper) => console.log(swiper)}
         >
           {experiences?.map((experience) => (
             <SwiperSlide key={experience._id}>

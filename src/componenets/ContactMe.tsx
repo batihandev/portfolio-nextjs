@@ -63,9 +63,13 @@ const ContactMe = ({ pageInfo }: Props) => {
   };
 
   useEffect(() => {
+    let hasBeenVisible = false; // Flag to track visibility
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsVisible(entry.isIntersecting);
+        if (entry.isIntersecting && !hasBeenVisible) {
+          setIsVisible(true);
+          hasBeenVisible = true; // Update flag
+        }
       },
       {
         root: null, // viewport

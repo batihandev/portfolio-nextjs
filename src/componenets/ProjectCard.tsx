@@ -22,7 +22,7 @@ const ExperienceCard = ({ project }: Props) => {
           alt={project?.title}
           width={500}
           height={250}
-          className="object-cover"
+          className="object-contain w-auto h-auto"
         />
       </motion.div>
       <div className="max-w-6xl space-y-5 px-0 md:space-y-10 md:px-10 pb-5">
