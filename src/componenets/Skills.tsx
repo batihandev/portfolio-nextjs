@@ -15,7 +15,7 @@ const Skills = ({ skills }: Props) => {
       className="md:Text-left relative mx-auto flex h-screen min-h-screen max-w-[2000px] flex-col items-center justify-start overflow-hidden px-3 text-center md:gap-10 xl:space-y-0 xl:px-10 "
     >
       <h3 className="pageTitles">Skills</h3>
-      {/* <h3 className="absolute top-36 uppercase tracking-[3px] text-gray-500 text-sm">
+      {/* <h3 className="absolute top-36 uppercase tracking-[3px] text-gray-400 text-sm">
         Hover over a skill for current proficiency
       </h3> */}
       <motion.div

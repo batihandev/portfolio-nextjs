@@ -22,7 +22,7 @@ const Header = ({ socials }: Props) => {
             key={social._id}
             url={social.url}
             rel="me"
-            fgColor="gray"
+            fgColor="rgb(156 163 175)"
             bgColor="transparent"
             target="_blank"
             className="!h-10 !w-10 md:!h-12 md:!w-12"
