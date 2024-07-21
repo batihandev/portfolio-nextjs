@@ -94,7 +94,19 @@ const ContactMe = ({ pageInfo }: Props) => {
     setButtonClicked(true);
     setVerified(false);
     const recaptchaThis = recaptchaRef.current;
-    await fetch(`${process.env.NEXT_PUBLIC_MAIL_FETCH}`, {
+    // await fetch(`${process.env.NEXT_PUBLIC_MAIL_FETCH}`, {
+    //   method: "POST",
+    //   body: JSON.stringify(formData),
+    // })
+    //   .then((data) => notify(data as unknown as boolean))
+    //   .catch(() => notify())
+    //   .finally(() => {
+    //     reset();
+    //     setButtonClicked(false);
+    //     recaptchaThis.reset();
+    //   });
+
+    await fetch("/api/send-mail", {
       method: "POST",
       body: JSON.stringify(formData),
     })
@@ -105,15 +117,6 @@ const ContactMe = ({ pageInfo }: Props) => {
         setButtonClicked(false);
         recaptchaThis.reset();
       });
-
-    await fetch("/api/send-mail", {
-      method: "POST",
-      body: JSON.stringify(formData),
-    }).finally(() => {
-      reset();
-      setButtonClicked(false);
-      recaptchaThis.reset();
-    });
   };
 
   return (
