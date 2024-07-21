@@ -28,7 +28,7 @@ const ContactMe = ({ pageInfo }: Props) => {
   const captchaContainerRef = useRef(null); // Ref for the container to observe
 
   const [verified, setVerified] = useState(false);
-  const onChangeCaptcha = (token: string) => {
+  const onChangeCaptcha = (token: string | null) => {
     if (!token) return;
     // Send the token to your server
     fetch("/api/verify-captcha", {
