@@ -28,8 +28,30 @@ const ContactMe = ({ pageInfo }: Props) => {
   const captchaContainerRef = useRef(null); // Ref for the container to observe
 
   const [verified, setVerified] = useState(false);
-  const onChangeCaptcha = (value: any) => {
-    setVerified(true);
+  const onChangeCaptcha = (token: string) => {
+    if (!token) return;
+    // Send the token to your server
+    fetch("/api/verify-captcha", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ token }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          setVerified(true);
+          // Proceed with your form submission or other actions
+          console.log("Captcha verified");
+        } else {
+          // Handle verification failure
+          console.error("Captcha verification failed");
+        }
+      })
+      .catch((error) => {
+        console.error("Error verifying captcha:", error);
+      });
   };
   const [buttonClicked, setButtonClicked] = useState(false);
 
@@ -79,6 +101,15 @@ const ContactMe = ({ pageInfo }: Props) => {
         setButtonClicked(false);
         recaptchaThis.reset();
       });
+
+    await fetch("/api/send-mail", {
+      method: "POST",
+      body: JSON.stringify(formData),
+    }).finally(() => {
+      reset();
+      setButtonClicked(false);
+      recaptchaThis.reset();
+    });
   };
 
   return (

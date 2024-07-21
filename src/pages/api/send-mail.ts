@@ -8,22 +8,13 @@ type Data = {
   kek: boolean;
 };
 
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<boolean>
-) {
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
   async function mail({ name, email, subject, message }: Data) {
     let transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 465,
-      secure: true,
+      service: "gmail",
       auth: {
-        type: "OAuth2",
         user: "batihanportfolio@gmail.com",
-        clientId: process.env.CLIENT_ID,
-        clientSecret: process.env.CLIENT_SECRET,
-        refreshToken: process.env.REFRESH_TOKEN,
-        accessToken: process.env.ACCESS_TOKEN,
+        pass: process.env.GOOGLE_APP_PASSWORD,
       },
     });
     // send mail with defined transport object
@@ -36,14 +27,14 @@ export default function handler(
     });
 
     console.log("Message sent: %s", info.messageId);
-    return res.status(200).json(true);
+    return res.status(200).json({ success: true });
     // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
   }
 
   try {
     mail(JSON.parse(req.body));
   } catch {
-    return res.status(400).json(false);
+    return res.status(400).json({ success: false });
   }
 }
 
