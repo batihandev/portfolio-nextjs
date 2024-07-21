@@ -27,8 +27,6 @@ function Projects({ projects }: Props) {
           spaceBetween={10}
           slidesPerView={1}
           navigation
-          onSlideChange={() => console.log("slide change")}
-          onSwiper={(swiper) => console.log(swiper)}
         >
           {projects?.map((project) => (
             <SwiperSlide key={project._id}>
