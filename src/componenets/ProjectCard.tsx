@@ -26,12 +26,12 @@ const ExperienceCard = ({ project }: Props) => {
         />
       </motion.div>
       <div className="max-w-6xl space-y-5 px-0 md:space-y-10 md:px-10 pb-5">
-        <h4 className="text-center text-2xl font-semibold sm:text-3xl md:text-4xl">
+        <h2 className="text-center text-2xl font-semibold sm:text-3xl md:text-4xl">
           {/* <span className="underline decoration-[#f7ab0a]/50">
                   Case Study {index + 1} of {projects.length} :
                 </span>{" "} */}
           {project?.title}
-        </h4>
+        </h2>
         <div className="flex items-center justify-center space-x-2">
           {project?.technologies.map(
             (technology) =>

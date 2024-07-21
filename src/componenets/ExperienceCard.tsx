@@ -25,7 +25,7 @@ const ExperienceCard = ({ experience }: Props) => {
       </motion.div> */}
       <div className=" flex flex-col h-full space-y-2 overflow-y-auto px-0 scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A] md:px-10">
         <div className="">
-          <h4 className="text-4xl font-light">{experience?.jobTitle}</h4>
+          <h2 className="text-4xl font-light">{experience?.jobTitle}</h2>
           <p className="mt-1 text-2xl font-bold">{experience?.company}</p>
           <div className="my-2 flex space-x-2">
             {experience?.technologies.map((technology) => (
