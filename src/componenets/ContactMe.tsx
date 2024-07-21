@@ -121,16 +121,16 @@ const ContactMe = ({ pageInfo }: Props) => {
 
   return (
     <div className="relative mx-auto flex h-screen max-w-7xl flex-col items-center justify-start text-clip px-10 md:text-left">
-      <h3 className="pageTitles">Contact</h3>
+      <h1 className="pageTitles">Contact</h1>
       <div className="flex h-[calc(100vh-100px)] flex-col items-center space-y-5 overflow-auto px-5 scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80 sm:space-y-10">
         <div className=" mt-10 flex flex-col space-y-3 sm:space-y-10">
-          <h4 className="text-center text-2xl font-semibold sm:text-3xl md:text-4xl">
+          <h2 className="text-center text-2xl font-semibold sm:text-3xl md:text-4xl">
             I have got just what you need.{" "}
             <span className="underline decoration-[#f7ab0a]/50">
               Let&apos;s Talk
             </span>
             .
-          </h4>
+          </h2>
         </div>
         {/* <div className="flex items-center space-x-5 justify-center">
           <PhoneIcon

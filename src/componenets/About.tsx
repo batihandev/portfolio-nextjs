@@ -34,11 +34,11 @@ const About = ({ pageInfo }: Props) => {
           />
         </motion.div>
         <div className="space-y-3 px-0 sm:space-y-10 md:px-10">
-          <h4 className="text-2xl font-semibold sm:text-3xl md:text-4xl">
+          <h2 className="text-2xl font-semibold sm:text-3xl md:text-4xl">
             Here is{" "}
             <span className="underline decoration-[#f7ab0a]/50">little</span>{" "}
             background
-          </h4>
+          </h2>
           <p className="text-sm sm:text-base">
             {pageInfo?.backgroundInformation}
           </p>
