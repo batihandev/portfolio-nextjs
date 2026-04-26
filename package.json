@@ -37,6 +37,7 @@
     "postcss": "^8.5.10",
     "prettier": "^3.8.3",
     "prettier-plugin-tailwindcss": "^0.7.3",
+    "sharp": "^0.34.5",
     "tailwind-scrollbar": "^4.0.2",
     "tailwindcss": "^4.2.4",
     "typescript": "^6.0.3"
@@ -44,5 +45,11 @@
   "engines": {
     "node": ">=20.0.0",
     "pnpm": ">=9.0.0"
-  }
+  },
+  "browserslist": [
+    "Chrome >= 111",
+    "Edge >= 111",
+    "Firefox >= 128",
+    "Safari >= 16.4"
+  ]
 }
