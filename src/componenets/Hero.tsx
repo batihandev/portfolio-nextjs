@@ -13,7 +13,12 @@ const navLinks = [
 ];
 
 const FIRST_NAME = pageInfo.name.split(" ")[0] ?? pageInfo.name;
-const INITIAL_GREETING = `Hi, the name's ${FIRST_NAME}.`;
+const GREETING = `Hi, the name's ${FIRST_NAME}.`;
+const TYPEWRITER_WORDS = [
+  "Mostly backend, occasionally frontend.",
+  "TypeScript. Node.js. Postgres. Redis.",
+  "Available for contract work.",
+];
 
 const subscribe = () => () => {};
 const useIsHydrated = () =>
@@ -23,14 +28,22 @@ const useIsHydrated = () =>
     () => false,
   );
 
-const Hero = () => {
-  const mounted = useIsHydrated();
-
+const TypewriterLine = () => {
   const [text] = useTypewriter({
-    words: [INITIAL_GREETING, "Mostly backend, occasionally frontend."],
+    words: TYPEWRITER_WORDS,
     loop: true,
-    delaySpeed: 2200,
+    delaySpeed: 2500,
   });
+  return (
+    <>
+      <span>{text}</span>
+      <Cursor cursorColor="#f7ab0a" />
+    </>
+  );
+};
+
+const Hero = () => {
+  const hydrated = useIsHydrated();
 
   return (
     <div className="flex h-svh flex-col items-center justify-center space-y-8 overflow-hidden text-center">
@@ -49,12 +62,12 @@ const Hero = () => {
         <h2 className="pb-2 text-sm uppercase tracking-[15px] text-gray-400">
           {pageInfo.role}
         </h2>
-        <h1>
-          <span className="scroll-px-10 text-4xl font-semibold md:text-5xl lg:text-6xl">
-            {mounted ? text : INITIAL_GREETING}
-          </span>
-          {mounted && <Cursor cursorColor="#f7ab0a" />}
+        <h1 className="text-4xl font-semibold md:text-5xl lg:text-6xl">
+          {GREETING}
         </h1>
+        <p className="mt-3 min-h-6 text-base text-accent md:text-lg">
+          {hydrated ? <TypewriterLine /> : TYPEWRITER_WORDS[0]}
+        </p>
         <p className="mx-auto mt-4 max-w-2xl text-sm text-gray-400 md:text-base">
           {pageInfo.tagline}
         </p>
