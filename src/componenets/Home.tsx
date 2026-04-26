@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import { motion } from "motion/react";
 import { ArrowUpIcon } from "@heroicons/react/24/outline";
 import Header from "./Header";
@@ -7,7 +8,11 @@ import Hero from "./Hero";
 import About from "./About";
 import WorkExperience from "./WorkExperience";
 import Skills from "./Skills";
-import ContactMe from "./ContactMe";
+
+const ContactMe = dynamic(() => import("./ContactMe"), {
+  ssr: false,
+  loading: () => <div className="h-svh" />,
+});
 
 const Home = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -25,7 +30,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="z-0 h-svh snap-y snap-mandatory overflow-x-hidden overflow-y-scroll scroll-smooth bg-surface text-white scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-accent">
+    <main className="z-0 h-svh snap-y snap-mandatory overflow-x-hidden overflow-y-scroll scroll-smooth bg-surface text-white scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-accent">
       <Header />
       <section id="hero" className="snap-center">
         <Hero />
@@ -62,7 +67,7 @@ const Home = () => {
           </div>
         )}
       </footer>
-    </div>
+    </main>
   );
 };
 

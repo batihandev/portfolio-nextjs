@@ -1,4 +1,5 @@
 "use client";
+import { useSyncExternalStore } from "react";
 import Image from "next/image";
 import { useTypewriter, Cursor } from "react-simple-typewriter";
 import BackgroundCircles from "./BackgroundCircles";
@@ -11,12 +12,22 @@ const navLinks = [
   { href: "#contact", label: "Contact" },
 ];
 
+const FIRST_NAME = pageInfo.name.split(" ")[0] ?? pageInfo.name;
+const INITIAL_GREETING = `Hi, the name's ${FIRST_NAME}.`;
+
+const subscribe = () => () => {};
+const useIsHydrated = () =>
+  useSyncExternalStore(
+    subscribe,
+    () => true,
+    () => false,
+  );
+
 const Hero = () => {
+  const mounted = useIsHydrated();
+
   const [text] = useTypewriter({
-    words: [
-      `Hi, the name's ${pageInfo.name.split(" ")[0]}.`,
-      "Mostly backend, occasionally frontend.",
-    ],
+    words: [INITIAL_GREETING, "Mostly backend, occasionally frontend."],
     loop: true,
     delaySpeed: 2200,
   });
@@ -28,8 +39,8 @@ const Hero = () => {
       <Image
         className="relative mx-auto h-32 w-32 rounded-full object-cover"
         src={pageInfo.heroImage}
-        width={512}
-        height={512}
+        width={256}
+        height={256}
         priority
         alt={pageInfo.name}
       />
@@ -40,9 +51,9 @@ const Hero = () => {
         </h2>
         <h1>
           <span className="scroll-px-10 text-4xl font-semibold md:text-5xl lg:text-6xl">
-            {text}
+            {mounted ? text : INITIAL_GREETING}
           </span>
-          <Cursor cursorColor="#f7ab0a" />
+          {mounted && <Cursor cursorColor="#f7ab0a" />}
         </h1>
         <p className="mx-auto mt-4 max-w-2xl text-sm text-gray-400 md:text-base">
           {pageInfo.tagline}
