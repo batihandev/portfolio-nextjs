@@ -1,4 +1,8 @@
 User-agent: *
-Disallow: /gameprivacy/
+Allow: /
+Disallow: /api/
 Disallow: /privacy/
-Sitemap: https://batihan.dev/sitemap.xml
+Disallow: /gameprivacy/
+Disallow: /terms/
+
+Sitemap: https://batihanozdemir.com/sitemap.xml
