@@ -1,9 +1,7 @@
-import { motion } from "framer-motion";
-import React from "react";
+"use client";
+import { motion } from "motion/react";
 
-type Props = {};
-
-const BackgroundCircles = (props: Props) => {
+const BackgroundCircles = () => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -15,13 +13,11 @@ const BackgroundCircles = (props: Props) => {
       transition={{ duration: 2.5 }}
       className="relative flex items-center justify-center"
     >
-      <div className="absolute mt-52 h-[200px] w-[200px] animate-ping rounded-full border border-[#333333]" />
-      <div className="absolute mt-52 h-[300px] w-[300px] rounded-full border border-[#333333] " />
-      <div className="absolute mt-52 h-[500px] w-[500px] rounded-full border border-[#333333] " />
-
-      <div className="absolute mt-52 h-[650px] w-[650px] animate-pulse rounded-full border border-[#f7ab0a] opacity-20" />
-      <div className="absolute mt-52 h-[800px] w-[800px] rounded-full border border-[#333333] " />
-      <div />
+      <div className="absolute mt-52 h-50 w-50 animate-ping rounded-full border border-[#333333]" />
+      <div className="absolute mt-52 h-75 w-75 rounded-full border border-[#333333]" />
+      <div className="absolute mt-52 h-125 w-125 rounded-full border border-[#333333]" />
+      <div className="absolute mt-52 h-[650px] w-[650px] animate-pulse rounded-full border border-accent opacity-20" />
+      <div className="absolute mt-52 h-200 w-200 rounded-full border border-[#333333]" />
     </motion.div>
   );
 };

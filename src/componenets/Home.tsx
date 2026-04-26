@@ -1,85 +1,59 @@
 "use client";
-import Header from "@/componenets/Header";
-import Hero from "@/componenets/Hero";
-import About from "@/componenets/About";
-import Skills from "@/componenets/Skills";
-import Projects from "@/componenets/Projects";
-import ContactMe from "@/componenets/ContactMe";
-import WorkExperience from "@/componenets/WorkExperience";
+import { useEffect, useRef, useState } from "react";
+import { motion } from "motion/react";
 import { ArrowUpIcon } from "@heroicons/react/24/outline";
-import { Experience, PageInfo, Project, Skill, Social } from "typings";
-import React, { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
-// test new github
-type Props = {
-  pageInfo: PageInfo;
-  experiences: Experience[];
-  skills: Skill[];
-  projects: Project[];
-  socials: Social[];
-};
-const options = {
-  root: null,
-  rootMargin: "0px",
-  threshold: 0.2,
-};
-export default function Home({
-  pageInfo,
-  experiences,
-  skills,
-  projects,
-  socials,
-}: Props) {
-  const containerRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const callbackFunction = (entries: any) => {
-    const [entry] = entries;
-    setIsVisible(entry.isIntersecting);
-  };
+import Header from "./Header";
+import Hero from "./Hero";
+import About from "./About";
+import WorkExperience from "./WorkExperience";
+import Skills from "./Skills";
+import ContactMe from "./ContactMe";
+
+const Home = () => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [isPastHero, setIsPastHero] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(callbackFunction, options);
-    const containerConst = containerRef;
-    if (containerConst.current) observer.observe(containerConst.current);
-    return () => {
-      if (containerConst.current) observer.unobserve(containerConst.current);
-    };
-  }, [containerRef]);
+    const node = containerRef.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsPastHero(Boolean(entry?.isIntersecting)),
+      { threshold: 0.2 },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <div className="z-0 h-screen snap-y snap-mandatory overflow-y-scroll scroll-smooth  bg-[rgb(36,36,36)] text-white scrollbar overflow-x-hidden scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80">
-      <Header socials={socials} />
+    <div className="z-0 h-svh snap-y snap-mandatory overflow-x-hidden overflow-y-scroll scroll-smooth bg-surface text-white scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-accent">
+      <Header />
       <section id="hero" className="snap-center">
-        <Hero pageInfo={pageInfo} />
+        <Hero />
       </section>
       <div ref={containerRef}>
         <section id="about" className="snap-center">
-          <About pageInfo={pageInfo} />
+          <About />
         </section>
         <section id="experience" className="snap-center">
-          <WorkExperience experiences={experiences} />
+          <WorkExperience />
         </section>
-
         <section id="skills" className="snap-start">
-          <Skills skills={skills} />
-        </section>
-        <section id="projects" className="snap-start">
-          <Projects projects={projects} />
+          <Skills />
         </section>
         <section id="contact" className="snap-start">
-          <ContactMe pageInfo={pageInfo} />
+          <ContactMe />
         </section>
       </div>
 
       <footer className="sticky bottom-14 ml-6 w-fit cursor-pointer md:bottom-16 md:ml-16">
-        {isVisible ? (
+        {isPastHero ? (
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 0.4 }}
             className="flex items-center justify-start"
           >
-            <a href="#hero" className="flex shrink-0" aria-label="Go to top.">
-              <ArrowUpIcon className="h-10 w-10 rounded-full bg-[#F7AB0A] opacity-40 transition-opacity duration-150 ease-in-out hover:opacity-100" />
+            <a href="#hero" className="flex shrink-0" aria-label="Back to top">
+              <ArrowUpIcon className="h-10 w-10 rounded-full bg-accent opacity-40 transition-opacity duration-150 ease-in-out hover:opacity-100" />
             </a>
           </motion.div>
         ) : (
@@ -90,4 +64,6 @@ export default function Home({
       </footer>
     </div>
   );
-}
+};
+
+export default Home;
