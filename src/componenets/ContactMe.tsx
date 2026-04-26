@@ -1,14 +1,11 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { MapPinIcon, EnvelopeIcon } from "@heroicons/react/24/solid";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { PageInfo } from "typings";
-import Loader from "./Loader";
-import toast, { Toaster } from "react-hot-toast";
+import { useForm, type SubmitHandler } from "react-hook-form";
+import toast from "react-hot-toast";
 import ReCAPTCHA from "react-google-recaptcha";
-type Props = {
-  pageInfo: PageInfo;
-};
+import Loader from "./Loader";
+import { pageInfo } from "@/data";
 
 type Inputs = {
   name: string;
@@ -17,149 +14,87 @@ type Inputs = {
   message: string;
 };
 
-const ContactMe = ({ pageInfo }: Props) => {
-  const { register, handleSubmit, reset, setValue } = useForm<Inputs>();
-  const handleInputChange = (event: any) => {
-    const { name, value } = event.target;
-    setValue(name, value); // Update the input value in the form state
-  };
-  const recaptchaRef = React.createRef<any>();
-  const [isVisible, setIsVisible] = useState(false);
-  const captchaContainerRef = useRef(null); // Ref for the container to observe
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? "";
+
+const ContactMe = () => {
+  const { register, handleSubmit, reset } = useForm<Inputs>();
+  const recaptchaRef = useRef<ReCAPTCHA | null>(null);
+  const captchaContainerRef = useRef<HTMLFormElement | null>(null);
 
   const [verified, setVerified] = useState(false);
-  const onChangeCaptcha = (token: string | null) => {
-    if (!token) return;
-    // Send the token to your server
-    fetch("/api/verify-captcha", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ token }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          setVerified(true);
-          // Proceed with your form submission or other actions
-          console.log("Captcha verified");
-        } else {
-          // Handle verification failure
-          console.error("Captcha verification failed");
-        }
-      })
-      .catch((error) => {
-        console.error("Error verifying captcha:", error);
-      });
-  };
-  const [buttonClicked, setButtonClicked] = useState(false);
-
-  const notify = (mailSent?: boolean) => {
-    if (!mailSent) toast("Failed to send Mail.");
-    else {
-      toast("Mail sent.");
-    }
-  };
+  const [submitting, setSubmitting] = useState(false);
+  const [captchaVisible, setCaptchaVisible] = useState(false);
 
   useEffect(() => {
-    let hasBeenVisible = false; // Flag to track visibility
+    const node = captchaContainerRef.current;
+    if (!node) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && !hasBeenVisible) {
-          setIsVisible(true);
-          hasBeenVisible = true; // Update flag
+        if (entry?.isIntersecting) {
+          setCaptchaVisible(true);
+          observer.disconnect();
         }
       },
-      {
-        root: null, // viewport
-        threshold: 0.1, // Trigger when 10% of the element is in view
-      }
+      { threshold: 0.1 },
     );
-
-    const currentRef = captchaContainerRef.current; // Copy to a variable
-
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
-
-    return () => {
-      if (currentRef) {
-        // Use the copied variable
-        observer.unobserve(currentRef);
-      }
-    };
+    observer.observe(node);
+    return () => observer.disconnect();
   }, []);
-  const onSubmit: SubmitHandler<Inputs> = async (formData) => {
-    setButtonClicked(true);
-    setVerified(false);
-    const recaptchaThis = recaptchaRef.current;
-    // await fetch(`${process.env.NEXT_PUBLIC_MAIL_FETCH}`, {
-    //   method: "POST",
-    //   body: JSON.stringify(formData),
-    // })
-    //   .then((data) => notify(data as unknown as boolean))
-    //   .catch(() => notify())
-    //   .finally(() => {
-    //     reset();
-    //     setButtonClicked(false);
-    //     recaptchaThis.reset();
-    //   });
 
-    await fetch("/api/send-mail", {
+  const onCaptchaChange = async (token: string | null) => {
+    if (!token) return;
+    const res = await fetch("/api/verify-captcha", {
       method: "POST",
-      body: JSON.stringify(formData),
-    })
-      .then((data) => notify(data as unknown as boolean))
-      .catch(() => notify())
-      .finally(() => {
-        reset();
-        setButtonClicked(false);
-        recaptchaThis.reset();
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token }),
+    });
+    const data = (await res.json()) as { success: boolean };
+    setVerified(data.success);
+  };
+
+  const onSubmit: SubmitHandler<Inputs> = async (formData) => {
+    setSubmitting(true);
+    setVerified(false);
+    try {
+      const res = await fetch("/api/send-mail", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
+      const data = (await res.json()) as { success: boolean };
+      toast(data.success ? "Mail sent." : "Failed to send mail.");
+    } catch {
+      toast("Failed to send mail.");
+    } finally {
+      reset();
+      setSubmitting(false);
+      recaptchaRef.current?.reset();
+    }
   };
 
   return (
-    <div className="relative mx-auto flex h-screen max-w-7xl flex-col items-center justify-start text-clip px-10 md:text-left">
+    <div className="relative mx-auto flex h-svh max-w-7xl flex-col items-center justify-start text-clip px-10 md:text-left">
       <h1 className="pageTitles">Contact</h1>
-      <div className="flex h-[calc(100vh-100px)] flex-col items-center space-y-5 overflow-auto px-5 scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80 sm:space-y-10">
-        <div className=" mt-10 flex flex-col space-y-3 sm:space-y-10">
+      <div className="flex h-[calc(100svh-100px)] flex-col items-center space-y-5 overflow-auto px-5 scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-accent sm:space-y-10">
+        <div className="mt-10 flex flex-col space-y-3 sm:space-y-10">
           <h2 className="text-center text-2xl font-semibold sm:text-3xl md:text-4xl">
-            I have got just what you need.{" "}
-            <span className="underline decoration-[#f7ab0a]/50">
-              Let&apos;s Talk
-            </span>
+            Feel free to reach out if you&apos;d like to{" "}
+            <span className="underline decoration-accent/50">work together</span>
             .
           </h2>
         </div>
-        {/* <div className="flex items-center space-x-5 justify-center">
-          <PhoneIcon
-            width={28}
-            height={28}
-            className="text-[#F7AB0A] h-7 w-7 animate-pulse"
-          />
-          <p className="text-2xl">+9054174302095</p>
-        </div> */}
         <div className="flex items-center justify-center space-x-5">
-          <MapPinIcon
-            width={28}
-            height={28}
-            className="h-7 w-7 animate-pulse text-[#F7AB0A]"
-          />
-          <p className="text-base sm:text-xl md:text-2xl">Turkey/Tekirdağ</p>
+          <MapPinIcon className="h-7 w-7 animate-pulse text-accent" />
+          <p className="text-base sm:text-xl md:text-2xl">{pageInfo.location}</p>
         </div>
         <div className="flex items-center justify-center space-x-5">
-          <EnvelopeIcon
-            width={28}
-            height={28}
-            className="h-7 w-7 animate-pulse text-[#F7AB0A]"
-          />
-          <p className="text-base sm:text-xl md:text-2xl">{pageInfo?.email}</p>
+          <EnvelopeIcon className="h-7 w-7 animate-pulse text-accent" />
+          <p className="text-base sm:text-xl md:text-2xl">{pageInfo.email}</p>
         </div>
         <form
           onSubmit={handleSubmit(onSubmit)}
           ref={captchaContainerRef}
-          className="mx-auto flex w-fit flex-col space-y-2 pb-10 "
+          className="mx-auto flex w-fit flex-col space-y-2 pb-10"
         >
           <div className="flex space-x-2">
             <input
@@ -167,7 +102,6 @@ const ContactMe = ({ pageInfo }: Props) => {
               placeholder="Name"
               autoComplete="name"
               className="contactInput"
-              onInput={handleInputChange}
               type="text"
             />
             <input
@@ -176,7 +110,6 @@ const ContactMe = ({ pageInfo }: Props) => {
               autoComplete="email"
               required
               className="contactInput"
-              onInput={handleInputChange}
               type="email"
             />
           </div>
@@ -184,24 +117,20 @@ const ContactMe = ({ pageInfo }: Props) => {
             {...register("subject")}
             placeholder="Subject"
             className="contactInput w-auto"
-            onInput={handleInputChange}
             type="text"
           />
           <textarea
             {...register("message")}
             placeholder="Message"
             className="contactInput w-auto"
-            onInput={handleInputChange}
-            name="message"
-            id="message"
-          ></textarea>
+          />
 
-          {isVisible && (
+          {captchaVisible && (
             <ReCAPTCHA
               ref={recaptchaRef}
-              className="captcha flex !w-full items-center justify-around overflow-hidden"
-              sitekey="6Lfkal8kAAAAAEkJVAIeIkxEOrBRr2vNUzogdRUk"
-              onChange={onChangeCaptcha}
+              className="captcha flex w-full! items-center justify-around overflow-hidden"
+              sitekey={RECAPTCHA_SITE_KEY}
+              onChange={onCaptchaChange}
               theme="dark"
               style={{ transform: "scale(0.95)" }}
             />
@@ -209,26 +138,11 @@ const ContactMe = ({ pageInfo }: Props) => {
 
           <button
             type="submit"
-            className="rounded-md bg-[#F7AB0A] py-5 px-10 text-lg font-bold text-black disabled:opacity-50"
-            disabled={!verified}
+            className="rounded-md bg-accent px-10 py-5 text-lg font-bold text-black disabled:opacity-50"
+            disabled={!verified || submitting}
           >
-            {!buttonClicked ? "Submit" : <Loader color="dark:fill-[#e50914]" />}
+            {submitting ? <Loader color="dark:fill-[#e50914]" /> : "Submit"}
           </button>
-          <Toaster
-            position="bottom-center"
-            reverseOrder={false}
-            toastOptions={{
-              className: "",
-              style: {
-                border: "1px solid #F7AB0A",
-                padding: "16px",
-                color: "#F7AB0A",
-                fontSize: "1.2em",
-                fontWeight: "500",
-                background: "rgb(36,36,36)",
-              },
-            }}
-          />
         </form>
       </div>
     </div>

@@ -1,34 +1,25 @@
 "use client";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import React from "react";
-import urlFor from "sanityhelper";
-import { Skill } from "typings";
+import { motion } from "motion/react";
+import type { Skill } from "@/types";
 
-type Props = {
-  directionLeft?: boolean;
-  skill: Skill;
-};
+type Props = { skill: Skill };
 
-const SkillIcon = ({ directionLeft, skill }: Props) => {
+const SkillIcon = ({ skill }: Props) => {
+  const Icon = skill.icon;
   return (
     <motion.div
-      initial={{
-        opacity: 0,
-        x: directionLeft ? -50 : 50,
-      }}
-      whileInView={{ opacity: 1, x: 0 }}
-      transition={{ duration: 1 }}
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
       viewport={{ once: true }}
-      className=""
+      className="group flex w-20 flex-col items-center gap-2 sm:w-24"
     >
-      <Image
-        className="h-12  w-12 cursor-pointer rounded-full object-contain filter transition duration-300 ease-in-out hover:grayscale sm:h-20 sm:w-20 md:h-28 md:w-28 xl:h-32 xl:w-32"
-        src={urlFor(skill?.image).url()}
-        alt={skill?.title}
-        width={128}
-        height={128}
-      />
+      <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-surface-2 text-gray-300 transition-colors group-hover:text-accent sm:h-16 sm:w-16">
+        <Icon className="h-7 w-7 sm:h-8 sm:w-8" aria-hidden="true" />
+      </div>
+      <span className="text-center text-xs text-gray-400 sm:text-sm">
+        {skill.title}
+      </span>
     </motion.div>
   );
 };
