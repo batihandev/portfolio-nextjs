@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import React from "react";
+
+export const metadata: Metadata = {
+  title: "Terms and Conditions",
+  robots: { index: false, follow: false },
+};
 
 const page = () => {
   return (

@@ -1,38 +1,34 @@
 "use client";
-import { motion } from "framer-motion";
-import React from "react";
-import { Skill } from "typings";
+import { motion } from "motion/react";
+import { skillGroups } from "@/data";
 import SkillIcon from "./SkillIcon";
 
-type Props = { skills: Skill[] };
-
-const Skills = ({ skills }: Props) => {
+const Skills = () => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
-      transition={{ duration: 1.5 }}
-      className="md:Text-left relative mx-auto flex h-screen min-h-screen max-w-[2000px] flex-col items-center justify-start overflow-hidden px-3 text-center md:gap-10 xl:space-y-0 xl:px-10 "
+      transition={{ duration: 1.2 }}
+      className="relative mx-auto flex h-svh max-w-7xl flex-col items-center justify-start px-5 text-center"
     >
       <h3 className="pageTitles">Skills</h3>
-      {/* <h3 className="absolute top-36 uppercase tracking-[3px] text-gray-400 text-sm">
-        Hover over a skill for current proficiency
-      </h3> */}
-      <motion.div
-        initial={{ opacity: 0, x: 200 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        className="my-auto grid grid-cols-4 gap-5 overflow-y-auto px-5 pt-4 overflow-x-hidden scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80"
-      >
-        {skills
-          ?.slice(0, skills.length / 2)
-          .map((skill) => <SkillIcon key={skill._id} skill={skill} />)}
-        {skills
-          ?.slice(skills.length / 2, skills.length)
-          .map((skill) => (
-            <SkillIcon key={skill._id} skill={skill} directionLeft />
-          ))}
-      </motion.div>
+      <div className="diff-from-title grid w-full grid-cols-1 gap-6 overflow-y-auto px-2 pb-10 scrollbar-thin scrollbar-track-gray-400/20 scrollbar-thumb-accent md:grid-cols-2 md:gap-8">
+        {skillGroups.map((group) => (
+          <section
+            key={group.id}
+            className="rounded-lg bg-surface-2/40 p-5 text-left"
+          >
+            <h4 className="mb-4 text-xs uppercase tracking-[6px] text-accent">
+              {group.title}
+            </h4>
+            <div className="flex flex-wrap gap-4">
+              {group.skills.map((skill) => (
+                <SkillIcon key={skill.id} skill={skill} />
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
     </motion.div>
   );
 };

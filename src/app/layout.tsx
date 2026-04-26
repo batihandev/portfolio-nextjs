@@ -1,12 +1,63 @@
 import "./globals.css";
-import type { Metadata } from "next";
-import { Person, WithContext } from "schema-dts";
+import type { Metadata, Viewport } from "next";
+import type { Person, WithContext } from "schema-dts";
+import { pageInfo, socials } from "@/data";
+import ToasterClient from "@/componenets/ToasterClient";
+
+const SITE_URL = "https://batihanozdemir.com";
+const TITLE = `${pageInfo.name} | ${pageInfo.role}`;
+const DESCRIPTION =
+  "Backend engineer with 3+ years professional and 5+ years overall software development experience. TypeScript, Node.js, NestJS, PostgreSQL, Redis, AWS. Production APIs, integrations, and high-concurrency systems.";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#242424",
+};
+
 export const metadata: Metadata = {
-  title: "Batıhan Özdemir's Portfolio @batihandev",
-  description:
-    "Discover the innovative world of Batıhan Özdemir, a passionate Web Developer and Designer. Explore my portfolio showcasing expertise in Next.js, React, Nuxt.js, and more. Let's build something amazing together.",
-  keywords:
-    "Batıhan Özdemir, Web Developer, Web Designer, Portfolio, @batihandev, Next.js, React, TailwindCSS, Nuxt.js, Vue, Node.js",
+  metadataBase: new URL(SITE_URL),
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: "/" },
+  robots: { index: true, follow: true },
+  authors: [{ name: pageInfo.name, url: SITE_URL }],
+  keywords: [
+    "Batıhan Özdemir",
+    "Backend Engineer",
+    "TypeScript",
+    "Node.js",
+    "NestJS",
+    "PostgreSQL",
+    "Redis",
+    "AWS",
+    "MCP",
+    "Portfolio",
+  ],
+  icons: { icon: "/favicon.svg" },
+  openGraph: {
+    type: "website",
+    url: SITE_URL,
+    title: TITLE,
+    description: DESCRIPTION,
+    images: ["/og-image.jpg"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: ["/og-image.jpg"],
+  },
+};
+
+const jsonLd: WithContext<Person> = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: pageInfo.name,
+  url: SITE_URL,
+  jobTitle: pageInfo.role,
+  description: DESCRIPTION,
+  sameAs: socials.map((s) => s.url),
 };
 
 export default function RootLayout({
@@ -14,20 +65,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const jsonLd: WithContext<Person> = {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    name: "Batıhan Özdemir",
-    url: "https://www.batihan.dev",
-    description:
-      "Discover the innovative world of Batıhan Özdemir, a passionate Web Developer and Designer. Explore my portfolio showcasing expertise in Next.js, React, Nuxt.js, and more. Let's build something amazing together.",
-    sameAs: [
-      "https://www.x.com/batihandev",
-      "https://www.github.com/batihandev",
-      "https://www.linkedin.com/in/batihandev",
-    ],
-  };
-
   return (
     <html lang="en">
       <head>
@@ -35,33 +72,11 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <meta property="og:url" content="https://batihan.dev" />
-        <meta property="og:type" content="website" />
-        <meta
-          property="og:title"
-          content="Batıhan Özdemir's Portfolio @batihandev"
-        />
-        <meta
-          property="og:description"
-          content="Discover the innovative world of Batıhan Özdemir, a passionate Web Developer and Designer. Explore my portfolio showcasing expertise in Next.js, React, Nuxt.js, and more. Let's build something amazing together."
-        />
-        <meta property="og:image" content="https://batihan.dev/og-image.jpg" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta property="twitter:domain" content="batihan.dev" />
-        <meta property="twitter:url" content="https://batihan.dev" />
-        <meta
-          name="twitter:title"
-          content="Batıhan Özdemir's Portfolio @batihandev"
-        />
-        <meta
-          name="twitter:description"
-          content="Discover the innovative world of Batıhan Özdemir, a passionate Web Developer and Designer. Explore my portfolio showcasing expertise in Next.js, React, Nuxt.js, and more. Let's build something amazing together."
-        />
-        <meta name="twitter:image" content="https://batihan.dev/og-image.jpg" />
       </head>
-      <link rel="icon" href="/favicon.ico" sizes="any" />
-
-      <body>{children}</body>
+      <body>
+        {children}
+        <ToasterClient />
+      </body>
     </html>
   );
 }

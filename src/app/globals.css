@@ -1,27 +1,42 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "tailwind-scrollbar";
+
+@theme {
+  --breakpoint-sm: 389px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+  --color-accent: #f7ab0a;
+  --color-surface: rgb(36, 36, 36);
+  --color-surface-2: #292929;
+}
 
 @layer components {
   .heroButtons {
-    @apply mx-1 rounded-full border border-[#242424] px-5 py-3 text-xs uppercase tracking-widest text-gray-400 transition-all hover:border-[#f7ab0a] hover:text-[#f7ab0a];
+    @apply mx-1 rounded-full border border-[#242424] px-5 py-3 text-xs uppercase tracking-widest text-gray-400 transition-all hover:border-[var(--color-accent)] hover:text-[var(--color-accent)];
   }
   .contactInput {
-    @apply w-1/2 rounded-sm border-b border-[#242424] bg-slate-400/10 px-3 py-2 text-gray-400 placeholder-gray-400 outline-none transition-all autofill:text-red-500 focus:border-[#f7ab0a]/40 focus:text-[#f7ab0a]/40 hover:border-[#f7ab0a]/40 hover:text-[#f7ab0a]/40 md:w-auto md:px-6 md:py-4;
-  }
-  .projectButton {
-    @apply flex w-20 items-center justify-center rounded-2xl border border-gray-50/70 bg-[rgb(36,36,36)]/40 px-2 py-2 text-lg font-semibold transition-all hover:border-[#f7ab0a] hover:text-[#f7ab0a] sm:w-24;
+    @apply w-1/2 rounded-sm border-b border-[#242424] bg-slate-400/10 px-3 py-2 text-gray-400 placeholder-gray-400 outline-none transition-all focus:border-[var(--color-accent)]/40 focus:text-[var(--color-accent)]/40 hover:border-[var(--color-accent)]/40 hover:text-[var(--color-accent)]/40 md:w-auto md:px-6 md:py-4;
   }
   .pageTitles {
     @apply mt-[60px] text-lg uppercase tracking-[18px] text-gray-400 md:mt-[90px] md:text-2xl md:tracking-[20px];
-    /* @apply absolute top-20 md:top-24 uppercase tracking-[18px] md:tracking-[20px] text-gray-400 text-xl md:text-2xl; */
   }
   .diff-from-title {
     @apply mt-5 h-[calc(100svh-88px)] px-0 py-5;
   }
+  .card-glow-y {
+    @apply transition-shadow duration-200;
+  }
+  .card-glow-y:hover {
+    box-shadow:
+      0 -10px 28px -6px rgba(247, 171, 10, 0.4),
+      0 10px 28px -6px rgba(247, 171, 10, 0.4);
+  }
 }
+
 @layer base {
-  /* Change Autocomplete styles in Chrome*/
   input:-webkit-autofill,
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus,
@@ -31,15 +46,14 @@
   select:-webkit-autofill,
   select:-webkit-autofill:hover,
   select:-webkit-autofill:focus {
-    /* border: 2px solid transparent; */
-    -webkit-text-fill-color: rgba(148, 163, 184, 10);
-    box-shadow: 0 0 0px 1000px transparent inset;
+    -webkit-text-fill-color: rgba(148, 163, 184, 1);
+    box-shadow: 0 0 0 1000px transparent inset;
     transition: background-color 5000s ease-in-out 0s;
-    caret-color: rgba(148, 163, 184, 10);
+    caret-color: rgba(148, 163, 184, 1);
   }
 }
 
 .swiper-button-prev,
 .swiper-button-next {
-  color: #f7ab0a !important;
+  color: var(--color-accent) !important;
 }
