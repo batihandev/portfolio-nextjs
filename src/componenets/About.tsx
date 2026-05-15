@@ -25,6 +25,7 @@ const About = () => {
             alt={pageInfo.name}
             width={600}
             height={600}
+            sizes="(min-width: 1280px) 500px, (min-width: 768px) 256px, (min-width: 640px) 176px, 144px"
             className="rounded-full object-cover"
           />
         </motion.div>

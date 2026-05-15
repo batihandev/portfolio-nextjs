@@ -5,7 +5,7 @@ const BackgroundCircles = () => {
   return (
     <motion.div
       aria-hidden="true"
-      initial={{ opacity: 0 }}
+      initial={{ opacity: 0.1 }}
       animate={{
         opacity: [0.1, 0.2, 0.4, 0.7, 0.1, 1],
         scale: [1, 2, 2, 3, 1],

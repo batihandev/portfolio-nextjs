@@ -29,8 +29,21 @@ const Home = () => {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const enable = () => {
+      document.documentElement.style.scrollSnapType = "y mandatory";
+    };
+    const ric = (window as unknown as { requestIdleCallback?: (cb: () => void) => number }).requestIdleCallback;
+    if (typeof ric === "function") {
+      ric(enable);
+      return;
+    }
+    const t = setTimeout(enable, 1500);
+    return () => clearTimeout(t);
+  }, []);
+
   return (
-    <main className="z-0 h-svh snap-y snap-mandatory overflow-x-hidden overflow-y-scroll scroll-smooth bg-surface text-white scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-accent">
+    <main className="z-0 bg-surface text-white">
       <Header />
       <section id="hero" className="snap-center">
         <Hero />
