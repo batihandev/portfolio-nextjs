@@ -1,8 +1,5 @@
-"use client";
-import { useSyncExternalStore } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useTypewriter, Cursor } from "react-simple-typewriter";
 import { pageInfo } from "@/data";
 
 const BackgroundCircles = dynamic(() => import("./BackgroundCircles"), {
@@ -24,30 +21,12 @@ const TYPEWRITER_WORDS = [
   "Available for contract work.",
 ];
 
-const subscribe = () => () => {};
-const useIsHydrated = () =>
-  useSyncExternalStore(
-    subscribe,
-    () => true,
-    () => false,
-  );
-
-const TypewriterLine = () => {
-  const [text] = useTypewriter({
-    words: TYPEWRITER_WORDS,
-    loop: true,
-    delaySpeed: 2500,
-  });
-  return (
-    <>
-      <span>{text}</span>
-      <Cursor cursorColor="#f7ab0a" />
-    </>
-  );
-};
+const HeroTypewriter = dynamic(() => import("./HeroTypewriter"), {
+  ssr: false,
+  loading: () => <span>{TYPEWRITER_WORDS[0]}</span>,
+});
 
 const Hero = () => {
-  const hydrated = useIsHydrated();
 
   return (
     <div className="flex h-svh flex-col items-center justify-center space-y-8 overflow-hidden text-center">
@@ -75,7 +54,7 @@ const Hero = () => {
           <span aria-hidden="true">{GREETING}</span>
         </h1>
         <p className="mt-3 min-h-6 text-base text-accent md:text-lg">
-          {hydrated ? <TypewriterLine /> : TYPEWRITER_WORDS[0]}
+          <HeroTypewriter words={TYPEWRITER_WORDS} />
         </p>
         <p className="mx-auto mt-4 max-w-2xl text-sm text-gray-400 md:text-base">
           {pageInfo.tagline}
