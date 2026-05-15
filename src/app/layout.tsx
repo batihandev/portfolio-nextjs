@@ -128,8 +128,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        <link rel="preload" as="image" href={pageInfo.heroImage} />
+      <body>
+        {children}
+        <ToasterClient />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
@@ -138,10 +139,6 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
-      </head>
-      <body>
-        {children}
-        <ToasterClient />
       </body>
     </html>
   );
