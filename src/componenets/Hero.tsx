@@ -1,10 +1,7 @@
-import dynamic from "next/dynamic";
 import Image from "next/image";
+import BackgroundCircles from "./BackgroundCircles";
+import HeroTypewriter from "./HeroTypewriter";
 import { pageInfo } from "@/data";
-
-const BackgroundCircles = dynamic(() => import("./BackgroundCircles"), {
-  ssr: false,
-});
 
 const navLinks = [
   { href: "#about", label: "About" },
@@ -15,16 +12,12 @@ const navLinks = [
 
 const FIRST_NAME = pageInfo.name.split(" ")[0] ?? pageInfo.name;
 const GREETING = `Hi, the name's ${FIRST_NAME}.`;
+const TYPEWRITER_FALLBACK = "Mostly backend, occasionally frontend.";
 const TYPEWRITER_WORDS = [
-  "Mostly backend, occasionally frontend.",
+  TYPEWRITER_FALLBACK,
   "TypeScript. Node.js. Postgres. Redis.",
   "Available for contract work.",
 ];
-
-const HeroTypewriter = dynamic(() => import("./HeroTypewriter"), {
-  ssr: false,
-  loading: () => <span>{TYPEWRITER_WORDS[0]}</span>,
-});
 
 const Hero = () => {
 
@@ -54,7 +47,7 @@ const Hero = () => {
           <span aria-hidden="true">{GREETING}</span>
         </h1>
         <p className="mt-3 min-h-6 text-base text-accent md:text-lg">
-          <HeroTypewriter words={TYPEWRITER_WORDS} />
+          <HeroTypewriter words={TYPEWRITER_WORDS} fallback={TYPEWRITER_FALLBACK} />
         </p>
         <p className="mx-auto mt-4 max-w-2xl text-sm text-gray-400 md:text-base">
           {pageInfo.tagline}
