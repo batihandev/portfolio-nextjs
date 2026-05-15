@@ -52,7 +52,7 @@ const Hero = () => {
         <p className="mx-auto mt-4 max-w-2xl text-sm text-gray-400 md:text-base">
           {pageInfo.tagline}
         </p>
-        <div className="pt-5">
+        <div className="flex flex-wrap justify-center gap-y-2 pt-5">
           {navLinks.map((link) => (
             <a key={link.href} className="heroButtons" href={link.href}>
               {link.label}
