@@ -21,7 +21,7 @@ const ContactMe = () => {
   const recaptchaRef = useRef<ReCAPTCHA | null>(null);
   const captchaContainerRef = useRef<HTMLFormElement | null>(null);
 
-  const [verified, setVerified] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [captchaVisible, setCaptchaVisible] = useState(false);
 
@@ -41,25 +41,20 @@ const ContactMe = () => {
     return () => observer.disconnect();
   }, []);
 
-  const onCaptchaChange = async (token: string | null) => {
-    if (!token) return;
-    const res = await fetch("/api/verify-captcha", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ token }),
-    });
-    const data = (await res.json()) as { success: boolean };
-    setVerified(data.success);
+  // Hold the token; the server verifies it when the form is submitted. The
+  // token is single-use, so it is not spent on a separate verify call.
+  const onCaptchaChange = (token: string | null) => {
+    setCaptchaToken(token);
   };
 
   const onSubmit: SubmitHandler<Inputs> = async (formData) => {
+    if (!captchaToken) return;
     setSubmitting(true);
-    setVerified(false);
     try {
       const res = await fetch("/api/send-mail", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, captchaToken }),
       });
       const data = (await res.json()) as { success: boolean };
       toast(data.success ? "Mail sent." : "Failed to send mail.");
@@ -68,6 +63,7 @@ const ContactMe = () => {
     } finally {
       reset();
       setSubmitting(false);
+      setCaptchaToken(null);
       recaptchaRef.current?.reset();
     }
   };
@@ -139,7 +135,7 @@ const ContactMe = () => {
           <button
             type="submit"
             className="rounded-md bg-accent px-10 py-5 text-lg font-bold text-black disabled:opacity-50"
-            disabled={!verified || submitting}
+            disabled={!captchaToken || submitting}
           >
             {submitting ? <Loader color="dark:fill-[#e50914]" /> : "Submit"}
           </button>
