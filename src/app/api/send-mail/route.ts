@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import { pageInfo } from "@/data";
 
 type MailPayload = {
   name: string;
@@ -54,7 +55,7 @@ export async function POST(req: Request) {
 
   await transporter.sendMail({
     from: '"Portfolio Contact" <batihanportfolio@gmail.com>',
-    to: "batihanportfolio@gmail.com",
+    to: pageInfo.email,
     replyTo: email,
     subject: subject || "(no subject)",
     text: `${message}\n\nemail: ${email}\nname: ${name}`,
