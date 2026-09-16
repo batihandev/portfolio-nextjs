@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import React from "react";
+import ContactEmail from "@/componenets/ContactEmail";
 
 export const metadata: Metadata = {
   title: "Terms and Conditions",
@@ -294,7 +295,9 @@ const page = () => {
         </p>
         <ul>
           <li>
-            <p>By email: batihandev@gmail.com</p>
+            <p>
+              By email: <ContactEmail />
+            </p>
           </li>
           <li>
             <p>

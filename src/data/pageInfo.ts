@@ -6,7 +6,7 @@ export const pageInfo: PageInfo = {
   tagline:
     "I build production backend systems with TypeScript, Node.js, PostgreSQL, Redis, APIs, and integrations, plus enough frontend experience to ship complete features.",
   location: "Tekirdağ, Turkey",
-  email: "batihandev@gmail.com",
+  email: "contact@batihan.dev",
   about: [
     "Backend engineer with 3+ years of professional experience and 5+ years of overall software development experience, building and maintaining scalable systems with TypeScript and Node.js.",
     "My strongest area is backend: data modeling, event flows, concurrent workloads, and reliability under load. I also work across React and Next.js when needed to ship complete features end to end.",

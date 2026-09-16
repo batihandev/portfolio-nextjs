@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import WhichWayPrivacy from "../../../gameprivacy/page";
-import styles from "./privacy.module.css";
+import WhichWayPrivacyPolicy from "@/componenets/WhichWayPrivacyPolicy";
 
 export const metadata: Metadata = {
   title: "WhichWay Privacy Policy",
@@ -13,14 +12,6 @@ export const metadata: Metadata = {
   },
 };
 
-// Keep the existing published policy as the single content source.
-// This adds a dedicated URL without changing the existing /gameprivacy route.
 export default function WhichWayPrivacyPage() {
-  return (
-    <main className={styles.policy}>
-      <p className={styles.game}>WHICHWAY</p>
-      <WhichWayPrivacy />
-    </main>
-  );
+  return <WhichWayPrivacyPolicy />;
 }
-
