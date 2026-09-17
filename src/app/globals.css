@@ -121,6 +121,12 @@
     opacity: 0;
     pointer-events: none;
   }
+  /* The torn ticket rises above its neighbours; kept here rather than in a hover: utility, which touch devices never apply. */
+  .ticket:hover,
+  .ticket:focus-within,
+  .ticket[data-torn] {
+    z-index: 10;
+  }
 
   /* The printer slot sits at the top. Paper leaves it downward, so the receipt's end comes out first. */
   .printer {

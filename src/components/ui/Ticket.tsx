@@ -18,7 +18,7 @@ export const Ticket = ({ project, index }: Props) => {
   const color = colors[index % colors.length];
 
   const toggle = (event: MouseEvent) => {
-    const touch = (event.nativeEvent as PointerEvent).pointerType === "touch";
+    const touch = matchMedia("(hover: none)").matches;
     if (touch && !(event.target instanceof HTMLAnchorElement)) setTorn((t) => !t);
   };
 
@@ -26,7 +26,7 @@ export const Ticket = ({ project, index }: Props) => {
     <article
       data-torn={torn || undefined}
       onClick={toggle}
-      className="ticket relative grid grid-cols-[1fr_var(--stub)] text-ink drop-shadow-paper hover:z-10 focus-within:z-10 data-torn:z-10"
+      className="ticket relative grid grid-cols-[1fr_var(--stub)] text-ink drop-shadow-paper"
     >
       <div className={clsx("ticket-body flex flex-col gap-2 py-4.5 pr-4.5 pl-5", color)}>
         <span className="font-mono text-[11px] tracking-[0.12em] uppercase opacity-75">
