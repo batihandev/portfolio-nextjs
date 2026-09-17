@@ -16,7 +16,7 @@ import { Receipt } from "@/components/ui/Receipt";
 import { Section } from "@/components/ui/Section";
 import { Ticket } from "@/components/ui/Ticket";
 
-const stripColors = ["border-accent", "border-ticket-2", "border-ticket-3"] as const;
+const stripColors = ["border-strip-1", "border-strip-2", "border-strip-3", "border-strip-4"] as const;
 const homeRoles = roles.slice(0, 3);
 const games = projects.filter((p) => p.kind === ProjectKind.mobileGame).length;
 const qr = qrModules(receiptCode.url);
@@ -52,9 +52,9 @@ export default async function HomePage() {
           title="What I do at work"
           intro="I take a short list of requirements and turn it into a working system, from the plan to the live product."
         >
-          <div className="grid gap-4.5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4.5 sm:grid-cols-2 lg:grid-cols-4">
             {workAreas.map((area, i) => (
-              <div key={area.id} className={`border-t-6 bg-paper px-5.5 py-5 shadow-paper ${stripColors[i % 3]}`}>
+              <div key={area.id} className={`border-t-6 bg-paper px-5.5 py-5 shadow-paper ${stripColors[i % stripColors.length]}`}>
                 <span className="font-mono text-xs tracking-[0.08em] text-muted">ITEM {String(i + 1).padStart(2, "0")}</span>
                 <h3 className="mt-1 text-lg font-bold">{area.title}</h3>
                 <p className="mt-1 text-[15px] text-muted">{area.summary}</p>

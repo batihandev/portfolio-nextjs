@@ -36,7 +36,7 @@ export const Ticket = ({ project, index }: Props) => {
         <p className="text-[14.5px] leading-snug">{project.summary}</p>
       </div>
       <div className="relative">
-        <div className={clsx("ticket-stub ticket-stub-cut absolute inset-0 z-10 grid place-items-center border-l-2 border-dashed border-ink/35", color)}>
+        <div className={clsx("ticket-stub ticket-stub-cut absolute inset-0 z-10 grid place-items-center border-l-2 border-dashed border-ink/60", color)}>
           <span className={vertical}>{project.status}</span>
         </div>
         <div className="ticket-stub-cut absolute inset-0 grid place-items-center border-l-2 border-dashed border-line bg-paper">

@@ -17,6 +17,11 @@ export const workAreas: WorkArea[] = [
     title: "Game servers",
     summary: "The servers and admin tools behind an online game played on Telegram.",
   },
+  {
+    id: "tools",
+    title: "Internal tools",
+    summary: "Staff dashboards, licensing and CRM systems, and the small services that connect them: webhooks, caching and edge workers.",
+  },
 ];
 
 export const roles: Role[] = [

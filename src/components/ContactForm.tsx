@@ -73,8 +73,9 @@ export const ContactForm = () => {
         <a href="https://policies.google.com/privacy" className="underline">Privacy Policy</a> and{" "}
         <a href="https://policies.google.com/terms" className="underline">Terms of Service</a> apply.
       </p>
-      <Button type="submit" disabled={!captchaToken || submitting} className="justify-self-start">
-        {submitting ? <Loader /> : "Send message"}
+      <Button type="submit" disabled={!captchaToken || submitting} className="relative justify-self-start">
+        <span className={submitting ? "invisible" : undefined}>Send message</span>
+        {submitting && <Loader className="absolute" />}
       </Button>
     </form>
   );
