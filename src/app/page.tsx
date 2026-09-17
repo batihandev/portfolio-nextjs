@@ -79,7 +79,7 @@ export default async function HomePage() {
         <Section
           id="projects"
           title="Things I'm building"
-          intro="Games and apps I make in my own time, most of them to solve something I wanted myself."
+          intro="Games, apps and tools I build outside work."
         >
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {projects.map((project, i) => (
