@@ -19,7 +19,6 @@
   --strip-1: #e4572e;
   --strip-2: #f2b705;
   --strip-3: #2a9d8f;
-  --strip-4: #6c5ce7;
 }
 
 /* data-theme is set before paint by the inline script in the root layout. */
@@ -54,7 +53,6 @@
   --color-strip-1: var(--strip-1);
   --color-strip-2: var(--strip-2);
   --color-strip-3: var(--strip-3);
-  --color-strip-4: var(--strip-4);
   --font-sans: var(--font-jakarta), system-ui, sans-serif;
   --font-display: var(--font-bricolage), var(--font-jakarta), sans-serif;
   --font-mono: var(--font-space-mono), ui-monospace, monospace;
