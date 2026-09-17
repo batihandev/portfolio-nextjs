@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { pageInfo } from "@/data";
-import ContactEmail from "@/componenets/ContactEmail";
-import { GamePrivacyLayout, PolicySection } from "@/componenets/GamePrivacy";
+import { site } from "@/data/site";
+import { ContactEmail, PolicyLayout, PolicySection } from "@/components/policy/Policy";
 
 export const metadata: Metadata = {
   title: "INEVITABLE Privacy Policy",
@@ -16,9 +15,9 @@ export const metadata: Metadata = {
 
 export default function InevitablePrivacyPage() {
   return (
-    <GamePrivacyLayout game="INEVITABLE" lastUpdated="September 16, 2026">
+    <PolicyLayout eyebrow="INEVITABLE" title="Privacy Policy" lastUpdated="September 16, 2026">
       <p>
-        INEVITABLE is developed by {pageInfo.name} (BatihanDev). This policy
+        INEVITABLE is developed by {site.name} (BatihanDev). This policy
         covers the Android game and explains how game data and privacy inquiries
         are handled.
       </p>
@@ -83,10 +82,10 @@ export default function InevitablePrivacyPage() {
         <p>
           We will update this page and its date if the game&apos;s data
           practices change. For privacy questions or requests, contact
-          {" "}{pageInfo.name} at{" "}
+          {" "}{site.name} at{" "}
           <ContactEmail />.
         </p>
       </PolicySection>
-    </GamePrivacyLayout>
+    </PolicyLayout>
   );
 }

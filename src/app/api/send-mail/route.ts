@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
-import { pageInfo } from "@/data";
+import { site } from "@/data/site";
 
 type MailPayload = {
   name: string;
@@ -18,10 +18,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// Verify the reCAPTCHA token here, on the endpoint that actually sends mail.
-// Gating only the client (a separate verify call that flips a button) leaves
-// this route open to a direct POST, so the captcha must be checked at the
-// point of the privileged action.
+// The captcha is checked here, where the mail is sent, so a direct POST cannot skip it.
 async function captchaPassed(token: string): Promise<boolean> {
   const secret = process.env.CAPTCHA_SECRET_KEY;
   if (!secret || !token) return false;
@@ -55,7 +52,7 @@ export async function POST(req: Request) {
 
   await transporter.sendMail({
     from: '"Portfolio Contact" <batihanportfolio@gmail.com>',
-    to: pageInfo.email,
+    to: site.email,
     replyTo: email,
     subject: subject || "(no subject)",
     text: `${message}\n\nemail: ${email}\nname: ${name}`,

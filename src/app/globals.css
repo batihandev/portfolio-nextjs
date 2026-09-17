@@ -1,68 +1,181 @@
 @import "tailwindcss";
-@plugin "tailwind-scrollbar";
 
-@theme {
-  --breakpoint-sm: 389px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 1024px;
-  --breakpoint-xl: 1280px;
-  --breakpoint-2xl: 1536px;
-
-  --color-accent: #f7ab0a;
-  --color-surface: rgb(36, 36, 36);
-  --color-surface-2: #292929;
+:root {
+  --canvas: #f4efe4;
+  --paper: #fffdf6;
+  --ink: #1f1b16;
+  --muted: #6b6154;
+  --line: #d9cfbd;
+  --accent: #e4572e;
+  --on-accent: #ffffff;
+  --ticket-1: #ffb4a2;
+  --ticket-2: #ffd166;
+  --ticket-3: #9ee6cf;
+  --ticket-4: #c9bcff;
+  --ticket-5: #ffc2e2;
+  --paper-shadow: 0 8px 24px rgba(60, 40, 10, 0.12);
+  --paper-drop: 0 6px 12px rgba(60, 40, 10, 0.16);
 }
 
-@layer components {
-  .heroButtons {
-    @apply mx-1 rounded-full border border-[#242424] px-5 py-3 text-xs uppercase tracking-widest text-gray-400 transition-all hover:border-[var(--color-accent)] hover:text-[var(--color-accent)];
-  }
-  .contactInput {
-    @apply w-1/2 rounded-sm border-b border-[#242424] bg-slate-400/10 px-3 py-2 text-gray-400 placeholder-gray-400 outline-none transition-all focus:border-[var(--color-accent)]/40 focus:text-[var(--color-accent)]/40 hover:border-[var(--color-accent)]/40 hover:text-[var(--color-accent)]/40 md:w-auto md:px-6 md:py-4;
-  }
-  .pageTitles {
-    @apply mt-[60px] text-lg uppercase tracking-[18px] text-gray-400 md:mt-[90px] md:text-2xl md:tracking-[20px];
-  }
-  .diff-from-title {
-    @apply mt-5 h-[calc(100svh-88px)] px-0 py-5;
-  }
-  .card-glow-y {
-    @apply transition-shadow duration-200;
-  }
-  .card-glow-y:hover {
-    box-shadow:
-      0 -10px 28px -6px rgba(247, 171, 10, 0.4),
-      0 10px 28px -6px rgba(247, 171, 10, 0.4);
-  }
+/* data-theme is set before paint by the inline script in the root layout. */
+:root[data-theme="dark"] {
+  --canvas: #14110d;
+  --paper: #1f1a14;
+  --ink: #f3eadb;
+  --muted: #b3a794;
+  --line: #3a3228;
+  --ticket-1: #7a3b2e;
+  --ticket-2: #6e5516;
+  --ticket-3: #1f5c4b;
+  --ticket-4: #463b7a;
+  --ticket-5: #6d3552;
+  --paper-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --paper-drop: 0 6px 12px rgba(0, 0, 0, 0.5);
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-on-accent: var(--on-accent);
+  --color-ticket-1: var(--ticket-1);
+  --color-ticket-2: var(--ticket-2);
+  --color-ticket-3: var(--ticket-3);
+  --color-ticket-4: var(--ticket-4);
+  --color-ticket-5: var(--ticket-5);
+  --font-sans: var(--font-jakarta), system-ui, sans-serif;
+  --font-display: var(--font-bricolage), var(--font-jakarta), sans-serif;
+  --font-mono: var(--font-space-mono), ui-monospace, monospace;
+  --shadow-paper: var(--paper-shadow);
+  --drop-shadow-paper: var(--paper-drop);
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
   }
-  html,
   body {
-    background-color: var(--color-surface);
-    color: #fff;
+    background-color: var(--canvas);
+    color: var(--ink);
   }
-
-  input:-webkit-autofill,
-  input:-webkit-autofill:hover,
-  input:-webkit-autofill:focus,
-  textarea:-webkit-autofill,
-  textarea:-webkit-autofill:hover,
-  textarea:-webkit-autofill:focus,
-  select:-webkit-autofill,
-  select:-webkit-autofill:hover,
-  select:-webkit-autofill:focus {
-    -webkit-text-fill-color: rgba(148, 163, 184, 1);
-    box-shadow: 0 0 0 1000px transparent inset;
-    transition: background-color 5000s ease-in-out 0s;
-    caret-color: rgba(148, 163, 184, 1);
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
-.swiper-button-prev,
-.swiper-button-next {
-  color: var(--color-accent) !important;
+@layer components {
+  /* Thermal-receipt paper with a torn zigzag bottom edge, or both edges for a scrap from the end of the roll. */
+  .paper-torn,
+  .paper-torn-both {
+    --tooth: 10px;
+    --teeth-bottom: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / calc(2 * var(--tooth)) var(--tooth) repeat-x;
+    --teeth-top: conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) top / calc(2 * var(--tooth)) var(--tooth) repeat-x;
+  }
+  .paper-torn {
+    mask: var(--teeth-bottom), linear-gradient(#000 0 0) top / 100% calc(100% - var(--tooth) + 1px) no-repeat;
+  }
+  .paper-torn-both {
+    mask: var(--teeth-top), var(--teeth-bottom), linear-gradient(#000 0 0) center / 100% calc(100% - 2 * var(--tooth) + 2px) no-repeat;
+  }
+
+  /* Prize ticket: the body and the stub each carry half of the two perforation notches, so the stub can tear away. */
+  .ticket {
+    --notch: 12px;
+    --stub: 4.75rem;
+  }
+  .ticket-body {
+    mask:
+      radial-gradient(circle var(--notch) at 100% 0, #0000 98%, #000) top / 100% 51% no-repeat,
+      radial-gradient(circle var(--notch) at 100% 100%, #0000 98%, #000) bottom / 100% 51% no-repeat;
+  }
+  .ticket-stub-cut {
+    mask:
+      radial-gradient(circle var(--notch) at 0 0, #0000 98%, #000) top / 100% 51% no-repeat,
+      radial-gradient(circle var(--notch) at 0 100%, #0000 98%, #000) bottom / 100% 51% no-repeat;
+  }
+  .ticket-stub {
+    transition:
+      translate 0.45s cubic-bezier(0.3, 0.7, 0.3, 1),
+      opacity 0.45s ease-in;
+  }
+  .ticket:hover .ticket-stub,
+  .ticket:focus-within .ticket-stub,
+  .ticket[data-torn] .ticket-stub {
+    translate: 0.9rem 110%;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* The printer slot sits at the top. Paper leaves it downward, so the receipt's end comes out first. */
+  .printer {
+    animation: wobble 0.14s steps(2, jump-none) infinite;
+  }
+  .feeding {
+    animation: feed 2s linear both;
+  }
+  @keyframes feed {
+    from {
+      translate: 0 -100%;
+    }
+    to {
+      translate: 0 0;
+    }
+  }
+  @keyframes wobble {
+    to {
+      translate: 0 1px;
+    }
+  }
+
+  /* Shredding: clones of the receipt, one strip each, drop with staggered delays and a sway. */
+  .strip {
+    clip-path: inset(0 calc(100% - (var(--n) + 1) * var(--w)) 0 calc(var(--n) * var(--w)));
+    animation: shred 0.9s cubic-bezier(0.4, 0, 0.8, 0.4) both;
+    animation-delay: calc(var(--n) * 30ms);
+  }
+  @keyframes shred {
+    30% {
+      opacity: 1;
+    }
+    to {
+      translate: calc((mod(var(--n), 2) - 0.5) * 16px) 60%;
+      rotate: calc((mod(var(--n), 2) - 0.5) * 6deg);
+      opacity: 0;
+    }
+  }
+
+  .marquee-track {
+    animation: marquee 45s linear infinite;
+  }
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .policy h2 {
+    @apply mt-8 mb-3 font-display text-xl font-bold text-ink;
+  }
+  .policy h3 {
+    @apply mt-5 mb-2 text-base font-bold text-ink;
+  }
+  .policy p,
+  .policy li {
+    @apply my-3 text-muted;
+  }
+  .policy ul {
+    @apply list-disc pl-6;
+  }
+  .policy a {
+    @apply text-accent underline underline-offset-4;
+  }
 }

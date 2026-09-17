@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import WhichWayPrivacyPolicy from "@/componenets/WhichWayPrivacyPolicy";
+import { WhichWayPrivacyPolicy } from "@/components/WhichWayPrivacyPolicy";
 
 export const metadata: Metadata = {
   title: "WhichWay Privacy Policy",

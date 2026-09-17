@@ -1,144 +1,94 @@
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
+import { Bricolage_Grotesque, Plus_Jakarta_Sans, Space_Mono } from "next/font/google";
 import type { Person, WebSite, WithContext } from "schema-dts";
-import { pageInfo, socials } from "@/data";
-import ToasterClient from "@/componenets/ToasterClient";
+import { site, socials } from "@/data/site";
+import { themeInitScript } from "@/lib/theme-init";
+import { Footer } from "@/components/layout/Footer";
+import { Nav } from "@/components/layout/Nav";
+import { ToasterClient } from "@/components/ToasterClient";
 
-const SITE_URL = "https://batihanozdemir.com";
-const TITLE = `${pageInfo.name}, ${pageInfo.role} | TypeScript, Node.js, NestJS`;
-const DESCRIPTION = `${pageInfo.name} is a backend engineer (3+ years professional, 5+ years overall) building production systems with TypeScript, Node.js, NestJS, PostgreSQL, Redis, and AWS. Portfolio, experience, and contact.`;
-const PROFILE_IMAGE = `${SITE_URL}${pageInfo.profileImage}`;
-const OG_IMAGE = `${SITE_URL}/og-image.jpg`;
+const bricolage = Bricolage_Grotesque({ subsets: ["latin", "latin-ext"], variable: "--font-bricolage" });
+const jakarta = Plus_Jakarta_Sans({ subsets: ["latin", "latin-ext"], variable: "--font-jakarta" });
+const spaceMono = Space_Mono({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-space-mono" });
+
+const TITLE = `${site.name}, ${site.role}`;
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#242424",
-  colorScheme: "dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f4efe4" },
+    { media: "(prefers-color-scheme: dark)", color: "#14110d" },
+  ],
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
-  title: {
-    default: TITLE,
-    template: `%s | ${pageInfo.name}`,
-  },
-  description: DESCRIPTION,
-  applicationName: pageInfo.name,
+  metadataBase: new URL(site.url),
+  title: { default: TITLE, template: `%s | ${site.name}` },
+  description: site.description,
+  applicationName: site.name,
   alternates: { canonical: "/" },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-      "max-video-preview": -1,
-    },
-  },
-  authors: [{ name: pageInfo.name, url: SITE_URL }],
-  creator: pageInfo.name,
-  publisher: pageInfo.name,
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large" } },
+  authors: [{ name: site.name, url: site.url }],
+  creator: site.name,
+  publisher: site.name,
   category: "technology",
   openGraph: {
     type: "profile",
-    url: SITE_URL,
-    siteName: pageInfo.name,
+    url: site.url,
+    siteName: site.name,
     title: TITLE,
-    description: DESCRIPTION,
+    description: site.description,
     locale: "en_US",
-    firstName: pageInfo.name.split(" ")[0],
-    lastName: pageInfo.name.split(" ").slice(1).join(" "),
-    username: "batihandev",
-    images: [
-      {
-        url: OG_IMAGE,
-        width: 1200,
-        height: 630,
-        alt: `${pageInfo.name}, ${pageInfo.role}`,
-      },
-    ],
+    firstName: site.firstName,
+    lastName: site.familyName,
+    username: site.handle,
   },
-  twitter: {
-    card: "summary_large_image",
-    site: "@batihandev",
-    creator: "@batihandev",
-    title: TITLE,
-    description: DESCRIPTION,
-    images: [OG_IMAGE],
-  },
-  verification: {
-    // Add Google Search Console verification token here when registered
-    // google: "your-verification-token",
-  },
+  twitter: { card: "summary_large_image", site: `@${site.handle}`, creator: `@${site.handle}` },
 };
 
 const personJsonLd: WithContext<Person> = {
   "@context": "https://schema.org",
   "@type": "Person",
-  "@id": `${SITE_URL}#person`,
-  name: pageInfo.name,
-  givenName: "Batıhan",
-  familyName: "Özdemir",
-  alternateName: ["Batihan Ozdemir", "batihandev"],
-  url: SITE_URL,
-  image: PROFILE_IMAGE,
-  jobTitle: pageInfo.role,
-  description: DESCRIPTION,
-  email: `mailto:${pageInfo.email}`,
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Tekirdağ",
-    addressCountry: "TR",
-  },
-  nationality: { "@type": "Country", name: "Turkey" },
-  knowsAbout: [
-    "Backend Engineering",
-    "TypeScript",
-    "Node.js",
-    "NestJS",
-    "PostgreSQL",
-    "Redis",
-    "AWS",
-    "REST APIs",
-    "Distributed Systems",
-    "React",
-    "Next.js",
-  ],
-  knowsLanguage: ["English", "Turkish"],
+  "@id": `${site.url}#person`,
+  name: site.name,
+  givenName: site.firstName,
+  familyName: site.familyName,
+  alternateName: ["Batihan Ozdemir", site.handle],
+  url: site.url,
+  image: `${site.url}/opengraph-image`,
+  jobTitle: site.role,
+  description: site.description,
+  email: `mailto:${site.email}`,
+  address: { "@type": "PostalAddress", addressLocality: site.location.city, addressCountry: site.location.countryCode },
+  knowsLanguage: [...site.languages],
+  knowsAbout: ["Backend engineering", "TypeScript", "Node.js", "NestJS", "PostgreSQL", "Redis", "Payment systems", "AWS"],
   sameAs: socials.map((s) => s.url),
 };
 
 const websiteJsonLd: WithContext<WebSite> = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "@id": `${SITE_URL}#website`,
-  url: SITE_URL,
-  name: pageInfo.name,
-  description: DESCRIPTION,
+  "@id": `${site.url}#website`,
+  url: site.url,
+  name: site.name,
+  description: site.description,
   inLanguage: "en",
-  author: { "@id": `${SITE_URL}#person` },
+  author: { "@id": `${site.url}#person` },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" className={`${bricolage.variable} ${jakarta.variable} ${spaceMono.variable}`} suppressHydrationWarning>
+      <body className="font-sans antialiased">
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <Nav />
         {children}
+        <Footer />
         <ToasterClient />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
-        />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }} />
       </body>
     </html>
   );
