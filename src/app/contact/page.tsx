@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { site } from "@/data/site";
 import { ContactForm } from "@/components/ContactForm";
 import { Container } from "@/components/ui/Container";
+import { PageTitle } from "@/components/ui/Heading";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -13,7 +14,7 @@ export default function ContactPage() {
   return (
     <main>
       <Container className="max-w-3xl py-14">
-        <h1 className="font-display text-[clamp(36px,5vw,54px)] leading-[1.02] font-extrabold tracking-tighter">Say hello</h1>
+        <PageTitle>Say hello</PageTitle>
         <p className="mt-4 text-lg text-muted">
           Want to chat about something? Send me a message here, or email{" "}
           <a href={`mailto:${site.email}`} className="font-mono text-ink underline underline-offset-4">

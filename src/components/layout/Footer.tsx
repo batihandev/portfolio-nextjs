@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { routes, site, socials } from "@/data/site";
 import { iconSkills } from "@/data/skills";
+import { externalLinkProps } from "@/lib/links";
 import { Container } from "@/components/ui/Container";
 
 const IconRow = ({ hidden = false }: { hidden?: boolean }) => (
@@ -33,8 +34,7 @@ export const Footer = () => (
           <Link
             key={social.id}
             href={social.url}
-            target="_blank"
-            rel="noreferrer"
+            {...externalLinkProps(social.url)}
             title={social.title}
             aria-label={social.title}
             className="grid size-10 place-items-center rounded-[10px] text-ink transition-colors hover:bg-paper hover:text-accent"

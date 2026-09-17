@@ -10,10 +10,12 @@ type MailPayload = {
   captchaToken: string;
 };
 
+const SENDER = "batihanportfolio@gmail.com";
+
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "batihanportfolio@gmail.com",
+    user: SENDER,
     pass: process.env.GOOGLE_APP_PASSWORD,
   },
 });
@@ -51,7 +53,7 @@ export async function POST(req: Request) {
   }
 
   await transporter.sendMail({
-    from: '"Portfolio Contact" <batihanportfolio@gmail.com>',
+    from: `"Portfolio Contact" <${SENDER}>`,
     to: site.email,
     replyTo: email,
     subject: subject || "(no subject)",

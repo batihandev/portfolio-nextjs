@@ -3,8 +3,10 @@ import { education, roles } from "@/data/experience";
 import { site } from "@/data/site";
 import { skillGroups } from "@/data/skills";
 import { formatRange, yearsSince } from "@/lib/dates";
+import { RoleEntry } from "@/components/RoleEntry";
 import { Chip } from "@/components/ui/Chip";
 import { Container } from "@/components/ui/Container";
+import { PageTitle } from "@/components/ui/Heading";
 import { Receipt, ReceiptRow, ReceiptRule, ReceiptTitle } from "@/components/ui/Receipt";
 import { Section } from "@/components/ui/Section";
 
@@ -19,7 +21,7 @@ export default function ExperiencePage() {
     <main>
       <Container>
         <div className="max-w-[700px] pt-14 pb-2">
-          <h1 className="font-display text-[clamp(36px,5vw,54px)] leading-[1.02] font-extrabold tracking-tighter">Experience</h1>
+          <PageTitle>Experience</PageTitle>
           <p className="mt-4 text-lg text-muted">
             {yearsSince(site.since.professional)}+ years as a professional developer and {yearsSince(site.since.software)}+
             years building software. Most of my work is on the backend: the systems that take payments, handle orders
@@ -32,18 +34,13 @@ export default function ExperiencePage() {
             <ReceiptTitle>WORK HISTORY</ReceiptTitle>
             <ReceiptRule />
             {roles.map((role) => (
-              <div key={role.id} className="grid gap-x-4 gap-y-1 border-b-[1.5px] border-dashed border-line py-3 last:border-0 sm:grid-cols-[1fr_auto]">
-                <b className="font-sans text-base">
-                  {role.title}
-                  {role.company && ` · ${role.company}`}
-                </b>
-                <span className="text-muted whitespace-nowrap">{formatRange(role.start, role.end)}</span>
-                <ul className="list-disc pl-4.5 font-sans text-[15px] text-muted sm:col-span-2">
+              <RoleEntry key={role.id} role={role}>
+                <ul className="list-disc pl-4.5">
                   {role.points.map((point) => (
                     <li key={point}>{point}</li>
                   ))}
                 </ul>
-              </div>
+              </RoleEntry>
             ))}
           </Receipt>
 

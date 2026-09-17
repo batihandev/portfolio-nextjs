@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import Link from "next/link";
 import type { ComponentProps } from "react";
+import { externalLinkProps } from "@/lib/links";
 
 const variants = {
   primary: "bg-accent text-on-accent",
@@ -16,17 +17,14 @@ const classes = (variant: Variant, className?: string) =>
     className,
   );
 
-const isExternal = (href: string) => /^https?:\/\//.test(href);
-
 type LinkButtonProps = ComponentProps<typeof Link> & { variant?: Variant };
 
 export const LinkButton = ({ variant = "primary", className, href, ...props }: LinkButtonProps) => {
-  const external = typeof href === "string" && isExternal(href);
   return (
     <Link
       href={href}
       className={classes(variant, className)}
-      {...(external && { target: "_blank", rel: "noreferrer" })}
+      {...(typeof href === "string" && externalLinkProps(href))}
       {...props}
     />
   );

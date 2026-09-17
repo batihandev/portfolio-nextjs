@@ -1,15 +1,17 @@
 import Image from "next/image";
 import { site } from "@/data/site";
+import { externalLinkProps } from "@/lib/links";
 import { LinkButton } from "@/components/ui/Button";
+import { SectionTitle } from "@/components/ui/Heading";
 import { Receipt } from "@/components/ui/Receipt";
 import type { DevlogEpisode } from "@/types";
 
 export const DevlogPanel = ({ episode }: { episode: DevlogEpisode | null }) => (
   <Receipt className="font-sans">
-    <h2 className="font-display text-[32px] font-extrabold tracking-tight">Devlog</h2>
+    <SectionTitle>Devlog</SectionTitle>
     <p className="mt-1 mb-4 text-muted">Weekly videos about the games I&apos;m making.</p>
     {episode && (
-      <a href={episode.url} target="_blank" rel="noreferrer" className="mb-4 flex items-center gap-3.5">
+      <a href={episode.url} {...externalLinkProps(episode.url)} className="mb-4 flex items-center gap-3.5">
         <Image
           src={episode.thumbnail}
           alt=""

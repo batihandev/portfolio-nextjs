@@ -3,6 +3,7 @@
 import clsx from "clsx";
 import Link from "next/link";
 import { useState, type MouseEvent } from "react";
+import { externalLinkProps } from "@/lib/links";
 import type { Project } from "@/types";
 
 const colors = ["bg-ticket-1", "bg-ticket-2", "bg-ticket-3", "bg-ticket-4", "bg-ticket-5"] as const;
@@ -40,7 +41,7 @@ export const Ticket = ({ project, index }: Props) => {
         </div>
         <div className="ticket-stub-cut absolute inset-0 grid place-items-center border-l-2 border-dashed border-line bg-paper">
           {project.link ? (
-            <Link href={project.link.href} target="_blank" rel="noreferrer" className={clsx(vertical, "underline underline-offset-4")}>
+            <Link href={project.link.href} {...externalLinkProps(project.link.href)} className={clsx(vertical, "underline underline-offset-4")}>
               {project.link.label} →
             </Link>
           ) : (

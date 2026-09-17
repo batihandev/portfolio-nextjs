@@ -2,13 +2,15 @@ import { roles, workAreas } from "@/data/experience";
 import { projects } from "@/data/projects";
 import { receiptCode } from "@/data/receipt";
 import { routes, site } from "@/data/site";
-import { formatRange, yearsSince } from "@/lib/dates";
+import { yearsSince } from "@/lib/dates";
 import { getLatestDevlog } from "@/lib/devlog";
 import { qrModules } from "@/lib/qr";
 import { ProjectKind } from "@/types";
 import { DevlogPanel } from "@/components/home/DevlogPanel";
 import { HeroReceipt } from "@/components/home/HeroReceipt";
+import { RoleEntry } from "@/components/RoleEntry";
 import { LinkButton } from "@/components/ui/Button";
+import { SectionTitle } from "@/components/ui/Heading";
 import { Container } from "@/components/ui/Container";
 import { Receipt } from "@/components/ui/Receipt";
 import { Section } from "@/components/ui/Section";
@@ -64,14 +66,9 @@ export default async function HomePage() {
         <Section title="Experience" intro={`${yearsSince(site.since.professional)}+ years as a professional developer.`}>
           <Receipt className="px-7 pt-7 pb-10 text-[15px]">
             {homeRoles.map((role) => (
-              <div key={role.id} className="grid gap-x-4 border-b-[1.5px] border-dashed border-line py-3 last:border-0 sm:grid-cols-[1fr_auto]">
-                <b className="font-sans text-base">
-                  {role.title}
-                  {role.company && ` · ${role.company}`}
-                </b>
-                <span className="text-muted whitespace-nowrap">{formatRange(role.start, role.end)}</span>
-                <p className="font-sans text-[15px] text-muted sm:col-span-2">{role.summary}</p>
-              </div>
+              <RoleEntry key={role.id} role={role}>
+                {role.summary}
+              </RoleEntry>
             ))}
           </Receipt>
           <LinkButton href={routes.experience} variant="secondary" className="mt-5">
@@ -94,7 +91,7 @@ export default async function HomePage() {
         <section className="grid gap-6 py-11 md:grid-cols-2">
           <DevlogPanel episode={devlog} />
           <Receipt className="font-sans">
-            <h2 className="font-display text-[32px] font-extrabold tracking-tight">Say hello</h2>
+            <SectionTitle>Say hello</SectionTitle>
             <p className="mt-1 mb-4 text-muted">
               Want to chat about something? Send me a message, or email{" "}
               <a href={`mailto:${site.email}`} className="text-ink underline underline-offset-4">
