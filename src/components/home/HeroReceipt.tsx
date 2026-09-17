@@ -42,7 +42,7 @@ export const HeroReceipt = ({ games, apps, devlogEpisodes, qr }: Props) => {
   const tail = (
     <>
       <div className="text-xs text-muted">
-        {print && `Printed ${stamp(print.at)}`}
+        {print && stamp(print.at)}
         {print?.visit && ` · Visit no. ${print.visit}`}
       </div>
       <div className="mt-2 text-center">THANK YOU FOR VISITING</div>
