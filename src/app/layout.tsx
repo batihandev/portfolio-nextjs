@@ -5,7 +5,7 @@ import { pageInfo, socials } from "@/data";
 import ToasterClient from "@/componenets/ToasterClient";
 
 const SITE_URL = "https://batihanozdemir.com";
-const TITLE = `${pageInfo.name} — ${pageInfo.role} | TypeScript, Node.js, NestJS`;
+const TITLE = `${pageInfo.name}, ${pageInfo.role} | TypeScript, Node.js, NestJS`;
 const DESCRIPTION = `${pageInfo.name} is a backend engineer (3+ years professional, 5+ years overall) building production systems with TypeScript, Node.js, NestJS, PostgreSQL, Redis, and AWS. Portfolio, experience, and contact.`;
 const PROFILE_IMAGE = `${SITE_URL}${pageInfo.profileImage}`;
 const OG_IMAGE = `${SITE_URL}/og-image.jpg`;
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: `${pageInfo.name} — ${pageInfo.role}`,
+        alt: `${pageInfo.name}, ${pageInfo.role}`,
       },
     ],
   },

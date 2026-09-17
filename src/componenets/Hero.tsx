@@ -33,7 +33,7 @@ const Hero = () => {
         priority
         fetchPriority="high"
         sizes="128px"
-        alt={`${pageInfo.name} — ${pageInfo.role}`}
+        alt={`${pageInfo.name}, ${pageInfo.role}`}
       />
 
       <div className="z-20 px-4">
@@ -42,7 +42,7 @@ const Hero = () => {
         </p>
         <h1 className="text-4xl font-semibold md:text-5xl lg:text-6xl">
           <span className="sr-only">
-            {pageInfo.name} — {pageInfo.role}.{" "}
+            {pageInfo.name}, {pageInfo.role}.{" "}
           </span>
           <span aria-hidden="true">{GREETING}</span>
         </h1>
