@@ -52,13 +52,18 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: false }, { status: 400 });
   }
 
-  await transporter.sendMail({
-    from: `"Portfolio Contact" <${SENDER}>`,
-    to: site.email,
-    replyTo: email,
-    subject: subject || "(no subject)",
-    text: `${message}\n\nemail: ${email}\nname: ${name}`,
-  });
+  try {
+    await transporter.sendMail({
+      from: `"Portfolio Contact" <${SENDER}>`,
+      to: site.email,
+      replyTo: email,
+      subject: subject || "(no subject)",
+      text: `${message}\n\nemail: ${email}\nname: ${name}`,
+    });
+  } catch (error) {
+    console.error("send-mail failed", error);
+    return NextResponse.json({ success: false }, { status: 502 });
+  }
 
   return NextResponse.json({ success: true });
 }
