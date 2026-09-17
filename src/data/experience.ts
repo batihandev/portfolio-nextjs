@@ -29,8 +29,8 @@ export const roles: Role[] = [
     summary: "Payment and payout systems.",
     points: [
       "Build and run payment systems: card payments and subscriptions, plus blockchain payment tracking and payouts on Ethereum and BSC.",
-      "Took over a payments service and now develop it on my own.",
-      "Made slow database queries fast again on a busy payments system.",
+      "Own the payments service end to end, including development and production operations.",
+      "Diagnosed and optimized slow database queries in a production payments system.",
     ],
   },
   {

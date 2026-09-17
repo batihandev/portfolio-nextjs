@@ -23,8 +23,8 @@ export default function PrivacyPage() {
       </p>
       <PolicySection title="What the site collects">
         <p>
-          Browsing the site does not require an account and does not collect personal data. The site has no
-          analytics and sets no cookies of its own.
+          The site has no accounts or analytics and sets no cookies of its own. I do not use browsing data for
+          tracking or advertising.
         </p>
       </PolicySection>
       <PolicySection title="The contact form">

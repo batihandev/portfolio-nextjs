@@ -17,7 +17,7 @@ export const site = {
   tagline: "I also make games and apps.",
   headline: "Backend engineer. I also make games and apps.",
   description:
-    "Batıhan Özdemir is a backend engineer who designs and builds production systems, most recently for payments and online ordering. He also makes games and apps.",
+    "Backend engineer building systems for payments, online ordering and games. I also make games and apps and share my game development on YouTube.",
   youtube: {
     url: "https://www.youtube.com/@BatihanDev",
     channelId: "UCbiLCZhtIqbwBXgDxuXXOEw",
