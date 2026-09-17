@@ -15,7 +15,6 @@ export const site = {
   languages: ["English", "Turkish"],
   since: { professional: "2023-04", software: "2021" },
   tagline: "I also make games and apps.",
-  headline: "Backend engineer. I also make games and apps.",
   description:
     "Backend engineer building systems for payments, online ordering and games. I also make games and apps and share my game development on YouTube.",
   youtube: {
