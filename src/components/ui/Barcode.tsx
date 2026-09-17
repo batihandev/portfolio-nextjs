@@ -29,7 +29,7 @@ export const Barcode = ({ value }: { value: string }) => {
       preserveAspectRatio="none"
       shapeRendering="crispEdges"
       style={{ width, paddingInline: 12 }}
-      className="mx-auto mt-3.5 box-content block h-12 bg-white fill-black"
+      className="mx-auto mt-3.5 box-content block h-12 max-w-full bg-white fill-black"
       role="img"
       aria-label="Barcode"
     >

@@ -27,7 +27,7 @@ export default async function HomePage() {
   return (
     <main>
       <Container>
-        <div className="grid gap-10 py-16 md:grid-cols-[1.15fr_0.85fr] md:items-start md:gap-8">
+        <div className="grid gap-10 py-16 md:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] md:items-start md:gap-8">
           <div>
             <h1 className="font-display text-[clamp(38px,6vw,62px)] leading-[1.02] font-extrabold tracking-tighter">
               Backend engineer.

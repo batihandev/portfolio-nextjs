@@ -16,13 +16,9 @@ type Variant = "barcode" | "qr" | "out-of-paper";
 const STRIPS = 14;
 const strips = Array.from({ length: STRIPS }, (_, n) => n);
 
-const stamp = new Intl.DateTimeFormat("en-GB", {
-  day: "2-digit",
-  month: "short",
-  year: "numeric",
-  hour: "2-digit",
-  minute: "2-digit",
-});
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const two = (n: number) => String(n).padStart(2, "0");
+const stamp = (d: Date) => `${two(d.getDate())} ${MONTHS[d.getMonth()]} ${d.getFullYear()}, ${two(d.getHours())}:${two(d.getMinutes())}`;
 
 export const HeroReceipt = ({ games, apps, devlogEpisodes, qr }: Props) => {
   const print = useSyncExternalStore(printer.subscribe, printer.getSnapshot, printer.getServerSnapshot);
@@ -46,7 +42,7 @@ export const HeroReceipt = ({ games, apps, devlogEpisodes, qr }: Props) => {
   const tail = (
     <>
       <div className="text-xs text-muted">
-        {print && `Printed ${stamp.format(print.at)}`}
+        {print && `Printed ${stamp(print.at)}`}
         {print?.visit && ` · Visit no. ${print.visit}`}
       </div>
       <div className="mt-2 text-center">THANK YOU FOR VISITING</div>
@@ -83,7 +79,7 @@ export const HeroReceipt = ({ games, apps, devlogEpisodes, qr }: Props) => {
     );
 
   return (
-    <div className="w-full max-w-[380px] justify-self-center">
+    <div className="w-full min-w-0 max-w-[380px] justify-self-center">
       <div
         className={clsx(
           "relative z-10 flex items-center justify-between rounded-t-md bg-ink px-3 py-1.5 text-paper",
