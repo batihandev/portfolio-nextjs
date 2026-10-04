@@ -1,4 +1,3 @@
-import { site } from "./site";
 import { ProjectKind, ProjectStatus, type Project } from "@/types";
 
 export const projects: Project[] = [
@@ -6,9 +5,12 @@ export const projects: Project[] = [
     id: "inevitable",
     title: "INEVITABLE",
     kind: ProjectKind.mobileGame,
-    status: ProjectStatus.comingSoon,
+    status: ProjectStatus.live,
     summary: "My mobile game, built in public with a weekly devlog.",
-    link: { label: "Devlog", href: site.youtube.url },
+    link: {
+      label: "Play",
+      href: "https://play.google.com/store/apps/details?id=com.BatihanDev.Inevitable",
+    },
   },
   {
     id: "whichway",
