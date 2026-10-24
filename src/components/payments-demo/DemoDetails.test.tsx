@@ -79,6 +79,7 @@ const stream = () => {
 const receipts = () => within(screen.getByRole("list", { name: "Recent receipts" })).getAllByRole("listitem");
 
 afterEach(() => {
+  localStorage.clear();
   vi.useRealTimers();
   vi.restoreAllMocks();
 });
@@ -130,6 +131,35 @@ describe("DemoDetails", () => {
       "href",
       "https://sepolia.basescan.org/tx/0xabc",
     );
+  });
+
+  it("marks your own purchase in the recent receipts", async () => {
+    const user = userEvent.setup();
+    const order = "6f1c4a52-3a43-4c38-9a71-0c2b8f1d2e3a";
+    const { client } = demo({
+      "/health": async () => json({ cardAvailable: true, confirmations: 10 }),
+      "/test-purchases": async () =>
+        json(
+          {
+            orderId: order,
+            item: "Coffee",
+            price: "500000",
+            expiresAt: new Date(Date.now() + 1_800_000).toISOString(),
+          },
+          202,
+        ),
+    });
+    render(<DemoDetails snapshot={snapshot()} client={client} />);
+    act(() => stream().open());
+    await user.click(await screen.findByRole("button", { name: "Test card" }));
+    await within(screen.getByRole("region", { name: "Your test payment" })).findByText("Coffee");
+
+    act(() => stream().send(demoPayment({ id: id(99), orderId: order, sentAt: "2026-10-24T12:00:30.000Z" })));
+
+    const [mine, ...rest] = receipts();
+    expect(mine).toHaveTextContent("Coffee");
+    expect(within(mine!).getByText("Yours")).toBeInTheDocument();
+    for (const other of rest) expect(within(other).queryByText("Yours")).not.toBeInTheDocument();
   });
 
   it("shows a resting purchase panel without a snapshot", () => {

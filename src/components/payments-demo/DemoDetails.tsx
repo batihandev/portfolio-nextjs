@@ -127,6 +127,7 @@ const LiveDetails = ({ snapshot, client: given }: { snapshot: DemoSnapshot; clie
           paused={status === "paused"}
           footer={footer}
           confirmations={snapshot.confirmations}
+          mine={buyer.mine}
         />
       }
     />

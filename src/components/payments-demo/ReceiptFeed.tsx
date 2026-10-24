@@ -57,7 +57,9 @@ const when = (payment: DemoPayment) => {
     : "";
 };
 
-const Row = ({ payment, mounted, needed }: { payment: DemoPayment; mounted: boolean; needed?: number }) => {
+type RowProps = { payment: DemoPayment; mounted: boolean; needed?: number; yours: boolean };
+
+const Row = ({ payment, mounted, needed, yours }: RowProps) => {
   const failed = payment.stage === "failed";
   const link = paymentLink(payment);
   const details = [railOf(payment) === "card" ? "Test card" : "Test network", settledIn(payment)].filter(Boolean);
@@ -65,6 +67,11 @@ const Row = ({ payment, mounted, needed }: { payment: DemoPayment; mounted: bool
     <li className="border-line border-b-[1.5px] border-dashed py-2 last:border-0">
       <div className="flex gap-1.5 font-bold">
         <span className="min-w-0 truncate">{itemOf(payment)}</span>
+        {yours && (
+          <span className="bg-ink text-paper self-center rounded-sm px-1 text-[11px] leading-4 tracking-[0.08em] uppercase">
+            Yours
+          </span>
+        )}
         <span
           aria-hidden="true"
           className="border-muted min-w-3 flex-1 -translate-y-1.5 border-b-[1.5px] border-dotted"
@@ -101,10 +108,19 @@ type Props = {
   empty?: string;
   /** Confirmations a network payment settles at, when known. */
   confirmations?: number;
+  /** The visitor's own order ids, whose receipts are marked "Yours". */
+  mine?: ReadonlyMap<string, unknown>;
 };
 
 /** The recent receipts, newest first, as one long receipt. */
-export const ReceiptFeed = ({ payments, paused, footer, empty = "No test purchases yet.", confirmations }: Props) => {
+export const ReceiptFeed = ({
+  payments,
+  paused,
+  footer,
+  empty = "No test purchases yet.",
+  confirmations,
+  mine,
+}: Props) => {
   const mounted = useMounted();
   return (
     <Receipt className="px-5 pt-6 pb-10 text-[14px] leading-6 sm:px-6">
@@ -114,7 +130,13 @@ export const ReceiptFeed = ({ payments, paused, footer, empty = "No test purchas
       {payments.length ? (
         <ul aria-label="Recent receipts">
           {payments.map((payment) => (
-            <Row key={payment.id} payment={payment} mounted={mounted} needed={confirmations} />
+            <Row
+              key={payment.id}
+              payment={payment}
+              mounted={mounted}
+              needed={confirmations}
+              yours={!!payment.orderId && !!mine?.has(payment.orderId)}
+            />
           ))}
         </ul>
       ) : (
