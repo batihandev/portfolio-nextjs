@@ -25,7 +25,7 @@ Settings go in `.env`; `.env.example` lists them.
 
 The home page has a band for the [payment demo](https://github.com/batihandev/payment-pipeline-demo), a small payment system with a test card rail and a test network rail. A visitor sends a test purchase and watches it print as a receipt, beside a live list of other test purchases and a few figures for the day. `/payments-demo` explains the two rails, the stages a payment goes through and what keeps it reliable. It has its own printer, where a test purchase prints as a timeline of its steps with their times, beside the demo's latest receipts and settle times.
 
-- The first paint comes from a server snapshot cached with ISR (`revalidate` 45 s, a 2.5 s timeout). If the API is down when the snapshot is due, the last good page keeps showing.
+- The first paint comes from a server snapshot cached with ISR (`revalidate` 10 s, a 2.5 s timeout). If the API is down when the snapshot is due, the last good page keeps showing.
 - The browser adds the live stream and the purchase keys on top. When the stream drops, the list stays and a "Live updates paused" note shows until it reconnects.
 - A build that cannot reach the API starts with the resting band.
 

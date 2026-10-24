@@ -2,7 +2,7 @@ import { demoApiUrl } from "./config";
 import { isDay, isHealth, isListOf, isPayment, isStats } from "./parse";
 import type { DemoSnapshot } from "./types";
 
-export const SNAPSHOT_REVALIDATE_SECONDS = 45;
+export const SNAPSHOT_REVALIDATE_SECONDS = 10;
 export const SNAPSHOT_TIMEOUT_MS = 2500;
 export const SNAPSHOT_PAYMENTS = 20;
 

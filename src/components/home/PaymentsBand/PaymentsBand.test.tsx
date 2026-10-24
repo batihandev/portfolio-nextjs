@@ -100,6 +100,7 @@ const stats = (settledCount: number, duplicatesSkipped: number) =>
 const lookOf = (item: HTMLElement) => /bg-ticket-\d/.exec(item.innerHTML)?.[0];
 
 afterEach(() => {
+  localStorage.clear();
   vi.useRealTimers();
   vi.restoreAllMocks();
 });
@@ -466,6 +467,26 @@ describe("PaymentsBand", () => {
     for (const other of rest) expect(within(other).queryByText("Yours")).not.toBeInTheDocument();
   });
 
+  it("still marks your purchase after the page reloads", async () => {
+    const user = userEvent.setup();
+    const first = render(<PaymentsBand snapshot={snapshot()} client={demo({ purchase: [accepted()] })} />);
+    act(() => stream().open());
+    await user.click(await screen.findByRole("button", { name: "Test card" }));
+    await within(receipt()).findByText("Coffee");
+    first.unmount();
+
+    const data = snapshot();
+    data.payments = [
+      demoPayment({ id: id(9), orderId: ORDER, order: { id: ORDER, item: "Coffee", price: "500000" } }),
+      ...data.payments,
+    ];
+    render(<PaymentsBand snapshot={data} client={demo()} />);
+    const list = screen.getByRole("list", { name: "Recent test purchases" });
+    const [mine, ...rest] = within(list).getAllByRole("listitem");
+    expect(await within(mine!).findByText("Yours")).toBeInTheDocument();
+    for (const other of rest) expect(within(other).queryByText("Yours")).not.toBeInTheDocument();
+  });
+
   it("keeps focus on the button while a purchase runs", async () => {
     const user = userEvent.setup();
     let answer: (response: Response) => void = () => {};
@@ -690,37 +711,26 @@ describe("PaymentsBand", () => {
     expect(screen.getByText("Median settle").nextSibling).toHaveTextContent("under 1 s / not yet");
   });
 
-  it("never gives neighbouring stubs the same colour", () => {
-    const data = snapshot();
-    data.payments = [1, 2, 3, 4, 5, 6].map((n) =>
-      demoPayment({ id: id(n), sentAt: `2026-10-24T10:00:0${9 - n}.000Z` }),
-    );
-    render(<PaymentsBand snapshot={data} client={demo()} />);
-    act(() => stream().open());
-    const colours = () =>
-      within(screen.getByRole("list", { name: "Recent test purchases" }))
-        .getAllByRole("listitem")
-        .map(lookOf);
-    const check = () => {
-      const list = colours();
-      list.forEach((colour, p) => {
-        expect(colour).toBeDefined();
-        if (p + 1 < list.length) expect(colour).not.toBe(list[p + 1]);
-        if (p + 2 < list.length) expect(colour).not.toBe(list[p + 2]);
-      });
-    };
-    check();
-    for (let n = 7; n < 19; n++) {
-      act(() =>
-        stream().send(
-          demoPayment({
-            id: id(n),
-            sentAt: `2026-10-24T10:${String(n).padStart(2, "0")}:00.000Z`,
-          }),
-        ),
+  // A refresh reads the list in a new order, so a stub's colour must come from the payment alone.
+  it("gives a payment the same colour on every load", () => {
+    const list = (order: number[]) => {
+      const data = snapshot();
+      data.payments = order.map((n) =>
+        demoPayment({ id: id(n), order: { id: id(100 + n), item: `Item ${n}`, price: "500000" } }),
       );
-      check();
-    }
+      return data;
+    };
+    const colourOf = (n: number) =>
+      lookOf(
+        within(screen.getByRole("list", { name: "Recent test purchases" }))
+          .getAllByRole("listitem")
+          .find((item) => within(item).queryByText(`Item ${n}`))!,
+      );
+    const first = render(<PaymentsBand snapshot={list([1, 2, 3, 4, 5, 6])} client={demo()} />);
+    const before = [1, 2, 3, 4, 5, 6].map(colourOf);
+    first.unmount();
+    render(<PaymentsBand snapshot={list([7, 8, 1, 2, 3, 4, 5, 6])} client={demo()} />);
+    expect([1, 2, 3, 4].map(colourOf)).toEqual(before.slice(0, 4));
   });
 
   it("keeps the receipt readable after the daily limit", async () => {

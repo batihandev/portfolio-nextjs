@@ -13,8 +13,6 @@ import { RestingPaper, SizerPaper } from "./Papers";
 export const LIST_SIZE = 6;
 
 const colors = ["bg-ticket-1", "bg-ticket-2", "bg-ticket-3", "bg-ticket-4", "bg-ticket-5"] as const;
-/** How many stub colours there are; a look is taken modulo this. */
-export const COLOR_COUNT = colors.length;
 const tilts = [
   "-rotate-[1.5deg]",
   "rotate-1",

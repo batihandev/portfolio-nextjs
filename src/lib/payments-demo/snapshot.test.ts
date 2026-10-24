@@ -49,7 +49,7 @@ describe("getDemoSnapshot", () => {
     expect(snapshot).toMatchObject({ payments: [demoPayment()], stats, daily, confirmations: 50 });
     expect(Number.isNaN(Date.parse(snapshot?.fetchedAt ?? ""))).toBe(false);
     for (const [, init] of fetch.mock.calls as unknown as [string, RequestInit & { next?: unknown }][]) {
-      expect(init.next).toEqual({ revalidate: 45 });
+      expect(init.next).toEqual({ revalidate: 10 });
       expect(init.signal).toBeInstanceOf(AbortSignal);
     }
   });

@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import type { DemoClient, PurchaseResult } from "@/lib/payments-demo/client";
 import { DEMO_COPY, noticeFor, type ShopState } from "@/lib/payments-demo/copy";
 import { mergePayments } from "@/lib/payments-demo/merge";
+import { mine as mineStore } from "@/lib/payments-demo/mine";
 import type { DemoHealth, DemoOrder, DemoPayment, DemoRail } from "@/lib/payments-demo/types";
 import { purchaseDone, type Purchase } from "./Papers";
 import type { LiveHandlers } from "./useLivePayments";
@@ -41,19 +42,17 @@ export function usePurchase(client: DemoClient | null, { payments, locked = fals
   // Why the shop takes no purchases right now, if it does not; the idle receipt says so.
   const [shopState, setShopState] = useState<ShopState | null>(null);
   const soldOut = shopState === "sold_out" || shopState === "visitor_done";
-  const [mine, setMine] = useState<ReadonlyMap<string, DemoOrder>>(() => new Map());
+  const mine = useSyncExternalStore(mineStore.subscribe, mineStore.getSnapshot, mineStore.getServerSnapshot);
 
-  // The stream handlers and `send` read these, so they always see the latest purchase and orders.
+  // The stream handlers and `send` read this, so they always see the latest purchase.
   const purchaseRef = useRef<Purchase | null>(null);
-  const mineRef = useRef(mine);
   const sendingRef = useRef(false);
   const pauseTimer = useRef<Timer>(undefined);
   const expiryTimer = useRef<Timer>(undefined);
 
   useEffect(() => {
     purchaseRef.current = purchase;
-    mineRef.current = mine;
-  }, [purchase, mine]);
+  }, [purchase]);
 
   useEffect(
     () => () => {
@@ -85,7 +84,7 @@ export function usePurchase(client: DemoClient | null, { payments, locked = fals
 
   /** The payment with the visitor's own order filled in; stream events leave the order out. */
   const own = (event: DemoPayment): DemoPayment => {
-    const order = event.orderId ? mineRef.current.get(event.orderId) : undefined;
+    const order = event.orderId ? mineStore.getSnapshot().get(event.orderId) : undefined;
     return order && !event.order ? { ...event, order } : event;
   };
 
@@ -169,9 +168,7 @@ export function usePurchase(client: DemoClient | null, { payments, locked = fals
     clearTimeout(pauseTimer.current);
     setNotice(null);
     setShopState(null);
-    setMine((held) =>
-      new Map(held).set(result.orderId, { id: result.orderId, item: result.item, price: result.price }),
-    );
+    mineStore.add({ id: result.orderId, item: result.item, price: result.price });
     const next: Purchase = {
       orderId: result.orderId,
       item: result.item,
