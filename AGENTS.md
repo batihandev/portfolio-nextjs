@@ -37,7 +37,7 @@ Run before calling work done:
 
 The home band (`src/components/home/PaymentsBand/`) and the details page (`src/app/payments-demo/`, `src/components/payments-demo/`) show a live, separately hosted payment demo through `src/lib/payments-demo/`. The rule that shapes all of it: **the site never looks broken**, whatever the demo API does.
 
-- The first paint is a server snapshot cached with ISR (`snapshot.ts`: 45 s revalidation, 2.5 s deadline). A failed read throws at runtime so Next keeps the last good page, and gives `null` only at build time so the page starts resting (`load.ts`).
+- The first paint is a server snapshot cached with ISR (`snapshot.ts`: 10 s revalidation, 2.5 s deadline). A failed read throws at runtime so Next keeps the last good page, and gives `null` only at build time so the page starts resting (`load.ts`).
 - Every browser read has a deadline, and every failure shows a calm line or the resting state, never an error. The e2e suite checks the band with the API stopped, slow, and with the stream cut, and the details page with the API stopped.
 - Incoming data passes the guards in `parse.ts`; a payment with a stage or provider the site does not know is refused.
 - One event stream per page: `useLivePayments` owns it, and the band and the details page feed their purchase from it. A second stream from the same tab spends the browser's per-host connection limit and the API's per-client stream limit.
