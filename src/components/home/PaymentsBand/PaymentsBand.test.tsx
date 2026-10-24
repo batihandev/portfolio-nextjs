@@ -577,7 +577,8 @@ describe("PaymentsBand", () => {
 
     await user.click(button("Test network"));
 
-    expect(notice()).toHaveTextContent(DEMO_COPY.paused);
+    // The refusal arrives after the purchase request settles, so wait for it as the other refusal tests do.
+    await vi.waitFor(() => expect(notice()).toHaveTextContent(DEMO_COPY.paused));
     // Laid over the top of the paper, out of the flow, so neither the slot nor the paper moves.
     expect(notice()).toHaveClass("absolute", "top-full", "inset-x-0");
     expect(notice()).not.toHaveClass("sr-only");
@@ -601,7 +602,9 @@ describe("PaymentsBand", () => {
 
     await user.click(button("Test network"));
 
-    expect(notice()).toHaveTextContent("Lots of test purchases right now. Try again in a moment.");
+    await vi.waitFor(() =>
+      expect(notice()).toHaveTextContent("Lots of test purchases right now. Try again in a moment."),
+    );
     expect(locked("Test network")).toBe(true);
     act(() => vi.advanceTimersByTime(2000));
     expect(locked("Test network")).toBe(false);
@@ -619,7 +622,9 @@ describe("PaymentsBand", () => {
 
     await user.click(button("Test network"));
 
-    expect(notice()).toHaveTextContent("You have sent today's test purchases. Come back tomorrow.");
+    await vi.waitFor(() =>
+      expect(notice()).toHaveTextContent("You have sent today's test purchases. Come back tomorrow."),
+    );
     act(() => vi.advanceTimersByTime(10 * 60_000));
     expect(notice()).toHaveTextContent("You have sent today's test purchases. Come back tomorrow.");
     expect(screen.queryByRole("button", { name: "Test network" })).not.toBeInTheDocument();
@@ -738,7 +743,7 @@ describe("PaymentsBand", () => {
 
     await user.click(button("Test network"));
 
-    expect(notice()).toHaveTextContent(DEMO_COPY.daily_limit);
+    await vi.waitFor(() => expect(notice()).toHaveTextContent(DEMO_COPY.daily_limit));
     // A calm line in the slot bar, in the flow: it never covers the receipt.
     expect(notice()).not.toHaveClass("absolute");
     expect(notice().parentElement).toHaveClass("bg-ink");
