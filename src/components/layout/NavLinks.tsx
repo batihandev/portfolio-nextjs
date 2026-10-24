@@ -14,7 +14,7 @@ export const NavLinks = () => {
           <Link
             href={href}
             aria-current={pathname === href ? "page" : undefined}
-            className="text-muted transition-colors hover:text-ink aria-[current]:text-ink aria-[current]:underline aria-[current]:decoration-accent aria-[current]:decoration-wavy aria-[current]:underline-offset-6"
+            className="text-muted hover:text-ink aria-[current]:text-ink aria-[current]:decoration-accent transition-colors aria-[current]:underline aria-[current]:decoration-wavy aria-[current]:underline-offset-6"
             {...externalLinkProps(href)}
           >
             {label}

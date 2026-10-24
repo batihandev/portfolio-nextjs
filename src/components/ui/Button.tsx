@@ -4,7 +4,7 @@ import type { ComponentProps } from "react";
 import { externalLinkProps } from "@/lib/links";
 
 const variants = {
-  primary: "bg-accent text-on-accent",
+  primary: "bg-accent-strong text-on-accent",
   secondary: "bg-paper text-ink shadow-paper",
 } as const;
 

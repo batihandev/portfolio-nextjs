@@ -8,7 +8,8 @@ import type { Project } from "@/types";
 
 const colors = ["bg-ticket-1", "bg-ticket-2", "bg-ticket-3", "bg-ticket-4", "bg-ticket-5"] as const;
 
-const vertical = "rotate-180 font-mono text-xs font-bold tracking-[0.14em] whitespace-nowrap uppercase [writing-mode:vertical-rl]";
+const vertical =
+  "rotate-180 font-mono text-xs font-bold tracking-[0.14em] whitespace-nowrap uppercase [writing-mode:vertical-rl]";
 
 type Props = { project: Project; index: number };
 
@@ -26,22 +27,31 @@ export const Ticket = ({ project, index }: Props) => {
     <article
       data-torn={torn || undefined}
       onClick={toggle}
-      className="ticket relative grid grid-cols-[1fr_var(--stub)] text-ink drop-shadow-paper"
+      className="ticket text-ink drop-shadow-paper relative grid grid-cols-[1fr_var(--stub)]"
     >
       <div className={clsx("ticket-body flex flex-col gap-2 py-4.5 pr-4.5 pl-5", color)}>
-        <span className="font-mono text-[11px] tracking-[0.12em] uppercase opacity-75">
+        <span className="font-mono text-[11px] tracking-[0.12em] uppercase opacity-85">
           No. {String(index + 1).padStart(3, "0")} · {project.kind}
         </span>
         <h3 className="font-display text-[26px] leading-tight font-extrabold tracking-tight">{project.title}</h3>
         <p className="text-[14.5px] leading-snug">{project.summary}</p>
       </div>
       <div className="relative">
-        <div className={clsx("ticket-stub ticket-stub-cut absolute inset-0 z-10 grid place-items-center border-l-2 border-dashed border-ink/60", color)}>
+        <div
+          className={clsx(
+            "ticket-stub ticket-stub-cut border-ink/60 absolute inset-0 z-10 grid place-items-center border-l-2 border-dashed",
+            color,
+          )}
+        >
           <span className={vertical}>{project.status}</span>
         </div>
-        <div className="ticket-stub-cut absolute inset-0 grid place-items-center border-l-2 border-dashed border-line bg-paper">
+        <div className="ticket-stub-cut border-line bg-paper absolute inset-0 grid place-items-center border-l-2 border-dashed">
           {project.link ? (
-            <Link href={project.link.href} {...externalLinkProps(project.link.href)} className={clsx(vertical, "underline underline-offset-4")}>
+            <Link
+              href={project.link.href}
+              {...externalLinkProps(project.link.href)}
+              className={clsx(vertical, "underline underline-offset-4")}
+            >
               {project.link.label} →
             </Link>
           ) : (

@@ -3,10 +3,10 @@ import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Plus_Jakarta_Sans, Space_Mono } from "next/font/google";
 import type { Person, WebSite, WithContext } from "schema-dts";
 import { site, socials } from "@/data/site";
+import { jsonLd } from "@/lib/json-ld";
 import { themeInitScript } from "@/lib/theme-init";
 import { Footer } from "@/components/layout/Footer";
 import { Nav } from "@/components/layout/Nav";
-import { ToasterClient } from "@/components/ToasterClient";
 
 const bricolage = Bricolage_Grotesque({ subsets: ["latin", "latin-ext"], variable: "--font-bricolage" });
 const jakarta = Plus_Jakarta_Sans({ subsets: ["latin", "latin-ext"], variable: "--font-jakarta" });
@@ -36,7 +36,6 @@ export const metadata: Metadata = {
   category: "technology",
   openGraph: {
     type: "profile",
-    url: site.url,
     siteName: site.name,
     title: TITLE,
     description: site.description,
@@ -63,7 +62,16 @@ const personJsonLd: WithContext<Person> = {
   email: `mailto:${site.email}`,
   address: { "@type": "PostalAddress", addressLocality: site.location.city, addressCountry: site.location.countryCode },
   knowsLanguage: [...site.languages],
-  knowsAbout: ["Backend engineering", "TypeScript", "Node.js", "NestJS", "PostgreSQL", "Redis", "Payment systems", "AWS"],
+  knowsAbout: [
+    "Backend engineering",
+    "TypeScript",
+    "Node.js",
+    "NestJS",
+    "PostgreSQL",
+    "Redis",
+    "Payment systems",
+    "AWS",
+  ],
   sameAs: socials.map((s) => s.url),
 };
 
@@ -80,15 +88,24 @@ const websiteJsonLd: WithContext<WebSite> = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${bricolage.variable} ${jakarta.variable} ${spaceMono.variable}`} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${bricolage.variable} ${jakarta.variable} ${spaceMono.variable}`}
+      suppressHydrationWarning
+    >
       <body className="font-sans antialiased">
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <a
+          href="#main"
+          className="bg-paper text-ink shadow-paper sr-only rounded-[10px] px-4 py-3 font-bold focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50"
+        >
+          Skip to content
+        </a>
         <Nav />
         {children}
         <Footer />
-        <ToasterClient />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(personJsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(websiteJsonLd) }} />
       </body>
     </html>
   );

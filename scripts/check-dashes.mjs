@@ -1,5 +1,5 @@
 // Fails when site copy contains an em or en dash; the site writes "to" and commas instead.
-import { readdirSync, readFileSync, statSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 
 const roots = ["src", "public"];
@@ -18,7 +18,7 @@ const walk = (dir) => {
   }
 };
 
-roots.forEach(walk);
+roots.filter((root) => existsSync(root)).forEach(walk);
 if (hits.length) {
   console.error(`Dashes found:\n${hits.join("\n")}`);
   process.exit(1);

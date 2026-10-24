@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { education, roles } from "@/data/experience";
-import { site } from "@/data/site";
+import { routes, site } from "@/data/site";
 import { skillGroups } from "@/data/skills";
 import { formatRange, yearsSince } from "@/lib/dates";
+import { pageMetadata } from "@/lib/metadata";
 import { RoleEntry } from "@/components/RoleEntry";
 import { Chip } from "@/components/ui/Chip";
 import { Container } from "@/components/ui/Container";
@@ -10,22 +11,25 @@ import { PageTitle } from "@/components/ui/Heading";
 import { Receipt, ReceiptRow, ReceiptRule, ReceiptTitle } from "@/components/ui/Receipt";
 import { Section } from "@/components/ui/Section";
 
-export const metadata: Metadata = {
+/** The page is static; a dynamic API anywhere under it fails the build instead of making it dynamic. */
+export const dynamic = "error";
+
+export const metadata: Metadata = pageMetadata({
   title: "Experience",
   description: `Work history and skills of ${site.name}, backend engineer.`,
-  alternates: { canonical: "/experience" },
-};
+  path: routes.experience,
+});
 
 export default function ExperiencePage() {
   return (
-    <main>
+    <main id="main">
       <Container>
         <div className="max-w-[700px] pt-14 pb-2">
           <PageTitle>Experience</PageTitle>
-          <p className="mt-4 text-lg text-muted">
-            {yearsSince(site.since.professional)}+ years as a professional developer and {yearsSince(site.since.software)}+
-            years building software. Most of my work is on the backend: the systems that take payments, handle orders
-            and run games.
+          <p className="text-muted mt-4 text-lg">
+            {yearsSince(site.since.professional)}+ years as a professional developer and{" "}
+            {yearsSince(site.since.software)}+ years building software. Most of my work is on the backend: the systems
+            that take payments, handle orders and run games.
           </p>
         </div>
 
@@ -68,7 +72,9 @@ export default function ExperiencePage() {
           <div className="grid gap-5.5">
             {skillGroups.map((group) => (
               <div key={group.id}>
-                <h3 className="mb-2.5 font-mono text-[13px] font-bold tracking-[0.1em] text-muted uppercase">{group.title}</h3>
+                <h3 className="text-muted mb-2.5 font-mono text-[13px] font-bold tracking-[0.1em] uppercase">
+                  {group.title}
+                </h3>
                 <div className="flex flex-wrap gap-2.5">
                   {group.skills.map((skill) => (
                     <Chip key={skill.id} skill={skill} />

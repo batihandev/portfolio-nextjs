@@ -6,11 +6,20 @@
   --ink: #1f1b16;
   --muted: #6b6154;
   --line: #d9cfbd;
+  /* Form field borders: at least 3:1 against the paper and the canvas. */
+  --field: #8a7f6f;
+  /* The brand accent, for large display text, strips and decoration. */
   --accent: #e4572e;
+  /* The accent for small text and primary button backgrounds: at least 4.5:1 on the paper, the canvas and under --on-accent. */
+  --accent-strong: #bd3f1c;
   --on-accent: #ffffff;
+  /* Accent text on the printer's slot bar, which is --ink: at least 4.5:1 on it. */
+  --accent-on-slot: #e4572e;
   --ticket-1: #ffb4a2;
   --ticket-2: #ffd166;
   --ticket-3: #9ee6cf;
+  /* The live mark: at least 4.5:1 on the paper and the canvas. */
+  --live: #166534;
   --ticket-4: #c9bcff;
   --ticket-5: #ffc2e2;
   --paper-shadow: 0 8px 24px rgba(60, 40, 10, 0.12);
@@ -28,9 +37,15 @@
   --ink: #f3eadb;
   --muted: #b3a794;
   --line: #3a3228;
+  /* The brand accent already reads at 4.5:1 on the dark paper and canvas, so small text keeps it; buttons take dark text. */
+  --accent-strong: #e4572e;
+  --on-accent: #14110d;
+  --accent-on-slot: #bd3f1c;
+  --field: #7a6f60;
   --ticket-1: #7a3b2e;
   --ticket-2: #6e5516;
   --ticket-3: #1f5c4b;
+  --live: #4ade80;
   --ticket-4: #463b7a;
   --ticket-5: #6d3552;
   --paper-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
@@ -43,11 +58,15 @@
   --color-ink: var(--ink);
   --color-muted: var(--muted);
   --color-line: var(--line);
+  --color-field: var(--field);
   --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
   --color-on-accent: var(--on-accent);
+  --color-accent-on-slot: var(--accent-on-slot);
   --color-ticket-1: var(--ticket-1);
   --color-ticket-2: var(--ticket-2);
   --color-ticket-3: var(--ticket-3);
+  --color-live: var(--live);
   --color-ticket-4: var(--ticket-4);
   --color-ticket-5: var(--ticket-5);
   --color-strip-1: var(--strip-1);
@@ -61,12 +80,19 @@
 }
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
   body {
     background-color: var(--canvas);
     color: var(--ink);
+  }
+  /* One focus ring for everything a keyboard can reach. */
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
   }
   @media (prefers-reduced-motion: reduce) {
     *,
@@ -84,14 +110,21 @@
   .paper-torn,
   .paper-torn-both {
     --tooth: 10px;
-    --teeth-bottom: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / calc(2 * var(--tooth)) var(--tooth) repeat-x;
-    --teeth-top: conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) top / calc(2 * var(--tooth)) var(--tooth) repeat-x;
+    --teeth-bottom: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom /
+      calc(2 * var(--tooth)) var(--tooth) repeat-x;
+    --teeth-top: conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) top / calc(2 * var(--tooth))
+      var(--tooth) repeat-x;
   }
   .paper-torn {
-    mask: var(--teeth-bottom), linear-gradient(#000 0 0) top / 100% calc(100% - var(--tooth) + 1px) no-repeat;
+    mask:
+      var(--teeth-bottom),
+      linear-gradient(#000 0 0) top / 100% calc(100% - var(--tooth) + 1px) no-repeat;
   }
   .paper-torn-both {
-    mask: var(--teeth-top), var(--teeth-bottom), linear-gradient(#000 0 0) center / 100% calc(100% - 2 * var(--tooth) + 2px) no-repeat;
+    mask:
+      var(--teeth-top),
+      var(--teeth-bottom),
+      linear-gradient(#000 0 0) center / 100% calc(100% - 2 * var(--tooth) + 2px) no-repeat;
   }
 
   /* Prize ticket: the body and the stub each carry half of the two perforation notches, so the stub can tear away. */
@@ -166,6 +199,72 @@
     }
   }
 
+  /* Payment demo list: a small stub with a perforation notch on each side, sliding in when new. */
+  .stub {
+    --notch: 6px;
+    mask:
+      radial-gradient(circle var(--notch) at 0 50%, #0000 98%, #000) left / 51% 100% no-repeat,
+      radial-gradient(circle var(--notch) at 100% 50%, #0000 98%, #000) right / 51% 100% no-repeat;
+  }
+  /* The printer's keys: raised on a darker edge of their face colour, lifted on hover and sunk when pressed. Each
+     key sits inside a larger button target and follows that button. */
+  .printer-key {
+    --key-edge: color-mix(in oklab, var(--key-face, var(--accent-strong)) 55%, black);
+    box-shadow:
+      0 3px 0 var(--key-edge),
+      0 4px 6px rgb(0 0 0 / 0.25);
+    transition:
+      translate 0.1s,
+      box-shadow 0.1s;
+  }
+  button:not(:disabled, [aria-disabled="true"]):hover > .printer-key {
+    translate: 0 -1px;
+    box-shadow:
+      0 4px 0 var(--key-edge),
+      0 5px 8px rgb(0 0 0 / 0.25);
+  }
+  button:not(:disabled, [aria-disabled="true"]):active > .printer-key {
+    translate: 0 2px;
+    box-shadow:
+      0 1px 0 var(--key-edge),
+      0 1px 2px rgb(0 0 0 / 0.25);
+  }
+  /* Before the first purchase the keys glow softly in turn. Only the filter moves, so the hover lift is untouched. */
+  @media (prefers-reduced-motion: no-preference) {
+    [data-inviting="true"] > .printer-key {
+      animation: key-glow 3s ease-in-out infinite;
+    }
+    [data-inviting="true"] + [data-inviting="true"] > .printer-key {
+      animation-delay: 1.5s;
+    }
+  }
+  @keyframes key-glow {
+    50% {
+      filter: brightness(1.12) drop-shadow(0 0 6px color-mix(in oklab, var(--key-face) 70%, transparent));
+    }
+  }
+
+  /* A receipt row prints in; rows that arrived together follow each other 200 ms apart. */
+  .stage-print {
+    animation: print-in 0.35s cubic-bezier(0.3, 0.7, 0.3, 1) both;
+    animation-delay: calc(var(--print-step, 0) * 200ms);
+  }
+  @keyframes print-in {
+    from {
+      translate: 0 -0.25rem;
+      opacity: 0;
+    }
+  }
+  .stub-in {
+    animation: stub-in 0.5s cubic-bezier(0.3, 0.7, 0.3, 1) both;
+  }
+  @keyframes stub-in {
+    from {
+      translate: 0 -0.75rem;
+      opacity: 0;
+    }
+  }
+
   .marquee-track {
     animation: marquee 45s linear infinite;
   }
@@ -176,19 +275,19 @@
   }
 
   .policy h2 {
-    @apply mt-8 mb-3 font-display text-xl font-bold text-ink;
+    @apply font-display text-ink mt-8 mb-3 text-xl font-bold;
   }
   .policy h3 {
-    @apply mt-5 mb-2 text-base font-bold text-ink;
+    @apply text-ink mt-5 mb-2 text-base font-bold;
   }
   .policy p,
   .policy li {
-    @apply my-3 text-muted;
+    @apply text-muted my-3;
   }
   .policy ul {
     @apply list-disc pl-6;
   }
   .policy a {
-    @apply text-accent underline underline-offset-4;
+    @apply text-accent-strong underline underline-offset-4;
   }
 }

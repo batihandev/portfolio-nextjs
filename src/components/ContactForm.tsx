@@ -13,7 +13,7 @@ type Inputs = { name: string; email: string; subject: string; message: string };
 const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? "";
 
 const fieldClass =
-  "w-full rounded-md border-[1.5px] border-line bg-paper px-4 py-3 text-ink outline-none transition-colors placeholder:text-muted/70 focus:border-accent";
+  "w-full rounded-md border-[1.5px] border-field bg-paper px-4 py-3 text-ink transition-colors placeholder:text-muted/70 focus:border-accent";
 
 const Field = ({ label, children }: { label: string; children: React.ReactNode }) => (
   <label className="grid gap-1.5 text-sm font-semibold">
@@ -58,7 +58,14 @@ export const ContactForm = () => {
           <input {...register("name")} type="text" autoComplete="name" maxLength={100} className={fieldClass} />
         </Field>
         <Field label="Email">
-          <input {...register("email")} type="email" autoComplete="email" required maxLength={254} className={fieldClass} />
+          <input
+            {...register("email")}
+            type="email"
+            autoComplete="email"
+            required
+            maxLength={254}
+            className={fieldClass}
+          />
         </Field>
       </div>
       <Field label="Subject">
@@ -68,10 +75,16 @@ export const ContactForm = () => {
         <textarea {...register("message")} required rows={6} maxLength={5000} className={fieldClass} />
       </Field>
       <ReCAPTCHA key={theme} ref={recaptchaRef} sitekey={RECAPTCHA_SITE_KEY} theme={theme} onChange={setCaptchaToken} />
-      <p className="text-xs text-muted">
+      <p className="text-muted text-xs">
         This site is protected by reCAPTCHA and the Google{" "}
-        <a href="https://policies.google.com/privacy" className="underline">Privacy Policy</a> and{" "}
-        <a href="https://policies.google.com/terms" className="underline">Terms of Service</a> apply.
+        <a href="https://policies.google.com/privacy" className="underline">
+          Privacy Policy
+        </a>{" "}
+        and{" "}
+        <a href="https://policies.google.com/terms" className="underline">
+          Terms of Service
+        </a>{" "}
+        apply.
       </p>
       <Button type="submit" disabled={!captchaToken || submitting} className="relative justify-self-start">
         <span className={submitting ? "invisible" : undefined}>Send message</span>

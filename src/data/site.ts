@@ -17,6 +17,9 @@ export const site = {
   tagline: "I also make games and apps.",
   description:
     "Backend engineer building systems for payments, online ordering and games. I also make games and apps and share my game development on YouTube.",
+  links: {
+    paymentsDemoRepo: "https://github.com/batihandev/payment-pipeline-demo",
+  },
   youtube: {
     url: "https://www.youtube.com/@BatihanDev",
     channelId: "UCbiLCZhtIqbwBXgDxuXXOEw",
@@ -28,6 +31,7 @@ export const routes = {
   experience: "/experience",
   projects: "/#projects",
   contact: "/contact",
+  paymentsDemo: "/payments-demo",
   privacy: "/privacy",
 } as const;
 

@@ -2,6 +2,7 @@
   "name": "portfolio-next",
   "version": "0.2.0",
   "private": true,
+  "packageManager": "pnpm@10.34.7",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,7 +10,11 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "check:dashes": "node scripts/check-dashes.mjs",
-    "check": "pnpm lint && pnpm typecheck && pnpm check:dashes"
+    "check": "pnpm lint && pnpm typecheck && pnpm check:dashes && pnpm test",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -24,25 +29,34 @@
     "react-icons": "^5.7.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
+    "@playwright/test": "1.64.0",
     "@tailwindcss/postcss": "^4.3.3",
+    "@testing-library/dom": "10.4.2",
+    "@testing-library/jest-dom": "7.0.1",
+    "@testing-library/react": "16.3.3",
+    "@testing-library/user-event": "14.6.7",
     "@types/node": "^25.6.0",
     "@types/nodemailer": "^8.0.0",
     "@types/qrcode": "^1.5.6",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@types/react-google-recaptcha": "^2.1.9",
+    "@vitejs/plugin-react": "6.1.2",
     "eslint": "^9.39.4",
     "eslint-config-next": "^16.3.5",
+    "jsdom": "30.1.2",
     "postcss": "^8.5.10",
     "prettier": "^3.8.3",
     "prettier-plugin-tailwindcss": "^0.7.3",
     "schema-dts": "^2.0.0",
     "sharp": "^0.34.5",
     "tailwindcss": "^4.3.3",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "vitest": "5.0.3"
   },
   "engines": {
-    "node": ">=20.0.0",
+    "node": ">=22",
     "pnpm": ">=9.0.0"
   },
   "browserslist": [
