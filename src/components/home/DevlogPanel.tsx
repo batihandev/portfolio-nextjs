@@ -9,7 +9,7 @@ import type { DevlogEpisode } from "@/types";
 export const DevlogPanel = ({ episode }: { episode: DevlogEpisode | null }) => (
   <Receipt className="font-sans">
     <SectionTitle>Devlog</SectionTitle>
-    <p className="text-muted mt-1 mb-4">Weekly videos about the games I&apos;m making.</p>
+    <p className="text-muted mt-1 mb-4">Videos about the games I&apos;m making.</p>
     {episode && (
       <a href={episode.url} {...externalLinkProps(episode.url)} className="mb-4 flex items-center gap-3.5">
         <Image

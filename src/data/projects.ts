@@ -6,7 +6,7 @@ export const projects: Project[] = [
     title: "INEVITABLE",
     kind: ProjectKind.mobileGame,
     status: ProjectStatus.live,
-    summary: "My mobile game, built in public with a weekly devlog.",
+    summary: "My mobile game, built in public with a devlog.",
     link: {
       label: "Play",
       href: "https://play.google.com/store/apps/details?id=com.BatihanDev.Inevitable",
