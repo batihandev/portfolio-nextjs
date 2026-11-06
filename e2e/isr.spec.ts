@@ -10,5 +10,6 @@ test("the refused build revalidates the demo pages every hour", () => {
   const manifest = JSON.parse(readFileSync(join(buildsDir, "refused/.next/prerender-manifest.json"), "utf8")) as {
     routes: Record<string, { initialRevalidateSeconds?: number | false }>;
   };
-  for (const route of ["/", "/payments-demo"]) expect(manifest.routes[route]?.initialRevalidateSeconds, route).toBe(3600);
+  for (const route of ["/", "/payments-demo"])
+    expect(manifest.routes[route]?.initialRevalidateSeconds, route).toBe(3600);
 });
